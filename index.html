@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>マクロハーネスAI ダッシュボード試作</title>
+<style>
+:root{--bg:#f6f3ee;--panel:#fffdf9;--ink:#20242a;--muted:#68707d;--line:#ded8ce;--accent:#7a5c2e;--blue:#315d69;--ok:#2f7d5c;--warn:#a86f18;--todo:#9b4d43;--soft:#f0ece4;--chip:#eee7da}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.65}.wrap{max-width:1180px;margin:0 auto;padding:28px 18px 44px}header{background:linear-gradient(135deg,#242933,#3c4a52);color:#fff;border-radius:24px;padding:28px;box-shadow:0 16px 40px rgba(32,36,42,.18)}.eyebrow{letter-spacing:.14em;font-size:12px;text-transform:uppercase;opacity:.78}h1{margin:6px 0 8px;font-size:clamp(26px,4vw,42px);line-height:1.2}.sub{max-width:840px;color:#e9e4da;margin:0}.update{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}.update strong{background:#fff;color:#20242a;border-radius:999px;padding:8px 13px}.update span{border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:7px 11px;font-size:13px}.notice{margin:18px 0;background:#fff7e8;border:1px solid #ecd9ad;border-radius:16px;padding:14px 16px;color:#5d4717}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 8px 26px rgba(32,36,42,.06)}.span4{grid-column:span 4}.span6{grid-column:span 6}.span12{grid-column:span 12}@media(max-width:860px){.span4,.span6{grid-column:span 12}}h2{font-size:20px;margin:0 0 12px}h3{font-size:16px;margin:16px 0 8px}p{margin:0 0 10px}.muted{color:var(--muted)}ul{margin:8px 0 0 1.1em;padding:0}li{margin:5px 0}.kpi{font-size:27px;font-weight:800;line-height:1.2;margin:4px 0}.label{font-size:12px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}.badge{display:inline-flex;border-radius:999px;padding:3px 9px;font-size:12px;font-weight:700;background:var(--chip);color:#4c4234}.ok{background:#e2f1e8;color:var(--ok)}.warn{background:#fff0d2;color:var(--warn)}.todo{background:#f7e3df;color:var(--todo)}.blue{background:#e2edf1;color:var(--blue)}.cycle{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.step{background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-weight:700}.arrow{color:var(--muted)}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}th{color:var(--muted);background:#faf7f1}.iphead{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:12px}.ipname{font-size:22px;font-weight:800}.handle{color:var(--muted);font-size:14px}.small{font-size:13px}.footer{color:var(--muted);font-size:13px;margin-top:18px}.rule{border-left:4px solid var(--accent);background:#fbf8f2;padding:10px 12px;border-radius:0 12px 12px 0;margin:10px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="eyebrow">Addness-style Macro Harness AI</div>
+<h1>共有ダッシュボード試作</h1>
+<p class="sub">GitHub の机から、共有してよい範囲だけを書き出した静的な写しです。本体リポジトリは公開せず、Grok やチームが見るのはこの窓側だけを想定しています。</p>
+<div class="update"><strong>更新日時：2026-11-01 08:07 JST</strong><span>ダッシュボード</span><span>自動連動なし</span><span>共有範囲のみ</span></div>
+</header>
+<div class="notice"><strong>このページの扱い：</strong>これは固定ページです。GitHub と自動連動はしません。机が変わったら、Muse が共有範囲だけを再生成します。古い写しで動かないよう、先頭の更新日時を必ず確認してください。</div>
+
+<section class="grid">
+  <article class="card span4">
+    <div class="label">Circuit</div>
+    <div class="kpi">机 → 指示 → 生成</div>
+    <p>今日決めた前提は、実行（生成）→ 添削 → 評価 → 検収 → 投稿 → 反響 のサイクルです。反響は机に戻り、次の生成の根拠になります。</p>
+    <span class="badge ok">前提として固定</span>
+  </article>
+  <article class="card span4">
+    <div class="label">GPT Reading</div>
+    <div class="kpi">入口＋参照先まで取得成功</div>
+    <p>GPT は入口ファイル <span class="small">specs/ai_coach/画像生成条件_GPT.md</span> と、対象 IP のシートまで読み込めました。前回の README 止まりは解消です。</p>
+    <span class="badge ok">実測済み</span> <span class="badge warn">自動読み直しは未確認</span>
+  </article>
+  <article class="card span4">
+    <div class="label">External Readers</div>
+    <div class="kpi">Grok は窓だけ</div>
+    <p>Grok が読むのはダッシュボード側だけです。本体リポジトリは公開・接続しません。Discord はフラのインサイト受け口として使います。</p>
+    <span class="badge blue">本体 repo は非公開のまま</span>
+  </article>
+</section>
+
+<section class="grid" style="margin-top:16px">
+  <article class="card span12">
+    <h2>生成サイクル</h2>
+    <div class="cycle">
+      <span class="step">実行（生成）</span><span class="arrow">→</span>
+      <span class="step">添削</span><span class="arrow">→</span>
+      <span class="step">評価</span><span class="arrow">→</span>
+      <span class="step">検収</span><span class="arrow">→</span>
+      <span class="step">投稿</span><span class="arrow">→</span>
+      <span class="step">反響</span><span class="arrow">→</span>
+      <span class="step">机へ書き戻し</span>
+    </div>
+    <div class="rule">生成側が正本から逸脱しないかは、Muse の指示出しと、添削・評価での照合で止めます。仕様は毎回読み直し、参照元の仕上がりから離れたら戻します。</div>
+  </article>
+
+  <article class="card span12">
+    <h2>GitHub の割り当て</h2>
+    <table>
+      <tr><th style="width:18%">担当</th><th style="width:32%">読む場所</th><th>書く場所・役割</th></tr>
+      <tr><td><strong>NO3</strong></td><td>全域</td><td>決定、検収、ルール変更、main への反映の決定。</td></tr>
+      <tr><td><strong>Muse</strong></td><td>全域</td><td>ai/ ブランチへの書き込み、指示ファイル作成、添削・評価、他 AI の成果の書き戻し。</td></tr>
+      <tr><td><strong>Claude</strong></td><td>全域</td><td>自分の RESPONSE / AUDIT だけを書く。実行は駆動しない。</td></tr>
+      <tr><td><strong>GPT</strong></td><td>入口ファイル＋対象 IP のシート＋生成材料</td><td>書かない。画像生成などの生成側。サイズと画質は Muse の指示に従う。</td></tr>
+      <tr><td><strong>Grok</strong></td><td>ダッシュボードだけ</td><td>書かない。X 投稿の下書きを考える側。書き戻しは当面、人が運ぶか Muse 経由。</td></tr>
+      <tr><td><strong>ひいろ</strong></td><td>hiiro/ と共通ルール</td><td>進行中の独立プロジェクト。正本は hiiro/、現在は ai/20261028-hiiro-store ブランチ側。</td></tr>
+    </table>
+  </article>
+</section>
+
+<section class="grid" style="margin-top:16px">
+  <article class="card span6">
+    <div class="iphead"><div><div class="ipname">フラ</div><div class="handle">@fura_world / Threads・Instagram</div></div><span class="badge ok">別IPとして管理</span></div>
+    <ul>
+      <li>管理単位：フラ IP × アカウント。アイダとは混ぜない。</li>
+      <li>アカウントは担当者が管理。インサイトは Discord → NO3 → Muse 転記の形で机へ入れる。</li>
+      <li>反響ログ <span class="small">results/execution/fura_insights.md</span> は用意済み。初回受け取り待ち。</li>
+      <li>センチメント分析は机に配置済み。転換型（分離→接続）を主軸にし、直接のねぎらいと概念説明は抑える。</li>
+      <li>生成条件はフラ側のシートだけを読む。キャラの一貫性と参照画像が前提。</li>
+    </ul>
+  </article>
+
+  <article class="card span6">
+    <div class="iphead"><div><div class="ipname">アイダ</div><div class="handle">@22aida_growth / 22時のアイダ</div></div><span class="badge ok">別IPとして管理</span></div>
+    <ul>
+      <li>管理単位：アイダ IP × アカウント。フラとは混ぜない。</li>
+      <li>シート類（CONCEPT / OPERATION / CLONE_PACK）は机の specs/aida/ に配置済み。</li>
+      <li>投稿は NO3 の承認前提。人格クローンを固定してから自動化を広げる。</li>
+      <li>生成条件はアイダ側のシートだけを読む。相手 IP の条件を持ち込まない。</li>
+      <li>この窓には、アイダの素材指定など NO3 側の生の中身は載せない。</li>
+    </ul>
+  </article>
+</section>
+
+<section class="grid" style="margin-top:16px">
+  <article class="card span6">
+    <h2>進捗</h2>
+    <table>
+      <tr><th style="width:34%">項目</th><th>状態</th></tr>
+      <tr><td>ルーティング回路</td><td><span class="badge ok">稼働</span> RESPONSE / AUDIT を受け口が処理する形が実測済み。起点は NO3 の「見て」。</td></tr>
+      <tr><td>グロースハーネス</td><td><span class="badge warn">判断待ち</span> Claude の RESPONSE_loop1 は 09:22 JST に到着し、受け口が 10:19 JST に GOAL へ反映済み。吸い上げのパイロットと MUSE の席の分け方の2件が NO3 の判断待ち。</td></tr>
+      <tr><td>GPT 画像生成</td><td><span class="badge ok">読み取り成功</span> 次は実際の生成で、毎回読み直しと参照元照合を検証する段階。</td></tr>
+      <tr><td>プロファイル蓄積</td><td><span class="badge ok">初版あり</span> ペルソナ言葉バイナリを用意。分析ではなくプロファイルとして、実物の言葉と場面を貯める。</td></tr>
+      <tr><td>ダッシュボード</td><td><span class="badge warn">試作（参照用）</span> このページが試作で、見せ方の参照用。本体は NO3 が別で作る。明日（11-01）はダッシュボードから始める。</td></tr>
+    </table>
+  </article>
+
+  <article class="card span6">
+    <h2>未決定・注意</h2>
+    <ul>
+      <li>ダッシュボード本体は NO3 が別で作る（この試作は見せ方の参照用）。置き場・更新タイミングの未決定は、この形に置き換わった。</li>
+      <li>Grok の成果の書き戻し経路（人が運ぶ／Muse 経由）の確定。</li>
+      <li>GPT が生成のたびに自動で仕様を読み直す仕組みは未確認。</li>
+      <li>フラのインサイトは、担当者からの初回送付待ち。</li>
+      <li>Make のベルは削除済み。現行の起点は NO3 の「見て」の呼びかけ。</li>
+    </ul>
+    <h3>共有しないもの</h3>
+    <p class="muted">NO3 だけの側の生の中身、他プロジェクトのプロファイル実物、アイダの素材指定などは、この窓には出しません。</p>
+  </article>
+</section>
+
+<p class="footer">出典：GitHub shared-ai-workspace（ブランチ ai/20261030-routing-goal）の机の記録と、2026-10-31 の決定事項。これは試作の写しで、正本は GitHub 側の各ファイルです。</p>
+</div>
+</body>
+</html>
