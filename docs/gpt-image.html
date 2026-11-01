@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>画像生成条件（GPT） | 共有ダッシュボード</title>
+<style>body{margin:0;background:#f6f3ee;color:#20242a;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.7}
+.wrap{max-width:900px;margin:0 auto;padding:24px 18px 48px}
+header{border-bottom:2px solid #ded8ce;padding-bottom:12px;margin-bottom:18px}
+h1{font-size:24px;margin:0 0 6px}h2{font-size:20px;border-bottom:1px solid #ded8ce;padding-bottom:4px;margin-top:28px}h3{font-size:17px;margin-top:22px}
+.meta{color:#68707d;font-size:13px}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #ded8ce;padding:6px 8px;text-align:left;vertical-align:top}
+code{background:#f0ece4;padding:1px 5px;border-radius:4px}pre{background:#242933;color:#f0ece4;padding:14px;border-radius:10px;overflow-x:auto}pre code{background:none;color:inherit}
+a{color:#315d69}ul,ol{padding-left:1.4em}li{margin:3px 0}blockquote{border-left:4px solid #7a5c2e;margin:10px 0;padding:4px 12px;background:#fbf8f2;color:#4c4234}</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="meta"><a href="../index.html">← 共有ダッシュボードに戻る</a></div>
+<h1>画像生成条件（GPT）</h1>
+<div class="meta">正本：GitHub shared-ai-workspace の specs/ai_coach/画像生成条件_GPT.md（ブランチ ai/20261030-routing-goal）。このページは共有範囲の写しです。更新日時：2026-11-01 10:10 JST</div>
+</header>
+<h1>画像生成条件（GPT 向け集約）</h1>
+<p>位置づけ：GPT が画像生成の前に読む、生成条件の入口。条件の正本は各 IP のシート側にあり、ここは集約と参照ルールだけを置く（条件をここに複製しない。 drift を防ぐため）。
+GPT の席：GitHub は読み込みのみ。生成した画像と、その照合に必要な情報は Muse が机へ書き戻す。</p>
+<h2>生成前に必ず読むもの（対象ファイル）</h2>
+<ol>
+<li>このファイル</li>
+<li>対象 IP の条件：
+   - アイダ：<code>specs/aida/CLONE_PACK.md</code>（ビジュアル基準）と <code>specs/aida/CONCEPT.md</code>
+   - フラ：<code>specs/fura_world/CONCEPT.md</code> と <code>specs/fura_world/OPERATION.md</code>（キャラの見た目の揺れ防止：マスターキャラシート＋承認済み素材ライブラリ方式、新規生成は参照画像必須）</li>
+</ol>
+<h2>条件の要点（詳細は各シート）</h2>
+<ul>
+<li>アイダ：世界は glass.ASMR の感触、指先は Vanki Nails 参照。核心はガラスのような透明感。画角は一人称視界で、映るのは指先だけ（顔・身体は出さない）。タロットのカード素材とネイルデザインは NO3 の指定領域で、指定なしに決めない。</li>
+<li>フラ：キャラの見た目の一貫性が必須要件。新規生成は参照画像を前提にする。</li>
+</ul>
+<h2>サイズと画質（Muse が指示する）</h2>
+<p>GPT の生成精度は高い前提で、サイズと画質は GPT が決めず、チャンネル運用側の Muse の指示に従う（2026-10-31 NO3）。SNS チャネルに最適化するため。
+- 指示がある場合：そのサイズ・画質で生成する。
+- 指示がない場合の標準値：
+  - Instagram フィード／カルーセル：4:5、1080×1350
+  - Instagram リール／ストーリーズ：9:16、1080×1920
+  - Threads：Instagram と共通の 4:5 または 9:16 で運用
+- 画質：プラットフォームの圧縮で荒れない解像度を基準にする。粒度の粗さは、アイダの指先の基準（ハンドインフルエンサー水準）に照らして問題になるため、粗い生成は不採用。</p>
+<h2>参照元の仕上がりの維持（ドリフト防止）</h2>
+<p>既知の失敗の型：最初は参照元に合っていても、生成を重ねるうちに、だんだん参照元の仕上がりから離れていく。Muse も仕様の作業で同じことをした。仕様書は、この離れを防ぐためにある。
+- 参照元はあらかじめ決めてあるものを使う。アイダ：世界の感触は glass.ASMR、指先は Vanki Nails。フラ：マスターキャラシートと承認済み素材ライブラリ。
+- 生成のたびに、仕上がりが参照元と一致しているか照合する。離れていたら、参照元に戻してから出す。
+- 生成結果を机へ残すときの併記に、参照元との照合結果（一致／ずれの内容）も足す。</p>
+<h2>再読み込みのルール</h2>
+<ul>
+<li>仕様は毎回、生成のたびに読み直す。前回の読みを前提にしない（仕様は更新されうるため）。</li>
+<li>生成結果を机へ残すときは、参照した条件ファイルと、その読み取り日時を併記する。条件と結果の照合は、その併記をもとに行う。</li>
+</ul>
+<h2>取得の実測（2026-10-31 解決）</h2>
+<ul>
+<li>GPT 側で取得成功を確認済み：この入口ファイルと、参照先（specs/aida/CLONE_PACK.md、specs/aida/CONCEPT.md、specs/fura_world/CONCEPT.md、specs/fura_world/OPERATION.md）を、指定ブランチ ai/20261030-routing-goal から読み込めている。前回の README 止まりは解消。</li>
+<li>残る未確認：画像生成のたびにこの参照を自動実行する仕組み。次は実際の生成時に、毎回読み直して条件どおりに生成できるかの検証段階。</li>
+</ul>
+</div>
+</body>
+</html>
