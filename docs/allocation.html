@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitHub 割り当て（原本） | 共有ダッシュボード</title>
+<style>body{margin:0;background:#f6f3ee;color:#20242a;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.7}
+.wrap{max-width:900px;margin:0 auto;padding:24px 18px 48px}
+header{border-bottom:2px solid #ded8ce;padding-bottom:12px;margin-bottom:18px}
+h1{font-size:24px;margin:0 0 6px}h2{font-size:20px;border-bottom:1px solid #ded8ce;padding-bottom:4px;margin-top:28px}h3{font-size:17px;margin-top:22px}
+.meta{color:#68707d;font-size:13px}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #ded8ce;padding:6px 8px;text-align:left;vertical-align:top}
+code{background:#f0ece4;padding:1px 5px;border-radius:4px}pre{background:#242933;color:#f0ece4;padding:14px;border-radius:10px;overflow-x:auto}pre code{background:none;color:inherit}
+a{color:#315d69}ul,ol{padding-left:1.4em}li{margin:3px 0}blockquote{border-left:4px solid #7a5c2e;margin:10px 0;padding:4px 12px;background:#fbf8f2;color:#4c4234}</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="meta"><a href="../index.html">← 共有ダッシュボードに戻る</a></div>
+<h1>GitHub 割り当て（原本）</h1>
+<div class="meta">正本：GitHub shared-ai-workspace の knowledge/GitHub割り当て.md（ブランチ ai/20261030-routing-goal）。このページは共有範囲の写しです。更新日時：2026-11-01 10:10 JST</div>
+</header>
+<h1>GitHub 割り当て（2026-11-01）</h1>
+<p>前提：並びは縦。MUSE が上で指示塔になり、Claude はその下で作業する。指示は MUSE が「入口ファイル」の形で机に置き、各 AI はそこから辿る。入口が正確なほど、生成側の正本逸脱は起きにくい。
+指示の前提：MUSE が指示を出すときは、仕様書・指示書が全部埋まった状態で渡す。指示の完全性は MUSE の責任で、Claude が食い違いを探す状態は作らない。
+ブランチの原則：Muse が書くのは <code>ai/</code> ブランチだけ。<code>main</code> への反映は NO3 の決定時のみ。</p>
+<h2>IP ごとの割り当て</h2>
+<h3>フラとアイダは別 IP として別々に管理する</h3>
+<ul>
+<li>フラとアイダは、後ろの商品（6レンズ）が共通でも、IP としては別物として扱う。</li>
+<li>チャンネル＝アカウント運用も別々に管理する。管理単位は「IP × チャンネル／アカウント」。</li>
+<li>シート、クローン／プロファイル、ペルソナの言葉、参照元の仕上がり、生成条件、投稿サイクル、反響／インサイト、添削・評価は、IP ごとに分けて持つ。</li>
+<li>フラ側のプロファイルや言葉、フラの参照仕上がりを、アイダ側へそのまま持ち込まない。逆も同じ。</li>
+<li>アイダ側のビジュアル条件（指先、ネイル、タロット素材、一人称視界など）を、フラ側へそのまま持ち込まない。逆も同じ。</li>
+<li>同じ素材を使う場合でも、流用ではなく、対象 IP の仕様に合わせて組み替える。Muse の指示では、最初に対象 IP と対象チャンネル／アカウントを明示する。</li>
+<li>GitHub 上の置き場も分ける：基準値は <code>specs/fura_world/</code> と <code>specs/aida/</code>、反響と生成結果も、どの IP のものか分かる形で <code>results/</code> に残す。</li>
+</ul>
+<h2>AI ごとの割り当て</h2>
+<h3>NO3</h3>
+<ul>
+<li>決定、最終検収、ルール変更、正本（main）への反映の決定。机の読みは全域。</li>
+</ul>
+<h3>Muse（指示塔・運用・検収）</h3>
+<ul>
+<li>全体の概要把握と指示：各 AI への指示（入口ファイル）を作り、参照先・ブランチ・出力の形まで正確に指定する。</li>
+<li>チャンネル運用：フラ／アイダの投稿の生成と公開、反響と数字の持ち帰り。アカウントは、この運用が回ることで立つ。</li>
+<li>検収・品質チェック：下から戻ってきた成果物を、正本と参照元に照らして検収する。投稿クオリティに達しているかどうかが、そのまま各 AI の評価（KPI）になる。</li>
+<li>机への書き込み全般（<code>ai/</code> ブランチ）：基準値の配置、進捗と結果の書き戻し、他 AI の成果物の転記と格納（参照した条件ファイルと日時を併記）。</li>
+<li>軽く保つ：重い作業は下の Claude に回す。線引きは能力ではなく席で決める。MUSE の機能は運用と指示に集中させる。</li>
+</ul>
+<h3>Claude（作業・下ごしらえ）</h3>
+<ul>
+<li>常設指示：<code>CLAUDE_STANDING.md</code>（机のルート）。Claude の最初の一手は、このファイルだけを読む。材料は要約と該当箇所まで切って渡し、Claude は固める作業だけに集中させる（パンク対策、2026-11-01）。</li>
+<li>MUSE の下で、重い作業を担当する：設計の残り、棚卸し、材料固め、調査と構造化、整形前の作業全般。</li>
+<li>指示書づくり：作り方（型）が決まった指示書・仕様書は、作る作業も Claude が担当してよい。型を決めるのは MUSE。</li>
+<li>仕事は監査ではない。監査・照合の役に固定しない（深い照合は、要確認フラグが立ったときと週1回の範囲だけ）。</li>
+<li>読む：全域（goals / specs / knowledge / results）。</li>
+<li>書く：Claude の環境は読み取り専用のため、成果物は文面で返し、MUSE が机へ転記する。作業の評価は、MUSE の検収と品質チェックの結果で決まる（CLAUDE_KPI）。</li>
+</ul>
+<h3>GPT（生成・読み取り専用）</h3>
+<ul>
+<li>渡し方の正本：<code>GPT_SPEC.md</code>（机のルート、2026-11-01 新設）。GPT は成果物メーカーとして割り切り、仕様は関連箇所の抜粋だけを渡す。前置き・メタ発言の禁止、文字数での制限、AI 臭除去ルールを含む。</li>
+<li>窓：前提の確認用に、ダッシュボード（https://nanbasuri891-maker.github.io/shared-desk-dashboard/）も読む。コネクタの無い環境でも、前提だけは窓から揃う形（GPT_SPEC に明記）。</li>
+<li>読む：入口ファイル <code>specs/ai_coach/画像生成条件_GPT.md</code> と、その参照先のうち対象 IP のシートだけ（フラなら <code>specs/fura_world/</code>、アイダなら <code>specs/aida/</code>。両 IP を混ぜて読まない）。センチメントライティングでは、机のプロンプトと <code>knowledge/</code> の言葉バイナリ（生成の材料）も、対象 IP に合わせて読む。</li>
+<li>書く：リポジトリには書かない。生成物はチャット側に出し、格納は Muse が行う。</li>
+<li>画像生成：サイズと画質は Muse の指示に従う。参照元の仕上がりとの照合は、生成のたびに行う前提。</li>
+<li>ダッシュボード：本体は NO3 側で作るもので、HTML の作成は GPT が担当している（2026-11-01）。</li>
+</ul>
+<h3>Grok（X チャンネル運用担当）</h3>
+<ul>
+<li>位置：X チャンネルの中では、Meta 側の MUSE と同じ位置（運用担当）。下ごしらえは Claude が行い、Grok が整形・添削・評価・検収・品質チェックと運用を担う（2026-11-01 NO3 決定。下書き役ではない）。</li>
+<li>席の正本：<code>agents/grok/instructions.md</code>（2026-11-01 設置、同日に役割を訂正）。作業仕様：<code>specs/ai_coach/X投稿フォーマット仕様書_Grok.md</code>（Grok 作成の X 運用仕様）。</li>
+<li>読む：ダッシュボード（https://nanbasuri891-maker.github.io/shared-desk-dashboard/ 、公開された共有範囲）だけ。本体のリポジトリは読まない（公開・接続はしない、2026-10-31 NO3 決定）。GitHub の接続ツールが Grok 側にないことは、Grok 自身が申告済み（2026-11-01）。割り当てをダッシュボードから読めたことは同日に確認済み。</li>
+<li>書く：リポジトリには書けない（プッシュやリポジトリ操作の手段がない）。成果物はチャットのテキストで出し、机への書き戻しは Muse が行う。X の中身の品質チェックは Grok の席で、公開は NO3 の確認後。</li>
+<li>評価：GROK_KPI（<code>goals/meta-routing/GROK_KPI.md</code>）。最終の証明は反響。</li>
+</ul>
+<h3>ひいろ（AI エージェントのクローニング、進行中）</h3>
+<ul>
+<li>独立プロジェクトとして扱う。フラ／アイダのシートとは混ぜない（ひいろの設計要件はひいろのもの）。</li>
+<li>置き場：<code>hiiro/</code> が正本。中身は requirements / dictionary / judgment / examples / prompts / logs / device。現状はブランチ <code>ai/20261028-hiiro-store</code> 側にあり、main と routing ブランチには未反映（2026-10-31 実測）。</li>
+<li>書く：Muse（<code>ai/</code> ブランチ経由。ローカルは作業コピー）。正本への反映は NO3 の決定時のみ。</li>
+<li>読む：関係する AI。</li>
+<li>ルール：正本管理と実行のルールはチャンネル運用と共通（正本 → 抽出 → 仕様 → 検収 → ログのパイプライン、置き場・検収・反映のルール）。</li>
+</ul>
+<h3>フラ担当者</h3>
+<ul>
+<li>リポジトリには触れない。インサイトは Discord で渡し、Muse が <code>results/execution/fura_insights.md</code> に転記する。</li>
+</ul>
+<h2>領域ごとの早見</h2>
+<ul>
+<li><code>goals/</code>：書く＝Muse（Claude の成果物・返答は Muse が転記する）</li>
+<li><code>specs/</code>：書く＝Muse（配置のみ。反映の決定は NO3）。読む＝生成側の全 AI</li>
+<li><code>knowledge/</code>：書く＝Muse。読む＝生成の材料として全 AI</li>
+<li><code>results/</code>：書く＝Muse（全 AI の実行と反響をここに集める）</li>
+<li><code>agents/</code>：書く＝Muse と NO3（各 AI への指示・プロンプト）</li>
+<li><code>proposals/</code>：書く＝Muse（構想の置き場）</li>
+<li><code>hiiro/</code>：ひいろの正本。書く＝Muse（反映は NO3 の決定時）。現在は <code>ai/20261028-hiiro-store</code> ブランチ側</li>
+</ul>
+<h2>変更履歴</h2>
+<ul>
+<li>2026-11-01（パンク対策と GPT ルール）：Claude の常設指示 <code>CLAUDE_STANDING.md</code> と、GPT の渡し方ルール <code>GPT_SPEC.md</code>（AI 臭除去ルールを含む）を、机のルートに新設。</li>
+<li>2026-11-01（Grok の役割の訂正）：Grok の席を「下書き役」から「X チャンネル運用担当」に訂正。下ごしらえは Claude、整形・添削・評価・検収・品質チェックと運用は Grok、という X チャンネル内の並びに変更（NO3 決定）。GROK_KPI の役割記述と G-1 も合わせて訂正。</li>
+<li>2026-11-01（Grok の席）：Grok 専用の席を <code>agents/grok/instructions.md</code> に設置し、作業仕様として Grok 作成の X 投稿フォーマット仕様書を <code>specs/ai_coach/</code> に格納。ダッシュボードの URL を確定値として記載。</li>
+<li>2026-11-01：並びを縦（MUSE が指示塔、Claude は下で作業）に明記。Claude の本体を「管理・照合」から「作業・下ごしらえ」へ置き直し、監査に固定しないことを明記。指示の前提（全部埋まった状態で出す、完全性は MUSE の責任）と、指示書づくりの分担（型は MUSE、作る作業は Claude 可）を追加。ダッシュボードの HTML 作成は GPT が担当している現状を反映。</li>
+<li>2026-10-31：初版。IP ごとの分離、AI ごとの割り当て、領域の早見を確定。</li>
+</ul>
+</div>
+</body>
+</html>
