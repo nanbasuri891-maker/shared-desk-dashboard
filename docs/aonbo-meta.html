@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>あおんぼ方式 Meta プラットフォーム版 v0.1 | 共有ダッシュボード</title>
+<style>body{margin:0;background:#f6f3ee;color:#20242a;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.7}
+.wrap{max-width:900px;margin:0 auto;padding:24px 18px 48px}
+header{border-bottom:2px solid #ded8ce;padding-bottom:12px;margin-bottom:18px}
+h1{font-size:24px;margin:0 0 6px}h2{font-size:20px;border-bottom:1px solid #ded8ce;padding-bottom:4px;margin-top:28px}h3{font-size:17px;margin-top:22px}
+.meta{color:#68707d;font-size:13px}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #ded8ce;padding:6px 8px;text-align:left;vertical-align:top}
+code{background:#f0ece4;padding:1px 5px;border-radius:4px}pre{background:#242933;color:#f0ece4;padding:14px;border-radius:10px;overflow-x:auto}pre code{background:none;color:inherit}
+a{color:#315d69}ul,ol{padding-left:1.4em}li{margin:3px 0}blockquote{border-left:4px solid #7a5c2e;margin:10px 0;padding:4px 12px;background:#fbf8f2;color:#4c4234}</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="meta"><a href="../index.html">← 共有ダッシュボードに戻る</a></div>
+<h1>あおんぼ方式 Meta プラットフォーム版 v0.1</h1>
+<div class="meta">正本：GitHub shared-ai-workspace の specs/ai_coach/あおんぼ方式_Metaプラットフォーム版_v0.1.md（ブランチ ai/20261030-routing-goal）。このページは共有範囲の写しです。更新日時：2026-11-01 10:10 JST</div>
+</header>
+<h1>あおんぼ方式 Meta プラットフォーム版（策定 v0.1）</h1>
+<p>作成: 2026-10-29、Muse（Meta 運用担当）
+位置づけ: 作業コピー。NO3 の検収を経てから正本化を判断する。
+出典: あおんぼ（青木創士）の公開フレーム（素材 <code>~/workspace/ai_coach/materials_text/aonbo_2026-10-29.md</code>、実績数字は本人発信ベース）。読み替えの前提は NO3 の定義に従う: 「多層ペルソナ×IQ別シナリオ（LTV設計）」「ターゲティング・ポジショニング」は商業施設と売り場の文脈で読む。</p>
+<h2>1. 方式の核（あおんぼ側の不変部分）</h2>
+<ul>
+<li>コンテンツを作る前に、「誰を・どの順番で・どの深度で・どう育てて・どう LTV を最大化するか」の全体シナリオを先に設計する</li>
+<li>ペルソナは単一ではなく多段階で設計し、深度の帯（IQ セグメント）でさらに分ける</li>
+<li>本体（長尺）を起点に、各プラットフォームへ切り抜いて展開する。本体で深い関係性を作り、切り抜きで認知と新規流入を取る</li>
+<li>流入経路ごとに企画を分ける。経路を分けずに投稿すると掛け捨てになる</li>
+<li>虚栄指標（再生数・フォロワー数）ではなく、事業成果（CV・LTV・継続）に直結する設計を優先する</li>
+<li>仮想敵マーケ・炎上マーケは使わない（長期で味方が増えないため）。これはフラ／アイダのエトス（本文で煽らない・売り込まない）と衝突しない</li>
+</ul>
+<h2>2. 深度の帯の言い換え（IQ セグメント ⇔ 自覚段階①②③）</h2>
+<p>あおんぼの IQ 帯は、知能の優劣ではなく「そのテーマに対する問いの質・思考の深度」の帯として読む。Meta 運用では、これを森部さんの自覚段階①②③に言い換えて使う（NO3 確認済み: ママ層の場合は①②③が言い換えられた定義であり、展開の仕方は同じ）。</p>
+<table>
+<thead>
+<tr>
+<th>あおんぼの帯</th>
+<th>受け取り方</th>
+<th>自覚段階</th>
+<th>Meta での出口の形</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>低〜中（90〜110）</td>
+<td>感情・ストーリー・簡潔さで動く。問いは入口の不安（「どうすれば」「まだ間に合うか」）</td>
+<td>③ 自覚がない</td>
+<td>場面と台詞だけ。概念・ラベルは届かない</td>
+</tr>
+<tr>
+<td>中（120 前後）</td>
+<td>具体的な再現性と「次のステップ」が刺さる。すでに行動していて壁に当たっている</td>
+<td>② 知っているけど動けない</td>
+<td>場面＋持ち帰れる1点＋自分で決めた感</td>
+</tr>
+<tr>
+<td>高（130 以上）</td>
+<td>ロジック・一次情報・本質・仕組みを求める。天井と全体設計の視座</td>
+<td>① すでに行動した</td>
+<td>概念・暗示・構造そのもの</td>
+</tr>
+</tbody>
+</table>
+<p>注意:
+- 「IQ」は設計側の言葉であり、受け手への表示・投稿本文には使わない
+- 段階の推定は感情ラベルではなく、相手の台詞と行動（問いの形）から読む</p>
+<h2>3. 本体と切り抜き（Meta 版のメディア構造）</h2>
+<p>あおんぼの「長尺が本体」は、Meta では次の形に置き換える。</p>
+<ul>
+<li><strong>本体 = note</strong>: 世界観の詳しい話、作り手の実績と権威性、商品（6レンズ）の説明は本体側に置く。フラの権威性は SNS プロフィールに載せない、という既存の決定と一致する</li>
+<li><strong>切り抜き = Instagram / Threads の投稿</strong>: 本体のフックになる場面を切り出して出す。詳細と答えは本体へ、という形はスレッズ錬金ラボ（@renkinlabo01）の型（フック投稿→リプライに note リンク）と同一構造</li>
+<li><strong>プロフィールの役割</strong>: フォローするきっかけを作ることだけに絞る。権威性と物語は本体（note）に逃がす</li>
+<li><strong>ストーリーズの役割</strong>: 販売ではなく、リールを届けたい層への整合性を担保するシグナル集め（門口さんの教科書④の定義を併用）</li>
+</ul>
+<h2>4. 流入経路（Meta 版）</h2>
+<p>あおんぼの「流入経路別の最適化」を Meta に置き換え、経路ごとに企画の役割を分ける。</p>
+<table>
+<thead>
+<tr>
+<th>経路</th>
+<th>役割</th>
+<th>主に届く層</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instagram リール（発見）</td>
+<td>爆発力と新規認知。場面の入口</td>
+<td>③</td>
+</tr>
+<tr>
+<td>Instagram フィード／カルーセル</td>
+<td>フォロワーへの定着、保存される具体</td>
+<td>②</td>
+</tr>
+<tr>
+<td>Instagram プロフィール</td>
+<td>フォローの判断が起きる場所。出口は本体（note）と診断</td>
+<td>②〜①</td>
+</tr>
+<tr>
+<td>Threads おすすめ TL</td>
+<td>単純発信の反復で認知。当たった投稿の再投稿が効く</td>
+<td>③</td>
+</tr>
+<tr>
+<td>Threads リプライ／引用</td>
+<td>他者の場面に入る接触。関係性の入口</td>
+<td>③〜②</td>
+</tr>
+<tr>
+<td>検索（IG／Threads）</td>
+<td>言葉で探している人への安定流入。本人の言葉（例: 言葉にならない気持ち）が鍵</td>
+<td>②</td>
+</tr>
+<tr>
+<td>外部（note・LINE・他 SNS）</td>
+<td>本体からの逆流入と、集客の受け皿</td>
+<td>①</td>
+</tr>
+</tbody>
+</table>
+<h2>5. コンテンツの分類と出す順番</h2>
+<p>あおんぼの4分類は、既存の多層構造（L0〜L3）と対応づける。</p>
+<table>
+<thead>
+<tr>
+<th>あおんぼの分類</th>
+<th>多層構造</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ファン化: 自分を深く知ってもらう</td>
+<td>L1 共感</td>
+<td>世界観と場面の蓄積。再生数は期待しない</td>
+</tr>
+<tr>
+<td>ファン化: ガチ有益</td>
+<td>L2 見込み客リーチ</td>
+<td>持ち帰れる具体。検索と保存に寄せる</td>
+</tr>
+<tr>
+<td>認知コンテンツ</td>
+<td>L0 認知</td>
+<td>ここで初めて広く取りに行く</td>
+</tr>
+<tr>
+<td>コンバージョン</td>
+<td>L3 育成・転換</td>
+<td>診断・LINE・商品。本体（note）側で受ける</td>
+</tr>
+</tbody>
+</table>
+<p>順番の原則: L1・L2 の土台を先に置き、L0 で集めた人を L1・L2 へ流し、L3 で転換させる。認知だけ取って土台がない状態が「掛け捨て」になる。</p>
+<h2>6. シナリオ分岐（層ごとの次アクション）</h2>
+<ul>
+<li>③（場面で頷いた人）→ 次も場面。フォローのきっかけはプロフィールで受ける。本体への誘導は急がない</li>
+<li>②（1点を持ち帰った人）→ プロフィール → 診断（16タイプ）で「自分の見方」に名前を持たせる</li>
+<li>①（概念が届く人）→ 本体（note）→ 6レンズ商品・継続</li>
+<li>離脱防止の分岐: ストーリーズで興味関心のシグナルを積み、リールの届け先を保つ</li>
+</ul>
+<h2>7. 計測（LTV の見方）</h2>
+<ul>
+<li>一律のいいね数では見ない。層ごとの遷移率で見る: 認知→フォロー率／フォロー→プロフィール到達／到達→診断／診断→購入・継続</li>
+<li>母数は「誰がフォローして、どこから来たか」。チャンネルの良し悪しは、その人口構成で判断する</li>
+<li>信頼残高の階段設計（でぷれ式 Threads 攻略の参照）と同一の考え方で、遷移率の低下した段が次の改善点になる</li>
+</ul>
+<h2>8. IP への適用原則</h2>
+<ul>
+<li>展開の仕方（層 × 経路 × 本体と切り抜き × 遷移率の計測）はフラ／アイダで共通にする</li>
+<li>IP ごとに変えるのは売り場（ジャンル）と本体の中身だけ。核は壊さず、表面にだけ適用する</li>
+<li>フラ: ③が中心。売り場は未確定（候補提示済み、NO3 判断待ち）</li>
+<li>アイダ: ②〜①が中心。22時の消費、本体は同じ note 側の構造に接続する</li>
+</ul>
+<h2>9. この策定の未確定部分</h2>
+<ul>
+<li>各 IP の売り場（ジャンル）の確定は NO3 の決定事項であり、本書は方式の策定に留まる</li>
+<li>Stage 0〜5（あおんぼの多段階）と L0〜L3 の厳密な対応づけは、当面は本書の表を叩き台として実反応で較正する</li>
+</ul>
+</div>
+</body>
+</html>
