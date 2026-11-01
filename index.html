@@ -14,8 +14,8 @@
 <header>
 <div class="eyebrow">Addness-style Macro Harness AI</div>
 <h1>共有ダッシュボード試作</h1>
-<p class="sub">GitHub の机から、共有してよい範囲だけを書き出した静的な写しです。本体リポジトリは公開せず、Grok やチームが見るのはこの窓側だけを想定しています。</p>
-<div class="update"><strong>更新日時：2026-11-01 08:07 JST</strong><span>ダッシュボード</span><span>自動連動なし</span><span>共有範囲のみ</span></div>
+<p class="sub">GitHub の机から、共有してよい範囲だけを書き出した静的な写しです。本体リポジトリは許可制で、許可を受けた人は自分のアカウントで直接読むこともできます。</p>
+<div class="update"><strong>更新日時：2026-11-01 09:45 JST</strong><span>ダッシュボード</span><span>自動連動なし</span><span>共有範囲のみ</span></div>
 </header>
 <div class="notice"><strong>このページの扱い：</strong>これは固定ページです。GitHub と自動連動はしません。机が変わったら、Muse が共有範囲だけを再生成します。古い写しで動かないよう、先頭の更新日時を必ず確認してください。</div>
 
@@ -35,8 +35,8 @@
   <article class="card span4">
     <div class="label">External Readers</div>
     <div class="kpi">Grok は窓だけ</div>
-    <p>Grok が読むのはダッシュボード側だけです。本体リポジトリは公開・接続しません。Discord はフラのインサイト受け口として使います。</p>
-    <span class="badge blue">本体 repo は非公開のまま</span>
+    <p>Grok が読むのはダッシュボード側だけです（Grok の席の決め方）。本体リポジトリは許可制で、共同作業の相手には、招待と App の許可で直接読ませることもできます。Discord はフラのインサイト受け口として使います。</p>
+    <span class="badge blue">本体 repo は許可制</span>
   </article>
 </section>
 
@@ -61,9 +61,9 @@
       <tr><th style="width:18%">担当</th><th style="width:32%">読む場所</th><th>書く場所・役割</th></tr>
       <tr><td><strong>NO3</strong></td><td>全域</td><td>決定、検収、ルール変更、main への反映の決定。</td></tr>
       <tr><td><strong>Muse</strong></td><td>全域</td><td>ai/ ブランチへの書き込み、指示ファイル作成、添削・評価、他 AI の成果の書き戻し。</td></tr>
-      <tr><td><strong>Claude</strong></td><td>全域</td><td>自分の RESPONSE / AUDIT だけを書く。実行は駆動しない。</td></tr>
+      <tr><td><strong>Claude</strong></td><td>常設指示＋タスク指示ファイル（要約と該当箇所）</td><td>下ごしらえの作業側。環境は読み取り専用のため、成果物は文面で返し、Muse が書き戻す。仕事は監査ではない。</td></tr>
       <tr><td><strong>GPT</strong></td><td>入口ファイル＋対象 IP のシート＋生成材料</td><td>書かない。画像生成などの生成側。サイズと画質は Muse の指示に従う。</td></tr>
-      <tr><td><strong>Grok</strong></td><td>ダッシュボードだけ</td><td>書かない。X 投稿の下書きを考える側。書き戻しは当面、人が運ぶか Muse 経由。</td></tr>
+      <tr><td><strong>Grok</strong></td><td>ダッシュボードだけ</td><td>書かない。X チャンネル運用担当（下ごしらえは Claude、整形・添削・評価・検収・品質チェックと運用は Grok）。書き戻しは Muse 経由。</td></tr>
       <tr><td><strong>ひいろ</strong></td><td>hiiro/ と共通ルール</td><td>進行中の独立プロジェクト。正本は hiiro/、現在は ai/20261028-hiiro-store ブランチ側。</td></tr>
     </table>
   </article>
