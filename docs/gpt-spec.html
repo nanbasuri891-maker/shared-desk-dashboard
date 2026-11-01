@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GPT_SPEC（GPT への渡し方ルール） | 共有ダッシュボード</title>
+<style>body{margin:0;background:#f6f3ee;color:#20242a;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.7}
+.wrap{max-width:900px;margin:0 auto;padding:24px 18px 48px}
+header{border-bottom:2px solid #ded8ce;padding-bottom:12px;margin-bottom:18px}
+h1{font-size:24px;margin:0 0 6px}h2{font-size:20px;border-bottom:1px solid #ded8ce;padding-bottom:4px;margin-top:28px}h3{font-size:17px;margin-top:22px}
+.meta{color:#68707d;font-size:13px}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #ded8ce;padding:6px 8px;text-align:left;vertical-align:top}
+code{background:#f0ece4;padding:1px 5px;border-radius:4px}pre{background:#242933;color:#f0ece4;padding:14px;border-radius:10px;overflow-x:auto}pre code{background:none;color:inherit}
+a{color:#315d69}ul,ol{padding-left:1.4em}li{margin:3px 0}blockquote{border-left:4px solid #7a5c2e;margin:10px 0;padding:4px 12px;background:#fbf8f2;color:#4c4234}</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="meta"><a href="../index.html">← 共有ダッシュボードに戻る</a></div>
+<h1>GPT_SPEC（GPT への渡し方ルール）</h1>
+<div class="meta">正本：GitHub shared-ai-workspace の GPT_SPEC.md（ブランチ ai/20261030-routing-goal）。このページは共有範囲の写しです。更新日時：2026-11-01 10:10 JST</div>
+</header>
+<h1>GPT_SPEC（GPT への渡し方ルール）</h1>
+<h2>前提</h2>
+<p>GPT は成果物メーカーとして割り切る。プロジェクト全体の文脈は持たせない。GPT が読む正本はこのファイルと、タスクごとに渡される仕様の抜粋だけにする。評価は成果物の品質だけで行う。読む側に徹する形にすれば、パンクのリスクはほぼ消える。</p>
+<p>前提の確認用に、ダッシュボードも読む。作業の前に https://nanbasuri891-maker.github.io/shared-desk-dashboard/ を開き、先頭の更新日時と、割り当て・進捗の要約を確認すること。ダッシュボードは共有範囲の静的な写しで、正本ではない。写しが古い場合は、その旨を成果物に添えること。</p>
+<h2>渡し方</h2>
+<p>一、前置き・考察・代替案の提示は禁止。いきなり成果物から始める。
+二、メタ発言（「この仕様についてですが」のような、成果物の外側の説明）を出力しない。
+三、成果物の大きさは文字数で縛る。渡す側がタスクごとに数値で指定する（例：本文八〇〇字以内、説明ゼロ）。
+四、仕様書は関連箇所だけを抜粋して渡す。全体を読ませない。</p>
+<h2>GPT の AI 臭除去ルール（表現系の成果物に適用）</h2>
+<p>一、禁止語。以下を使わない。「〜ではないでしょうか」「〜と言えます」「〜することが重要です」「〜が挙げられます」「〜という点で」「〜が一目瞭然です」。
+二、構造の固定。導入文ゼロ。いきなり本文から入る。結論を先に置かない。推論過程は書かない。情景描写のみを出力する。
+三、リズム。短文と長文を混ぜる。二文続けて同じ長さにしない。句読点の間隔をわざと崩す。
+四、接続詞。因果の明示を減らす。「だから」「そのため」は、成果物ごとに一回まで。
+五、感覚語の優先。抽象名詞より、固有名詞、動作、触感。
+六、仕上げ前チェック。AI が書いたとバレる文があれば削る。示範（きれいな成果物のサンプル）が添えられている場合は、その形を真似る。</p>
+</div>
+</body>
+</html>
