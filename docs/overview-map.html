@@ -46,6 +46,8 @@ flowchart LR
 
     ACT["GitHub Actions<br/>状態検知・記録・通知"]
 
+    RELAY["エージェント間通信レイヤー<br/>受信・転送・返信回収・履歴管理"]
+
     subgraph AGENTS["AIエージェント"]
         A1["IP設計エージェント"]
         A2["マーケティング戦略エージェント"]
@@ -71,7 +73,8 @@ flowchart LR
     D1 --> DESK
     D2 --> DESK
     DESK <--> ACT
-    DESK <--> AGENTS
+    DESK <--> RELAY
+    RELAY <--> AGENTS
     E1 --> G4
     A3 <--> E2
     A4 <--> E2
