@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>全体接続図（マクロハーネス）</title>
+<style>
+body{margin:0;background:#f6f3ee;color:#20242a;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.7}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 18px 44px}
+a{color:#315d69}
+.card{background:#fffdf9;border:1px solid #ded8ce;border-radius:20px;padding:24px;box-shadow:0 8px 26px rgba(32,36,42,.06)}
+h1{font-size:25px;margin:10px 0 4px} h2{font-size:19px;margin:24px 0 6px}
+.muted{color:#68707d;font-size:13px}
+.meta{border-bottom:1px solid #ded8ce;padding-bottom:12px;margin-bottom:8px}
+.mermaid{background:#fff;border-radius:12px;padding:10px;overflow-x:auto}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({ startOnLoad: true, theme: "default", flowchart: { htmlLabels: true } });</script>
+</head>
+<body>
+<div class="wrap">
+<p><a href="../index.html">← トップへ戻る</a></p>
+<div class="card">
+<div class="meta"><h1>全体接続図（マクロハーネス）</h1>
+<p class="muted">人間・ダッシュボード・GitHub・AIエージェント・外部資料がどうつながり、会話が実行に変わるかの全体像。現状の実測記録ではなく、目標像を含む構想図（2026-11-03 NO3 作成）。正本は机 knowledge/全体接続図_マクロハーネス.md。</p></div>
+<div class="mermaid">
+flowchart LR
+    subgraph HUMAN["人間・チームメンバー"]
+        H1["やりたい仕事・IPの相談"]
+        H2["プロジェクトの進捗確認"]
+        H3["音声・会議で改善案を出す"]
+    end
+
+    subgraph DASH["マクロハーネス ダッシュボード"]
+        D1["仕事の入口・担当エージェント案内"]
+        D2["IP・プロジェクト別 進捗／KPI／作業履歴"]
+    end
+
+    subgraph DESK["GitHub｜共通の机・情報の正本"]
+        G1["GOAL・プロジェクト情報"]
+        G2["仕様書・実行ルール・担当表"]
+        G3["タスク・作業履歴・成果物"]
+        G4["ナレッジ索引・Drive参照先"]
+        G5["会話から生成された実行指示"]
+    end
+
+    ACT["GitHub Actions<br/>状態検知・記録・通知"]
+
+    subgraph AGENTS["AIエージェント"]
+        A1["IP設計エージェント"]
+        A2["マーケティング戦略エージェント"]
+        A3["MUSE｜Meta運用"]
+        A4["Grok｜X運用"]
+        A5["Claude｜資料整備・制作支援"]
+        A6["GPT｜設計・プロンプト・画像生成"]
+    end
+
+    subgraph EXT["外部資料・実行環境"]
+        E1["Google Drive等<br/>運用書・調査・制作資料"]
+        E2["SNSチャンネル<br/>投稿・反応・運用データ"]
+    end
+
+    subgraph INPUT["会話の入口"]
+        I1["Perplexity 音声入力"]
+        I2["Discord 音声会議"]
+    end
+
+    H1 --> D1
+    H2 --> D2
+    H3 --> INPUT
+    D1 --> DESK
+    D2 --> DESK
+    DESK <--> ACT
+    DESK <--> AGENTS
+    E1 --> G4
+    A3 <--> E2
+    A4 <--> E2
+    INPUT --> G5
+</div>
+<h2>仕事の流れ</h2>
+<p>① アカウントを作りたい：人間 → ダッシュボード → IP設計担当。リサーチ、ターゲット、IP設計、プロフィール、センチメント分析、制作指示につながる情報を作る。</p>
+<p>② 媒体の運用を始めたい：IP設計 → マーケティング戦略 → MUSE／Grok。媒体別の運用ナレッジを使い、運用方針・KPI・制作内容を決める。</p>
+<p>③ 最近の進捗を確認したい：ダッシュボード → GitHubの作業履歴・成果物。どこまで進んだか、何が未実施か、次に何をするかを確認する。</p>
+<p>④ もっと改善したい：Perplexity／Discord → 議事録 → 実行指示 → 担当AI。会話をタスクに変え、実行結果をGitHubに戻す。</p>
+<h2>一言で</h2>
+<p><strong>人間の仕事とAIの実行をつなぐ</strong> ― 仕事を始める → 状況を見る → 話し合う → 指示に変える → 実行する → 履歴に残す → 改善する</p>
+</div>
+</div>
+</body>
+</html>
