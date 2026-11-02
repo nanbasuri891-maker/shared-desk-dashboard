@@ -15,7 +15,7 @@
 <div class="eyebrow">Addness-style Macro Harness AI</div>
 <h1>共有ダッシュボード試作</h1>
 <p class="sub">GitHub の机から、共有してよい範囲だけを書き出した静的な写しです。本体リポジトリは許可制で、許可を受けた人は自分のアカウントで直接読むこともできます。</p>
-<div class="update"><strong>更新日時：2026-11-02 20:15 JST</strong><span>ダッシュボード</span><span>自動連動なし</span><span>共有範囲のみ</span></div>
+<div class="update"><strong>更新日時：2026-11-02 21:20 JST</strong><span>ダッシュボード</span><span>自動連動なし</span><span>共有範囲のみ</span></div>
 </header>
 <div class="notice"><strong>このページの扱い：</strong>これは固定ページです。GitHub と自動連動はしません。机が変わったら、Muse が共有範囲だけを再生成します。古い写しで動かないよう、先頭の更新日時を必ず確認してください。</div>
 
@@ -63,7 +63,7 @@
       <tr><td><strong>Muse</strong></td><td>全域</td><td>ai/ ブランチへの書き込み、指示ファイル作成、添削・評価、他 AI の成果の書き戻し。</td></tr>
       <tr><td><strong>Claude</strong></td><td>常設指示＋タスク指示ファイル（要約と該当箇所）</td><td>下ごしらえの作業側。環境は読み取り専用のため、成果物は文面で返し、Muse が書き戻す。仕事は監査ではない。</td></tr>
       <tr><td><strong>GPT</strong></td><td>入口ファイル＋対象 IP のシート＋生成材料</td><td>書かない。画像生成などの生成側。サイズと画質は Muse の指示に従う。</td></tr>
-      <tr><td><strong>Grok</strong></td><td>ダッシュボードだけ</td><td>書かない。X チャンネル運用担当（下ごしらえは Claude、整形・添削・評価・検収・品質チェックと運用は Grok）。X 運用の改善提案は机の proposals/grok/ に直通で着地し、MUSE が投稿仕様に翻訳して Claude へ橋渡しする（2026-11-02 新設）。</td></tr>
+      <tr><td><strong>Grok</strong></td><td>ダッシュボードだけ</td><td>書かない。X チャンネル運用担当（下ごしらえは Claude、整形・添削・評価・検収・品質チェックと運用は Grok）。書き戻しは Muse 経由。</td></tr>
       <tr><td><strong>ひいろ</strong></td><td>hiiro/ と共通ルール</td><td>進行中の独立プロジェクト。正本は hiiro/、現在は ai/20261028-hiiro-store ブランチ側。</td></tr>
     </table>
   </article>
@@ -88,7 +88,7 @@
       <li>シート類（CONCEPT / OPERATION / CLONE_PACK）は机の specs/aida/ に配置済み。</li>
       <li>投稿は NO3 の承認前提。人格クローンを固定してから自動化を広げる。</li>
       <li>生成条件はアイダ側のシートだけを読む。相手 IP の条件を持ち込まない。</li>
-      <li>手持ち素材と実績（投稿・画像・ルールの実物）は、NO3 の指示で Grok 閲覧用ページに掲載（2026-11-02）。</li>
+      <li>この窓には、アイダの素材指定など NO3 側の生の中身は載せない。</li>
     </ul>
   </article>
 </section>
@@ -101,11 +101,8 @@
       <tr><td>ルーティング回路</td><td><span class="badge ok">稼働</span> RESPONSE / AUDIT を受け口が処理する形が実測済み。起点は NO3 の「見て」。</td></tr>
       <tr><td>グロースハーネス</td><td><span class="badge warn">判断待ち</span> Claude の RESPONSE_loop1 は 09:22 JST に到着し、受け口が 10:19 JST に GOAL へ反映済み。吸い上げのパイロットと MUSE の席の分け方の2件が NO3 の判断待ち。</td></tr>
       <tr><td>GPT 画像生成</td><td><span class="badge ok">読み取り成功</span> 次は実際の生成で、毎回読み直しと参照元照合を検証する段階。</td></tr>
-      <tr><td>受け渡しコンテナ／Discord</td><td><span class="badge warn">初回実測待ち</span> 設計確定。Drive の棚「受け渡しコンテナ」と PKG-001（フラ リール脚本化）を設置済み。Discord は3チャンネル（受け渡し／成果物・報告／インサイト）で、決まったことと共有を置く場所にし、Claude が投稿（吐き出し）を担う。担当者さんは確認と軽い認知だけを行う形。</td></tr>
+      <tr><td>受け渡しコンテナ</td><td><span class="badge warn">Discord は中止</span> Drive の棚「受け渡しコンテナ」と PKG-001（フラ リール脚本化）は設置済み。Discord 経路は時間がかかりすぎるため中止した（2026-11-02 NO3 決定）。受け渡しは既存の線と、この窓の引き継ぎページで回す。</td></tr>
       <tr><td>プロファイル蓄積</td><td><span class="badge ok">初版あり</span> ペルソナ言葉バイナリを用意。分析ではなくプロファイルとして、実物の言葉と場面を貯める。</td></tr>
-      <tr><td>基盤文書</td><td><span class="badge ok">窓に配置</span> 「マルチハーネスAI環境・全体構成と運用原則」を資料ページに全文コピーで配置（2026-11-02）。正本は Drive「マクロハーネス運用」。</td></tr>
-      <tr><td>SNS の上位原則</td><td><span class="badge ok">決定に登録</span> D-013 として机の decisions に登録（2026-11-02）。分析モデルと事例は Drive「SNS・注目形成リサーチ」に配置。</td></tr>
-      <tr><td>Grok 書き戻し経路</td><td><span class="badge ok">新設・具体化</span> 着地先 proposals/grok／翻訳と橋渡し／CLAUDE_STATE への4項目形式／影響確認の検出条件／窓の同時再生成まで固定（2026-11-02）。</td></tr>
       <tr><td>ダッシュボード</td><td><span class="badge warn">試作（参照用）</span> このページが試作で、見せ方の参照用。本体は NO3 が別で作る。明日（11-01）はダッシュボードから始める。</td></tr>
     </table>
   </article>
@@ -114,14 +111,14 @@
     <h2>未決定・注意</h2>
     <ul>
       <li>ダッシュボード本体は NO3 が別で作る（この試作は見せ方の参照用）。置き場・更新タイミングの未決定は、この形に置き換わった。</li>
-      <li>Grok の書き戻し経路は確定済み（proposals/grok/ へ直通）。最初の提案が届いたら、翻訳→橋渡し→影響確認まで回すのが次の一手。</li>
+      <li>Grok の成果の書き戻し経路（人が運ぶ／Muse 経由）の確定。</li>
       <li>GPT が生成のたびに自動で仕様を読み直す仕組みは未確認。</li>
-      <li>PKG-001 の初回実測（担当者さんの Muse に貼って脚本が出るか）は未実施。担当者さんを Drive フォルダへ共有追加することと、Discord のチャンネル作成・ピン留めが NO3 側の残作業。</li>
+      <li>PKG-001 の初回実測（担当者さんの Muse に貼って脚本が出るか）は未実施。担当者さんを Drive フォルダへ共有追加することが残作業。</li>
       <li>フラのインサイトは、担当者からの初回送付待ち。</li>
       <li>Make のベルは削除済み。現行の起点は NO3 の「見て」の呼びかけ。</li>
     </ul>
     <h3>共有しないもの</h3>
-    <p class="muted">NO3 だけの側の生の中身と、他プロジェクトのプロファイル実物は、この窓には出しません。アイダとフラの手持ち素材は、NO3 の指示で Grok 閲覧用に限って掲載しています。</p>
+    <p class="muted">NO3 だけの側の生の中身、他プロジェクトのプロファイル実物、アイダの素材指定などは、この窓には出しません。</p>
   </article>
 </section>
 
@@ -129,17 +126,6 @@
   <article class="card span12">
     <h2>資料（共有範囲の写し）</h2>
     <p>戦略・ノウハウ・シート類は、この窓から資料ページとして読めます。正本は机（GitHub shared-ai-workspace）の各ファイルです。作業の生ファイル（goals の手紙や KPI、results の実データ、decisions、review）と、素材指定は机に残してあります。</p>
-    <h3>Grok 閲覧用：MUSE の手持ち素材と実績</h3>
-    <ul>
-      <li><a href="docs/muse-materials.html">手持ち素材と実績｜アイダ編</a>（投稿の全文、IMAGE_RULES、投稿生成条件、生成画像の実物）</li>
-      <li><a href="docs/fura-materials.html">手持ち素材と実績｜フラ編</a>（ペルソナ学習、トーンマップ、既存12投稿の記録、作り直し試作）</li>
-      <li><a href="docs/research-materials.html">手持ち素材と実績｜リサーチ編</a>（森部リサーチ、センチメント現場分析）</li>
-    </ul>
-    <h3>基盤文書</h3>
-    <ul>
-      <li><a href="docs/macro-harness.html">マルチハーネスAI環境・全体構成と運用原則</a>（正本は Drive「マクロハーネス運用」。各AIが最初に読む全体像）</li>
-      <li><a href="docs/translation-layer.html">翻訳層専用指示書＋チェックリスト（TRANSLATION_LAYER）</a>（正本は机 specs/TRANSLATION_LAYER.md。概念→手順への変換ルール）</li>
-    </ul>
     <h3>戦略・運用ノウハウ</h3>
     <ul>
       <li><a href="docs/strategy.html">マーケティング戦略エージェント定義書</a></li>
@@ -151,7 +137,7 @@
     <h3>チャンネル別の仕様と席</h3>
     <ul>
       <li><a href="docs/x-format.html">X 投稿フォーマット仕様書（Grok）</a>／<a href="docs/grok-instructions.html">Grok への指示（席）</a></li>
-      <li><a href="docs/gpt-image.html">画像生成条件（GPT）</a>／<a href="docs/gpt-spec.html">GPT_SPEC（渡し方ルール）</a>／<a href="docs/gpt-execution-rules.html">GPT実行ルール（画像生成専用）</a></li>
+      <li><a href="docs/gpt-image.html">画像生成条件（GPT）</a>／<a href="docs/gpt-spec.html">GPT_SPEC（渡し方ルール）</a></li>
       <li><a href="docs/allocation.html">GitHub 割り当て（原本）</a></li>
     </ul>
     <h3>IP シート</h3>
@@ -177,7 +163,7 @@
   </article>
 </section>
 
-<p class="footer">出典：GitHub shared-ai-workspace（ブランチ ai/20261030-routing-goal）の机の記録と、2026-11-02 時点の決定と状態。これは試作の写しで、正本は GitHub 側の各ファイルです。</p>
+<p class="footer">出典：GitHub shared-ai-workspace（ブランチ ai/20261030-routing-goal）の机の記録と、2026-10-31 の決定事項。これは試作の写しで、正本は GitHub 側の各ファイルです。</p>
 </div>
 </body>
 </html>
