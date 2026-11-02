@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>翻訳層専用指示書＋チェックリスト（TRANSLATION_LAYER）</title>
+<style>
+body{margin:0;background:#f6f3ee;color:#20242a;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.7}
+.wrap{max-width:900px;margin:0 auto;padding:28px 18px 44px}
+a{color:#315d69}
+.card{background:#fffdf9;border:1px solid #ded8ce;border-radius:20px;padding:24px;box-shadow:0 8px 26px rgba(32,36,42,.06)}
+h1{font-size:26px;margin:10px 0 4px} h2{font-size:19px;margin:22px 0 8px} h3{font-size:16px;margin:16px 0 6px}
+.muted{color:#68707d;font-size:13px}
+pre{background:#f0ece4;border:1px solid #ded8ce;border-radius:12px;padding:12px;white-space:pre-wrap;font-size:14px}
+.meta{border-bottom:1px solid #ded8ce;padding-bottom:12px;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<p><a href="../index.html">← 共有ダッシュボードに戻る</a></p>
+<div class="card">
+<div class="meta">
+<h1>翻訳層専用指示書＋チェックリスト（TRANSLATION_LAYER）</h1>
+<p class="muted">正本：机（GitHub shared-ai-workspace）specs/TRANSLATION_LAYER.md ／ この写しは窓から読むためのもの ／ 更新：2026-11-02</p>
+<p class="muted">文書区分：共通基盤・実行規約 ／ 適用対象：MUSE（主担当）、必要に応じて全エージェント ／ 更新ルール：人間（NO3）の承認を経てのみ改訂する。実行結果で自動書き換えしない。</p>
+</div>
+<h2>1. 翻訳層の目的</h2>
+<p>人間向けの構造説明・構想文書・会話メモを、各AIエージェントが<strong>即実行できる手順・指示・成果物形式</strong>に変換する層である。</p>
+<p>翻訳層は「誰が毎回翻訳するか」の問題ではなく、<strong>変換ルールとチェック基準を正本として固定し、担当エージェントが読み込んで動く</strong>ための仕組みである。</p>
+<h2>2. 翻訳の基本原則</h2>
+<ol>
+<li><strong>抽象度を落とす</strong>：概念・方針・思想を、エージェントが今日実行できる具体的な手順に変換する。例：概念「SNSは機会損失を防ぐためのプラットフォームである」→ 手順「X投稿を生成する際、受け手のHARM（Health / Ambition / Relation / Money）のどれを塞ぐ接点かを一文で明示してから生成する」</li>
+<li><strong>FACTを区別する</strong>：確認済み事実／仮説／未確認事項を必ず分けて書く。不足情報を勝手に補完しない。</li>
+<li><strong>エージェント別に分解する</strong>：Grok（X運用）は対象・現状・仮説・提案仕様の4項目。Claude（バッチ）は実行可能なタスク指示＋完了条件。GPT（画像）はサイズ・画質・参照画像・禁止事項。MUSE自身は橋渡し先・影響確認項目。</li>
+<li><strong>実行可能性を最優先する</strong>：「良い説明」ではなく「今すぐ動ける指示」にする。空欄や曖昧な表現が残っている状態で渡してはならない。</li>
+<li><strong>正本と実行記録を分離する</strong>：翻訳結果は実行記録またはCLAUDE_STATE等に書く。翻訳層の指示書自体を実行結果で上書きしない。</li>
+</ol>
+<h2>3. 翻訳の標準手順（MUSEが従う）</h2>
+<ol>
+<li>人間向け文書・会話・見立てを読む</li>
+<li>対象エージェントとGOALを特定する</li>
+<li>概念を手順に落とす（抽象度変換）</li>
+<li>FACT・仮説・未確認を明示する</li>
+<li>エージェント別の出力形式に合わせる</li>
+<li>チェックリストを通す</li>
+<li>合格したものだけをCLAUDE_STATEまたは該当ファイルに載せる</li>
+<li>影響確認の項目を必ず残す（後で検証するため）</li>
+</ol>
+<h2>4. チェックリスト（翻訳完了の判定基準）</h2>
+<p>以下をすべて満たした場合のみ「翻訳完了」とする。</p>
+<ul>
+<li>抽象度が実行可能な手順まで落ちている</li>
+<li>対象エージェントが明示されている</li>
+<li>確認済み事実 / 仮説 / 未確認が区別されている</li>
+<li>空欄・曖昧表現が残っていない</li>
+<li>エージェント別の指定形式に適合している</li>
+<li>完了条件（何をもって終わりか）が書かれている</li>
+<li>影響確認項目（何を見れば反映されたと分かるか）が書かれている</li>
+<li>正本を書き換えず、実行記録側に出力している</li>
+</ul>
+<p>1つでも未達なら「要判断」としてNO3または担当者に返す。</p>
+<h2>5. エージェント別の最低出力形式</h2>
+<h3>Grok（X運用）向け</h3>
+<pre>対象：
+現状：
+仮説：
+提案仕様：（Claudeが次バッチで変えられる具体的な一文）</pre>
+<h3>Claude（バッチ）向け</h3>
+<pre>タスク名：
+入力：
+手順：
+完了条件：
+影響確認項目：</pre>
+<h3>GPT（画像）向け</h3>
+<pre>サイズ・画質：
+参照画像：
+禁止事項：
+出力形式：</pre>
+<h3>MUSE自身（橋渡し時）</h3>
+<pre>橋渡し先：
+翻訳した仕様：
+影響確認する項目：
+次回確認タイミング：</pre>
+<h2>6. 禁止事項</h2>
+<ul>
+<li>概念のまま流すこと</li>
+<li>不足情報を推測で埋めること</li>
+<li>チェックリストを通さずに載せること</li>
+<li>翻訳結果で本指示書を自動更新すること</li>
+<li>「内容はOK」を実行許可と解釈すること</li>
+</ul>
+<h2>7. 影響確認の標準項目</h2>
+<ol>
+<li>Claudeの成果物に提案仕様が反映されたか</li>
+<li>生成物の仕様（文字数・構成・トーン等）が変わったか</li>
+<li>投稿後の反響（反応数・質）が動いたか</li>
+</ol>
+<p>1つでも「変わっていない」場合は「止まっている」と判定し、NO3に上げる。</p>
+<h2>8. 運用上の位置づけ</h2>
+<ul>
+<li>本ファイルはGitHub上の正本とする</li>
+<li>MUSEは作業開始前に必ず本ファイルを読む</li>
+<li>各エージェントも必要に応じて参照する</li>
+<li>改訂は人間の承認後のみ行う</li>
+</ul>
+<p class="muted">出典：2026-11-02 時点のマクロハーネス構想および会話記録に基づく初版（Grok 起草）</p>
+</div>
+</div>
+</body>
+</html>
