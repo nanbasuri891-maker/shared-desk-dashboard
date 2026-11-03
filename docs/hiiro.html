@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ひいろ（AIコーチ） | マクロハーネスAI</title>
+<style>
+:root{--bg:#f6f3ee;--panel:#fffdf9;--ink:#20242a;--muted:#68707d;--line:#ded8ce;--ok:#2f7d5c;--warn:#a86f18;--bad:#9b4d43;--off:#8a8f98}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:24px 16px 40px}
+header{margin-bottom:14px}h1{font-size:26px;margin:0 0 4px}.stamp{color:var(--muted);font-size:14px}
+.note{background:#fff7e8;border:1px solid #ecd9ad;border-radius:12px;padding:10px 14px;color:#5d4717;font-size:14px;margin:12px 0 18px}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:14px}
+h2{font-size:17px;margin:0 0 10px}
+ul{list-style:none;margin:0;padding:0}li{padding:6px 0;border-top:1px solid var(--line)}li:first-child{border-top:none}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:8px;vertical-align:baseline}
+.g{background:var(--ok)}.y{background:var(--warn)}.r{background:var(--bad)}.o{background:var(--off)}
+b{font-weight:600}.small{color:var(--muted);font-size:13px}
+a{color:#315d69}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>ひいろ（AIコーチ）</h1>
+<div class="stamp">更新：2026-11-04 08:49 JST（机の内容からMUSEが生成）</div>
+</header>
+<div class="note">このページは机（GitHub）の写しです。自動連動はしません。正本は GitHub ブランチ ai/20261028-hiiro-store の hiiro/ です。古い写しで動かないよう、上の更新時刻を必ず確認してください。</div>
+
+<section>
+<h2>正本と置き場</h2>
+<ul>
+<li><span class="dot g"></span><b>要件書 v1</b>（hiiro/requirements/、約9万字）：唯一の正本。会話では書き換えず、変更は NO3 の決定による書き戻しのみ</li>
+<li><span class="dot g"></span><b>実行プロンプト</b>（hiiro/prompts/execution_prompt.md）：正本を参照する薄い入口</li>
+<li><span class="dot g"></span><b>壁打ち記録</b>（hiiro/logs/）：前提の層を、最初から整理された形で蓄積する場所。仕様は書き換えない</li>
+</ul>
+</section>
+
+<section>
+<h2>前提（2026-11-04 の壁打ちで追加）</h2>
+<ul>
+<li><b>認知科学のコーチング</b>：見え方は「解釈層に向けたコーチ」。実際はAIに近く、計算・数理で考えるコーチ</li>
+<li><b>言葉＝トークン</b>：人の頭の中にあるのは集めた言葉。言葉が入って、その人を巡って、その人を作る。解釈には体内の伝達物質が使われ、現実の捉え方と行動が変わる</li>
+<li><b>感情とグラデーション</b>：人にとってトークンは感情として作用する。感情が立つと人ごとにグラデーションになり、その具合は認知・熱量・編んだストーリーで変わる（アイコンがグラデーションなのはこの設計）</li>
+<li><b>ゼロにしない／1を残す</b>：人間もAIも、細かすぎ・甘すぎ・高性能すぎでゼロリセットする。人間はゼロになると動けないため、必ず1を保持する</li>
+<li><b>ガードレール</b>：解釈を深く扱うと臨床（病理）の領域に入り人は沈む。ひいろはその手前で受け止める位置</li>
+<li><b>内在化と外在化</b>：内在化したメモリは本人にも全量は分からない。一致の確認にはキャッシュの棚卸（申告と実態の照合）が要る</li>
+</ul>
+</section>
+
+<section>
+<h2>照合の状態</h2>
+<ul>
+<li><span class="dot y"></span><b>要件書 v1 との照合</b>：上記の前提（トークン／グラデーション／ゼロリセット／1を残す／内在化ほか）は v1 に未収録の新しい層。壁打ち記録には照合結果つきで保存済み</li>
+<li><span class="dot y"></span><b>反映</b>：要件書への書き戻しは未実施。NO3 の決定待ち</li>
+</ul>
+</section>
+
+<section>
+<h2>出口</h2>
+<ul>
+<li><span class="dot g"></span><b>GPTs として立たせる</b>：最終的に GPT にプロンプトを作り、ひいろとして立たせる構想。「工事をやる、出して」と言われたら即出せる状態に保つ</li>
+<li><span class="dot y"></span><b>Grok の役割</b>：このページで常に最新の状態を見て、進め方とプロンプト構成の助言を事前に組む。助言は見立てとして受け、MUSE の照合を通して NO3 が決める</li>
+</ul>
+</section>
+
+<section>
+<h2>未決</h2>
+<ul>
+<li><span class="dot y"></span><b>未決1</b>：今日の前提を要件書へ書き戻すか。書き戻すなら、どの節に、どの形で入れるか</li>
+<li><span class="dot y"></span><b>未決2</b>：GPTs 用プロンプトの構成</li>
+</ul>
+</section>
+
+<p class="small"><a href="../index.html">ダッシュボードの入口へ戻る</a>／<a href="status.html">現在の状態</a></p>
+</div>
+</body>
+</html>
