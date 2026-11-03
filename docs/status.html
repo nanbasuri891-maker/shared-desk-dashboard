@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>現在の状態 | マクロハーネスAI</title>
+<style>
+:root{--bg:#f6f3ee;--panel:#fffdf9;--ink:#20242a;--muted:#68707d;--line:#ded8ce;--ok:#2f7d5c;--warn:#a86f18;--bad:#9b4d43;--off:#8a8f98}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:24px 16px 40px}
+header{margin-bottom:14px}h1{font-size:26px;margin:0 0 4px}.stamp{color:var(--muted);font-size:14px}
+.note{background:#fff7e8;border:1px solid #ecd9ad;border-radius:12px;padding:10px 14px;color:#5d4717;font-size:14px;margin:12px 0 18px}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:14px}
+h2{font-size:17px;margin:0 0 10px}
+ul{list-style:none;margin:0;padding:0}li{padding:6px 0;border-top:1px solid var(--line)}li:first-child{border-top:none}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:8px;vertical-align:baseline}
+.g{background:var(--ok)}.y{background:var(--warn)}.r{background:var(--bad)}.o{background:var(--off)}
+b{font-weight:600}.small{color:var(--muted);font-size:13px}
+a{color:#315d69}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>現在の状態</h1>
+<div class="stamp">更新：2026-11-04 08:40 JST（机の内容からMUSEが生成）</div>
+</header>
+<div class="note">このページは机（GitHub）の写しです。自動連動はしません。古い写しで動かないよう、上の更新時刻を必ず確認してください。</div>
+
+<section>
+<h2>席</h2>
+<ul>
+<li><span class="dot g"></span><b>MUSE</b>：稼働。窓口・整形・添削／評価・投稿前の品質チェック・机の外への実行を担当</li>
+<li><span class="dot g"></span><b>Claude</b>：起動を軽量化済み（起動専用 CLAUDE_START・462字・命令形のみ）。アイダ バッチ2の仕様と画像指示文案を納品済み</li>
+<li><span class="dot g"></span><b>GPT</b>：翻訳専任（D-018で実行ルールを統合）。作業後は実行ログを机の results/ に残す</li>
+<li><span class="dot y"></span><b>Grok</b>：X運用担当。読むのはこの窓だけ。意見は見立てとして受け、MUSEの照合を通す</li>
+</ul>
+</section>
+
+<section>
+<h2>制作（IP）</h2>
+<ul>
+<li><span class="dot y"></span><b>アイダ バッチ1</b>（投稿 11/12〜11/18）：指示作成 11/04〜05 → 翻訳・生成 11/06〜07 → チェック 11/08 → NO3確認 11/09〜10 → 22:00投稿</li>
+<li><span class="dot g"></span><b>アイダ バッチ2</b>（投稿 11/19〜11/25）：Claudeの下ごしらえ納品済み（前倒し）</li>
+<li><span class="dot o"></span><b>フラ</b>：担当者側の管理。Muse未連携のため、MUSEの投稿実行の対象外</li>
+</ul>
+</section>
+
+<section>
+<h2>仕組み</h2>
+<ul>
+<li><span class="dot y"></span><b>トリガー</b>＝GitHub（状態とActions）：設計は確定。実働は一部（エージェント間連携は停止中）</li>
+<li><span class="dot r"></span><b>ログ</b>＝GAS：未構築。構築はNO3の担当。Sheetsに事実を残し、乖離の検知までを担う</li>
+<li><span class="dot g"></span><b>検知と判定</b>：検知は機械（GAS）、判定はNO3（D-015）</li>
+<li><span class="dot g"></span><b>通知</b>＝Discord：NO3へのアラート受け先として残る（D-019）</li>
+<li><span class="dot g"></span><b>表示</b>＝Looker Studio：数字と状態の監視側。入り口とリンクはこのダッシュボード側</li>
+</ul>
+</section>
+
+<section>
+<h2>未決・停止中</h2>
+<ul>
+<li><span class="dot y"></span><b>O-002</b>：フラ担当者からのインサイト初回送付待ち（未決はこれだけ）</li>
+<li><span class="dot o"></span><b>自動ジョブ2件</b>（メッセージ監視／Claude応答の受け口）：削除済み。トリガーとして戻すかは未決定。独断では戻さない</li>
+<li><span class="dot o"></span><b>GPT–MUSE連携</b>：NO3の決定で停止中。再開はNO3が改めて指示したときだけ</li>
+</ul>
+</section>
+
+<section>
+<h2>直近の決定と新しい置き場</h2>
+<ul>
+<li><b>D-017</b>：画像生成はMUSE担当（Claudeは設計まで）</li>
+<li><b>D-018</b>：GPTは翻訳専任。実行ルールを統合版に更新</li>
+<li><b>D-019</b>：Difyは不使用（アプリ側はNO3が削除）。Discordはアラート受け先のみ</li>
+<li><b>新規</b>：机 specs/AI指示語.md（人間側の言葉→AIへの言い換えの辞書。初件「構成」）</li>
+<li><b>新規</b>：Google Drive「画像生成素材集」（リンク共有・閲覧のみ。ClaudeとGPTが参照に使う）</li>
+</ul>
+</section>
+
+<p class="small"><a href="../index.html">ダッシュボードの入口へ戻る</a></p>
+</div>
+</body>
+</html>
