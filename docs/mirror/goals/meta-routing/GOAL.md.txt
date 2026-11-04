@@ -10,6 +10,8 @@
 
 ## ルーティング（修正済みの実態形、2026-10-30 確認）
 
+- 案件の起動は governance/AGENT_COLLABORATION_RULES.md「案件の起動」に従う（D-020）
+
 1. GOAL を共有の置き場に書く（理想・現状・DoD・制約）
 2. 脳（Claude）が GitHub の GOAL と依頼文を読んで取りに来る。NO3 の手番は「見て」の呼びかけだけ（関数呼び出しは存在しない）
 3. 脳は型で返す：bottleneck / next_actions / muse_tasks（完成した指示文）/ human_review / goal_updates
