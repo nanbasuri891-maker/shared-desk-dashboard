@@ -1,0 +1,6 @@
+# 2026-11-04 ワイン画像（11/05 ワインとコップ）
+
+- 採用: ~/workspace/aida/posts/batch1_1105_wine_final.png（1080×1350）
+- 予備（不採用）: ~/workspace/aida/posts/batch1_1105_wine_v2_bright.png（理由は判定ログ）
+- 判定: goals/aida/history/2026-11-04_第1週検収判定.md（画像の判定）
+- 状態: NO3へ投稿前納品済み。投稿の登録はNO3がMeta Business Suiteで行う
