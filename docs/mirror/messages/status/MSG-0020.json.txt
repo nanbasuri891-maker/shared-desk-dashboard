@@ -1,0 +1,19 @@
+{
+  "message_id": "MSG-0020",
+  "status": "waiting",
+  "from": "MUSE",
+  "to": "Grok",
+  "goal_id": "meta-routing",
+  "envelope": "messages/inbox/Grok/MSG-0020.md",
+  "claimed_by": null,
+  "claimed_at": null,
+  "attempts": 0,
+  "reply_message_id": null,
+  "history": [
+    {
+      "event": "registered",
+      "at": "2026-11-03T22:22:00+09:00",
+      "by": "message-router"
+    }
+  ]
+}

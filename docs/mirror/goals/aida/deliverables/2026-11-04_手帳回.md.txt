@@ -1,0 +1,7 @@
+# 成果物 — 手帳回（2026-11-04）
+
+- Instagram画像（採用・最終整形 1080×1350）: MUSE手元 ~/workspace/aida/posts/batch1_1104_notebook_v5_final.png
+- GPT翻訳: results/GPT_to_Claude_aida_notebook_translation_2026-11-04.md
+- Claude設計: results/aida_notebook_仕様と画像指示文案.md
+- 検収記録: MUSE手元 ~/workspace/aida/posts/手帳回_検収記録_2026-11-04.md
+- 投稿: 本日22:00（Threads本文5行／Instagram 画像＋短文2行）。NO3の最終検収通過済み。

@@ -1,0 +1,11 @@
+# 影響確認：MUSE役割認識のSTATE更新（2026-11-02）
+
+## 実施内容
+- agents/MUSE/CURRENT_STATE.md を役割認識の内容で更新（Grok起草・NO3経由の文面を基礎に、「下作業＝Claude／納品後の整形＝MUSE」の線をNO3の訂正どおりに明記）
+- agents/MUSE/EXECUTION_RULES.md に「役割の境界」を追記
+- governance/ISSUES.md に I-004（役割の読み違い）を記録
+
+## 影響確認項目
+- DECISIONS（D-008）との矛盾：なし。Claude＝整形前の下作業、MUSE＝納品後の整形・最終形化・検収・机の外への実行、という線で一致させた
+- 未実施のまま残るもの：specs/TRANSLATION_LAYER_MUSE_TO_CLAUDE.md の新設、agents/Claude/ の新設（新規配置のためNO3の決定待ち）
+- 次の工程：アイダの既存ストックから「Claudeに渡す第1号の仕様書」を作る準備

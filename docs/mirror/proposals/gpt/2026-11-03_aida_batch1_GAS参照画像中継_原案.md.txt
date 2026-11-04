@@ -1,0 +1,188 @@
+# GAS参照画像中継の原案（2026-11-03 NO3経由でGPTから提示）
+
+> 本書は原案。確定版ではない。格納はMUSE、原案は上書きしない。
+
+今の制限だと、GPTはDriveの画像を直接取りに行けない。だから一番現実的なのは、GASを中継にして、Driveの画像を取得→そのバイナリをGPTに渡す形にすること。
+
+方法は2つあって、A案はGASでDriveから画像を取ってきてOpenAI APIの画像編集に渡す経由で自動化できる。ただし、GPTの会話内で生成する経路じゃなくて、ChatGPTに画像データを正式に渡す方法が決まってないなら、先にそっちを確認する必要がある。GASを作るだけでは接続が完了したことにはならない。
+
+**GASからChatGPTの画面内にある画像生成機能を直接操作することはできません。**
+
+実現できる方法は2つあります。
+
+- A：GASがDriveから画像を取得し、OpenAI APIの画像編集機能に渡す。画像生成まで自動化できる。ただしChatGPTの画面内の画像生成とは別の実行経路で、API料金も別です。
+- B：GASがDriveから画像を取得し、GPTが参照できる形で受け渡す。こちらはChatGPT側に画像を取り込む接続機能が別途必要です。
+
+今回の目的が「原画を参照して画像を生成すること」なら、まずAで実動する仕組みを作るのが確実です。
+
+## 1. GASの構築
+
+Google Driveにある原画を取得し、OpenAI APIに渡す構成にします。
+
+```text
+Google Drive
+    │
+    ▼
+Google Apps Script
+    │
+    ├─ 原画PNGを取得
+    ├─ 画像データを保持
+    └─ OpenAI APIに送信
+            │
+            ▼
+       画像編集API
+            │
+            ▼
+       生成画像を取得
+            │
+            ▼
+       Google Driveに保存
+```
+
+## 2. GASを作る手順
+
+① Google Apps Scriptを開く
+
+https://script.google.com/
+
+② 新しいプロジェクトを作成する。
+
+③ プロジェクトの設定からスクリプトプロパティに以下を登録する。
+
+| プロパティ | 値 |
+|---|---|
+| DRIVE_FILE_ID | 原画PNGのファイルID |
+| OPENAI_API_KEY | OpenAI APIキー |
+| OUTPUT_FOLDER_ID | 生成画像の保存先フォルダID |
+
+APIキーはコードに直接書かず、スクリプトプロパティに保存します。
+
+④ 以下のコードを貼り付ける。
+
+```javascript
+function generateAidaImage() {
+
+  const props = PropertiesService.getScriptProperties();
+
+  const fileId = props.getProperty("DRIVE_FILE_ID");
+  const apiKey = props.getProperty("OPENAI_API_KEY");
+  const outputFolderId = props.getProperty("OUTPUT_FOLDER_ID");
+
+  if (!fileId || !apiKey || !outputFolderId) {
+    throw new Error("必要な設定値が不足しています");
+  }
+
+  // 1. Google Driveから原画を取得
+  const original = DriveApp.getFileById(fileId);
+  const imageBlob = original.getBlob();
+
+  if (imageBlob.getContentType() !== "image/png") {
+    throw new Error("原画がPNGではありません");
+  }
+
+  // 2. 画像生成APIに渡す指示
+  const prompt = `
+Create an Instagram portrait image, 1024x1536.
+
+Use the supplied tarot artwork as the original card artwork.
+Preserve the original artwork. Do not redraw or replace it.
+
+Scene:
+A first-person perspective of fingers turning one tarot card.
+The hand enters from the bottom edge.
+Pearl white cat-eye nails with delicate silver curved lines.
+Deep blue nighttime tabletop.
+Glass-like transparency and crisp reflections.
+High-detail fingers and nails.
+
+No face, body, clothing, sleeves, borders or text.
+Avoid muted colors.
+`;
+
+  // 3. OpenAI画像編集APIへ送信
+  const response = UrlFetchApp.fetch(
+    "https://api.openai.com/v1/images/edits",
+    {
+      method: "post",
+      headers: {
+        Authorization: "Bearer " + apiKey
+      },
+      payload: {
+        model: "gpt-image-2",
+        image: imageBlob,
+        prompt: prompt,
+        size: "1024x1536"
+      },
+      muteHttpExceptions: true
+    }
+  );
+
+  const status = response.getResponseCode();
+  const result = JSON.parse(response.getContentText());
+
+  if (status !== 200) {
+    throw new Error(
+      "画像生成APIエラー: " + response.getContentText()
+    );
+  }
+
+  // 4. 生成画像を取得
+  const imageData = Utilities.base64Decode(
+    result.data[0].b64_json
+  );
+
+  const generatedBlob = Utilities.newBlob(
+    imageData,
+    "image/png",
+    "aida_tarot_generated.png"
+  );
+
+  // 5. Google Driveに保存
+  const outputFolder = DriveApp.getFolderById(outputFolderId);
+  const savedFile = outputFolder.createFile(generatedBlob);
+
+  console.log("生成完了: " + savedFile.getUrl());
+
+  return savedFile.getUrl();
+}
+```
+
+※これはOpenAI APIを利用する別経路の実装案です。モデルの利用可否、画像サイズ、APIのリクエスト形式は実行前に確認が必要です。特に、原画の絵柄を完全保持できる保証はありません。
+
+## 3. 動作確認
+
+最初から自動実行にはしません。
+
+1. GASを手動実行。
+2. Driveから原画を取得できたか確認。
+3. APIが画像を受け付けたか確認。
+4. 生成画像がDriveに保存されたか確認。
+5. 原画と生成画像を比較して検収。
+
+## 4. 重要な分岐
+
+今回の構築で、次の2つは混同しないでください。
+
+| 項目 | GAS＋API | ChatGPT内の画像生成 |
+|---|---|---|
+| Driveから取得 | 可能 | 現在の接続では未成立 |
+| 原画を編集APIに渡す | 可能 | 別途取得経路が必要 |
+| GPTの会話内で生成 | しない | 可能 |
+| 自動化 | 可能 | 接続方法次第 |
+
+OpenAI APIの公式情報：[画像生成API・料金](https://platform.openai.com/pricing)
+
+**推奨は、まず今回のGASを原画取得のテストから始めること。**
+
+なお、今回の本来の担当であるChatGPT内の画像生成を維持するなら、GASからAPIに切り替える前に、ChatGPT側へ画像データを渡せる正式な接続方法を検証する必要がある。GASを作っただけで接続が完成したとは判定しない。
+
+---
+
+## MUSE照合メモ（原案には含まれない・2026-11-03 MUSE）
+
+1. サイズのズレ：原案コードは 1024x1536（2:3）。確定仕様は Instagramフィード 4:5・1080×1350（MUSE指定）。作る前に仕様側へ寄せる必要がある。API側で 1080×1350 が指定できるかも含めて実行前に確認。
+2. モデル名「gpt-image-2」は未検証。利用可否は実行前に公式で確認する。
+3. プロンプトは原案内のサンプル文のまま使わない。実際に渡す指示は Claude の下ごしらえ（results/aida_batch1_仕様と画像指示文案.md の 11/12 指示文案）を正とする。
+4. A案は「GPTの会話内で生成する」担当形そのものの変更（生成の実行経路がAPIパイプラインになる）。採用はNO3の決定事項。
+5. 前提：OPENAI_API_KEY が別途必要（スクリプトプロパティに保存。チャットには出さない）。第1段階の「Driveから原画取得のテスト」まではキーなしで実施できる。
+6. 保存先 OUTPUT_FOLDER_ID は、Drive「画像受け渡しフォルダ」（1vprhl1jptzTKDf4OYAWUdyV6Rz6BnRd0）を候補とする。

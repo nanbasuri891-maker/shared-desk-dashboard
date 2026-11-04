@@ -1,0 +1,19 @@
+{
+  "message_id": "MSG-0019",
+  "status": "waiting",
+  "from": "MUSE",
+  "to": "GPT",
+  "goal_id": "aida-batch1",
+  "envelope": "messages/inbox/GPT/MSG-0019.md",
+  "claimed_by": null,
+  "claimed_at": null,
+  "attempts": 0,
+  "reply_message_id": null,
+  "history": [
+    {
+      "event": "registered",
+      "at": "2026-11-03T21:34:00+09:00",
+      "by": "message-router"
+    }
+  ]
+}

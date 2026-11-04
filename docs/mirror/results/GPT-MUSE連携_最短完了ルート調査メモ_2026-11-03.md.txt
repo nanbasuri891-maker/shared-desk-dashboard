@@ -1,0 +1,46 @@
+# GPT–MUSE連携：最短完了ルート調査メモ（2026-11-03）
+
+## 結論
+最短ルートは、新しいGemini／Apps Script／別オーケストレーターを追加せず、既存のGitHubメッセージ基盤とMUSEのWatcherを使って、1回の制御された往復テストを通すこと。
+
+現状は「送信・登録」と「Routerの直列化」まで実績がある。MUSE側のreply分岐は実行条件に追記され、GPTの送信主体もMESSAGE_SCHEMAに明記された。ただし、変更後Watcherの実動作とGPTによる返信回収を含む往復テストは未実施。
+
+## 実測した現在地
+- ブランチ：ai/20261030-routing-goal（main未反映）
+- GPTからGitHubへのメッセージ登録実績：MSG-0003、MSG-0008、MSG-0009、MSG-0010
+- MSG-0008／0009／0010：blocked。返信ファイルなし
+- messages/MESSAGE_SCHEMA.md：GPTを送信主体として明記済み
+- specs/メッセージwatcher_実行条件.md：replyを新規依頼にしない、reply_required=falseへの返信禁止、reply_to不備はblocked、重複処理防止を追記済み
+- .github/workflows/message-router.yml：同一refのconcurrency queue maxを設定済み
+- 変更後Routerの単独実行：successを確認済み。複数同時実行の負荷テストは未実施
+- MUSEのWatcher実行ジョブは、NO3の停止指示により停止中。変更後Watcherの実動作は未確認
+- GPTの返信取得は、会話が動いている間にGPTがGitHubを読みに行く方式。ChatGPTのこの会話自体がGitHubイベントで自動起動する仕組みはない
+
+## 最短の実行手順
+1. MUSEのWatcherを、NO3の明示的な再開指示に基づいて一度だけ実行する。常時再開ではなく、テスト対象を限定した単発実行とする。
+2. テスト対象は、GPTからMUSE宛ての新規requestを1件だけ使用する。既存のblockedメッセージは再利用しない（過去の失敗履歴と混ぜない）。
+3. MUSEはrequestをclaimし、本文に指定された確認文字列を返信し、status／reply envelope／実行ログをGitHubに記録する。
+4. GPTはGitHub正本からstatus JSON、replyファイル、実行ログを直接取得し、確認文字列・reply_to・状態遷移を照合する。
+5. 返信をWatcherの対象に再投入しても、新規requestとしてclaimせず、追加返信も生成しないことを確認する。
+6. 成功したら、送信ID、claim時刻、返信ファイル、状態JSON、commit SHA、テスト結果をまとめて完了報告する。
+
+## この方式を選ぶ理由
+- 既存の接続と書き込み実績を再利用できる。
+- 追加のAPIキー、別サービス、認証設定が不要。
+- 今回の不具合に直結するWatcherのreply分岐を、実際のメッセージで検証できる。
+- 既存の設計（30分ごとの非同期Watcher）を変えずに最初の往復を成立させられる。
+
+## 残る制約と将来案
+ChatGPTの会話席は、GitHubのpushを受けて自動で起動したり、会話が閉じている間に自律ポーリングしたりできない。したがって、今回の既存方式で実証できるのは「人間がメッセージを転記せず、GPTがGitHubから自分で送信・回収する非同期連携」であり、完全無人の常時ループではない。
+
+完全無人化が必要になった段階では、GitHub Actions等を起動役にし、OpenAI APIを呼び出す別の実行環境を設ける必要がある。その場合のGPTは、このChatGPT会話席そのものではなく、実行環境が必要な文脈・仕様を渡すAPIエージェントになる。APIキーの安全な保管、実行履歴、重複防止、費用上限を別途設計する必要がある。初回の連携実証より先に追加するのは遠回り。
+
+## 推奨
+まず既存方式で単発往復を成立させる。Gemini／Apps Script／APIエージェント化は初回の成功後に判断する。現時点で完了扱いにはしない。
+
+## 公式技術資料
+- GitHub Actions concurrency queue: https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency
+- GitHub workflow_dispatch: https://docs.github.com/en/rest/actions/workflows
+- Apps Script time-driven triggers: https://developers.google.com/apps-script/guides/triggers/installable
+- OpenAI API background mode: https://developers.openai.com/api/docs/guides/background
+- OpenAI API async tool calling: https://developers.openai.com/api/docs/guides/async-tool-calling

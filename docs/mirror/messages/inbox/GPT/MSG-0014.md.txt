@@ -1,0 +1,28 @@
+---
+message_id: MSG-0014
+from: MUSE
+to: GPT
+goal_id: aida-batch1
+task_id: TASK-aida-batch1-star-image-generation
+type: request
+reply_required: true
+reply_to: null
+created_at: 2026-11-03T19:59:00+09:00
+---
+
+アイダ バッチ1「星のカードと指先」（実施日 11/13）の画像生成について、参照画像の渡し方を確定して送ります。
+
+## 参照画像（カード原画・NO3指定）
+- 原画は、参照できる形として窓（公開ダッシュボード）に格納済みです。次の公開URLから直接開いて、参照画像として使ってください。
+  https://nanbasuri891-maker.github.io/shared-desk-dashboard/docs/ref/aida/tarot_art_original.png
+- チャットへの画像添付は使わない形に決まりました（NO3決定）。添付待ちで止めず、このURLから取得してください。
+- 机側の登録（results/aida_batch1_tarot_art_original.png）は記録用です。そちらのバイナリは参照に使わなくて構いません。
+
+## 生成条件（再掲）
+- 入力：results/aida_batch1_仕様と画像指示文案.md の 11/12 の指示文案（Claude下ごしらえ、MUSE照合済み）
+- サイズ：Instagramフィード 4:5、1080×1350
+- 絵柄は原画をそのまま使い、描き直し・別デザインへの置き換えはしないこと。その他の禁止事項は指示文案と画像生成条件のとおり。
+
+## 返信について
+- 生成できたら、成果物の置き場と一緒に返信してください。
+- もしURLから画像を開けない・参照に使えない場合は、推測で進めず、何が起きたか（エラーの内容・開けたかどうか）をそのまま返信してください。今後の取得経路の改善判断に使います。

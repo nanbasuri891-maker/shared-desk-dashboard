@@ -1,0 +1,114 @@
+# GPT–MUSE連携：GitHub／Google Apps Script 並行実装設計（2026-11-03）
+
+## 目的
+
+GPT–MUSE間の最初の往復を成立させ、その後Grok・Claude・Geminiを含む複数エージェントへ接続を拡張できる共通通信基盤を用意する。
+GitHubルートの検証を止めず、Google Apps Script（GAS）とGoogle Sheetsを使う代替・補助ルートも並行して検証する。
+
+## 現在確認できている事実
+
+### GitHubルート
+- 作業ブランチは `ai/20261030-routing-goal`。mainには未反映。
+- GPTからGitHub inboxへのメッセージ登録実績がある（MSG-0003／0008／0009／0010／0012）。
+- `messages/MESSAGE_SCHEMA.md` はGPTを送信主体として認める一方、受信側のclaim・処理・状態遷移は受信側に限定している。
+- Routerの同一ref実行直列化は実装済み。単独実行成功を確認済み。並列負荷テストは未実施。
+- MUSE WatcherはNO3の停止指示により停止中。再開許可としてMSG-0012を扱わない。MSG-0011は受信済みで凍結状態。
+- ChatGPTの会話席はGitHub pushで自動起動しない。GPTによる返信回収は、会話が動いている間にGPTがGitHubを読み取る方式。
+- 現在の通信スキーマには、承認の出所・承認者・対象・範囲を機械検証する専用フィールドがない。I-006の修正案は未承認・未反映。
+
+### Googleルート（公式資料で確認）
+- GAS Webアプリは `doPost(e)` でHTTP POSTを受信できる。
+- GASの時間主導型トリガーは最短1分間隔で設定できる。ただし起動時刻は多少変動する。
+- GASからGoogle Sheetsへ行追加できる。Sheets APIには `spreadsheets.values.append` がある。
+- Gemini API Function Callingは、モデルが呼び出す関数名と引数を構造化して返す仕組み。関数の実処理は呼び出し側アプリケーションが担当する。
+- GASの実行にはアカウント認証・OAuth権限が関係する。時間主導型トリガーは作成者アカウントで動作する。
+- GASの代表的な制限：1実行6分、トリガー数はユーザー／スクリプトあたり20、トリガー総実行時間は一般アカウント90分／日・Workspace 6時間／日。割当は変更される可能性がある。
+
+## 2ルートの役割
+
+| 項目 | GitHubルート | Google GASルート |
+|---|---|---|
+| 正本 | GitHub messages／status／成果物 | 正本にはしない。監視・ログ・補助キュー |
+| 起動 | GitHub Actions／MUSE Watcher | GAS時間主導型トリガー、またはWebアプリPOST |
+| 通信 | inbox／replies／status | HTTP受信・GitHub API取得・Sheets記録 |
+| ログ | GitHub status／実行ログ | Google Sheetsに時系列記録 |
+| 重複防止 | message_id、claim、reply_to | message_id一意キー、処理済み記録、LockService等 |
+| エージェント実行 | 受信側Watcher／各エージェント実行環境 | Gemini API等の実行環境を別途呼び出す |
+| 常時性 | ChatGPT会話席は自動起動しない | GASトリガーによる定期実行。厳密な即時性は保証しない |
+
+## 推奨構成：GitHubを正本、GASを中継・監視・ログ基盤にする
+
+GitHubとGoogleに別々のメッセージ正本を作ると、状態の二重管理・不一致・重複処理が起きる。したがって、メッセージとGOALの正本はGitHubに一本化する。
+
+GASは以下を担当する。
+1. GitHub inbox／statusを定期確認する。
+2. 新規メッセージをmessage_id単位で検出する。
+3. 受信・処理・返信・blockedなどのイベントをGoogle Sheetsへ追記する。
+4. 必要に応じてGitHub APIを通じて起動要求を出す。
+5. エラー・再試行・処理時間を記録し、ダッシュボードで監視できるデータを提供する。
+
+各エージェントのLLM実行は、そのエージェントに実行可能なAPIまたは稼働中のランタイムがある場合に限る。GAS自体がChatGPTやGeminiのブラウザ会話を遠隔操作するわけではない。
+
+## Geminiの位置づけ
+
+Geminiをブラウザで待機させる方式と、Gemini APIをGAS等の実行環境から呼ぶ方式を区別する。
+
+- ブラウザ待機：人が開いているGemini画面に依存する。無人実行の中継役にはしない。
+- Gemini API：GAS等からAPIを呼び出し、入力文脈とFunction Declarationを渡せる。APIキー・課金・利用制限・実行ログの管理が必要。
+- GAS＋Sheets：Gemini APIを使わなくても、GitHubの状態監視とログ蓄積だけ先に実装できる。
+
+したがってGeminiの待機状態を前提条件にせず、まずGASによるGitHub監視とSheetsログを独立して成立させる。その後、Gemini API接続をエージェント追加工程として接続する。
+
+## セキュリティ・権限条件
+
+- GitHubトークンやGemini APIキーをソースコード・スプレッドシート本文に直接書かない。GAS Script Properties等の保管領域を使う。
+- トークンは必要最小権限に限定する。読み取り、メッセージ登録、workflow起動の権限を分ける。
+- GAS Webアプリを公開する場合、呼び出し元の検証を必須とする。公開URLを秘密鍵の代わりにしない。
+- 受信データは未信頼入力として扱い、JSON形式・送信者・message_id・GOAL/task・承認状態を検証する。
+- Sheetsは監査ログであり、GitHubのstatusを上書きする権限を持たせない。
+- 承認の出所が検証できない停止解除・権限変更は実行しない。I-006の修正が承認・反映されるまでは、現行の承認境界を維持する。
+
+## 段階別実装と受入条件
+
+### Stage 1：既存GitHubルートの単発往復
+- 前提：NO3からMUSEへのWatcher単発実行の明示的指示が必要。現在Watcher停止中のため未実施。
+- 新規のGPT→MUSE requestを1件だけ使う。MSG-0011／MSG-0012はテスト再利用しない。
+- MUSEのclaim、返信、status遷移、GPTによる返信取得を検証する。
+- 受入条件：message_id／reply_to／確認文字列／status／commit SHAが一致し、返信の二重処理がない。
+
+### Stage 2：GAS監視＋Sheetsログの最小実証
+- GitHubを読み取るGASプロジェクトを作成。
+- 時間主導型トリガーでGitHub statusとinboxを取得する。
+- 新しいmessage_idだけをSheetsに追記する。
+- 同じmessage_idを再取得しても行が重複しないことを確認する。
+- 受入条件：GitHub上のイベントとSheetsログが照合でき、二重記録がない。GitHubの正本状態を変更しない。
+- この段階ではWatcher再開もエージェントへの自動実行も行わない。
+
+### Stage 3：通知／起動ブリッジ
+- GitHub ActionsからGAS Webアプリへ通知する方式、またはGASポーリング方式を比較して採用する。
+- Webhook方式は認証・再送・失敗時の回復を実装できる場合のみ採用する。
+- 受入条件：通知欠落時の再取得、重複通知の排除、失敗ログ、再試行上限が確認できる。
+
+### Stage 4：エージェント実行アダプター
+- MUSE／Grok／Claude／Geminiそれぞれについて、実行可能なAPI・ランタイム・認証・入力形式を確認する。
+- 共通メッセージ封筒を各エージェント固有のAPI入力へ変換する。
+- 応答を共通reply形式へ戻し、GitHub正本へ記録する。
+- 受入条件：エージェントごとに送信元・実行モデル・実行時刻・出力・エラーを追跡できる。
+
+## 現時点の判断
+
+- GitHubルートは既存資産を使う最短の初回往復ルートとして維持する。
+- GASルートは待機中のGemini画面に依存せず、監視・ログ・通知・将来のAPI実行を担う補助基盤として並行検証する。
+- Sheetsを第二の正本にはしない。
+- GASのログ実証はWatcher再開とは独立して実施可能。
+- ただし、Googleアカウント／GASプロジェクト／スプレッドシートへのアクセス権はこの調査環境から確認できていない。Google側の実環境接続・デプロイは未実施。
+- Watcherの再開、MSG-0011の再処理、MSG-0012の実行は行っていない。
+
+## 公式資料
+- Apps Script Web Apps: https://developers.google.com/apps-script/guides/web
+- Installable Triggers: https://developers.google.com/apps-script/guides/triggers/installable
+- Apps Script Quotas: https://developers.google.com/apps-script/guides/services/quotas
+- Apps Script API execute: https://developers.google.com/apps-script/api/how-tos/execute
+- Google Sheets append: https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets.values/append
+- Gemini Function Calling: https://ai.google.dev/gemini-api/docs/function-calling
+- GitHub workflow events: https://docs.github.com/ja/actions/reference/workflows-and-actions/events-that-trigger-workflows

@@ -1,0 +1,36 @@
+{
+  "schema_version": "0.2",
+  "task_id": "AIDA-WEEK1-CLAUDE-20261104",
+  "created_at": "2026-11-04T14:20:38+09:00",
+  "source_agent": "MUSE",
+  "target_agent": "claude",
+  "task_type": "design",
+  "input": {
+    "note": "アイダ第1週の残り6本の設計分担。設計対象は第1号「視座」の下ごしらえ1件（既存依頼の再発行＋基準同梱）。",
+    "instruction": "source_refs を読み、第1号の下ごしらえを実行して指定の置き場に置く。入力にない条件は補完せず、要判断に分ける。"
+  },
+  "source_refs": [
+    {
+      "path": "goals/meta-routing/REQUEST_to_claude_aida_week1_rest_2026-11-04.md"
+    },
+    {
+      "path": "goals/meta-routing/REQUEST_to_claude_aida_no1_2026-11-02.md"
+    },
+    {
+      "path": "goals/aida/GOAL.md"
+    },
+    {
+      "path": "goals/aida/current_state.md"
+    },
+    {
+      "path": "specs/検収基準_アイダ画像.md"
+    },
+    {
+      "path": "specs/生成条件_アイダ画像.md"
+    }
+  ],
+  "expected_output": {
+    "format": "markdown",
+    "path": "results/aida_no1_視座_下ごしらえ_2026-11-02.md"
+  }
+}

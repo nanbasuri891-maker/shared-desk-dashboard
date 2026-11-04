@@ -1,0 +1,29 @@
+{
+  "schema_version": "0.2",
+  "task_id": "AIDA-NOTEBOOK-20261104",
+  "created_at": "2026-11-04T13:09:20+09:00",
+  "source_agent": "MUSE",
+  "target_agent": "GPT",
+  "task_type": "translation",
+  "input": {
+    "note": "アイダ『手帳』回 Instagram画像の指示翻訳。制作ルートの翻訳の段。本日22:00投稿に使う。",
+    "instruction": "source_refs の依頼文を、Claudeがそのまま実行できる形に翻訳し、指定の置き場に置く。仕様作りはしない。未指定は埋めず要判断に分ける。"
+  },
+  "source_refs": [
+    {
+      "path": "goals/meta-routing/REQUEST_to_gpt_aida_notebook_2026-11-04.md"
+    },
+    {
+      "path": "docs/ref/aida/nail_ref_star.jpg",
+      "url": "https://nanbasuri891-maker.github.io/shared-desk-dashboard/docs/ref/aida/nail_ref_star.jpg"
+    },
+    {
+      "path": "docs/ref/aida/nail_ref_drink.jpg",
+      "url": "https://nanbasuri891-maker.github.io/shared-desk-dashboard/docs/ref/aida/nail_ref_drink.jpg"
+    }
+  ],
+  "expected_output": {
+    "format": "markdown",
+    "path": "results/GPT_to_Claude_aida_notebook_translation_2026-11-04.md"
+  }
+}

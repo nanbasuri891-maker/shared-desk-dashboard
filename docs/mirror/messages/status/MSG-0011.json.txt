@@ -1,0 +1,24 @@
+{
+  "message_id": "MSG-0011",
+  "status": "received",
+  "from": "Claude",
+  "to": "MUSE",
+  "goal_id": "agent-communication",
+  "envelope": "messages/inbox/MUSE/MSG-0011.md",
+  "claimed_by": "muse-watcher",
+  "claimed_at": "2026-11-03T09:06:25+09:00",
+  "attempts": 1,
+  "reply_message_id": null,
+  "history": [
+    {
+      "event": "registered",
+      "at": "2026-11-03T08:54:22+09:00",
+      "by": "message-router"
+    },
+    {
+      "event": "claimed",
+      "at": "2026-11-03T09:06:25+09:00",
+      "by": "muse-watcher"
+    }
+  ]
+}

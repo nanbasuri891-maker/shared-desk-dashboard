@@ -1,0 +1,14 @@
+# task-YYYYMMDD-NNN
+
+- media:
+- stage_estimate:
+- confidence:
+- needs_human_review:
+- source: （原文パスまたは引用）
+- created:
+
+## body
+（投稿案・分析結果の本文）
+
+## notes
+（任意。生成時の補足）

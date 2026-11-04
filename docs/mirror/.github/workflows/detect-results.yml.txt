@@ -1,0 +1,22 @@
+name: detect-results
+on:
+  push:
+    branches:
+      - 'ai/**'
+    paths:
+      - 'results/**'
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: POST changed results files to MUSE receiver
+        env:
+          WEBHOOK_URL: ${{ vars.MUSE_RESULTS_WEBHOOK_URL }}
+        run: |
+          if [ -z "$WEBHOOK_URL" ]; then
+            echo "MUSE_RESULTS_WEBHOOK_URL is not set. Skipping."
+            exit 0
+          fi
+          FILES=$(jq -c '[.commits[] | (.added + .modified)[] | select(startswith("results/"))] | unique' "$GITHUB_EVENT_PATH")
+          jq -n --arg sha "$GITHUB_SHA" --argjson files "$FILES" '{sha: $sha, files: $files}' > /tmp/payload.json
+          curl -sS -X POST "$WEBHOOK_URL" -H 'Content-Type: application/json' --data @/tmp/payload.json

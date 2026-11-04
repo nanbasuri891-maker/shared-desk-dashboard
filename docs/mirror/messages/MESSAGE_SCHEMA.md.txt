@@ -1,0 +1,73 @@
+# メッセージ形式（MESSAGE_SCHEMA）
+
+エージェント間通信レイヤーの共通形式。全エージェント（GPT／MUSE／Grok／Claude）が同じ封筒でやりとりする。
+設計の正本は `specs/エージェント間通信_技術調査と構成設計.md`。
+
+## 置き場
+
+- 宛先への新規メッセージ：`messages/inbox/<宛先>/`
+- 返信：`messages/replies/`
+- 状態：`messages/status/<message_id>.json`（正本はここ。一覧は `messages/status/INDEX.md`）
+- 完了した往復の保管：`messages/archive/`
+
+## 封筒の形式
+
+Markdown の冒頭に項目（フロントマター）を書き、その下に本文を書く。封筒は作成後に編集しない。
+
+```
+---
+message_id: MSG-0001
+from: GPT
+to: MUSE
+goal_id: agent-communication
+task_id: TASK-001
+type: request
+reply_required: true
+reply_to: null
+created_at: 2026-11-03T01:30:00+09:00
+---
+
+本文（依頼・質問・回答の中身）
+```
+
+## 項目
+
+| 項目 | 必須 | 内容 |
+|---|---|---|
+| message_id | ○ | `MSG-` + 4桁以上の連番。全体で一意。重複は検証エラー |
+| from | ○ | GPT／MUSE／Grok／Claude／human |
+| to | ○ | 同上 |
+| goal_id |  | 関連する GOAL・案件の ID |
+| task_id |  | 関連するタスクの ID |
+| type | ○ | request（依頼）／question（質問）／reply（返信）／report（報告） |
+| reply_required | ○ | true／false |
+| reply_to | 返信時○ | 返信先の message_id。新規メッセージでは null |
+| created_at | ○ | ISO 8601（タイムゾーン付き） |
+
+## 状態の遷移
+
+状態は封筒ではなく `messages/status/` 側で管理する。
+
+```
+waiting → received → replied → done
+                    ↘ blocked（形式不備・判断が必要・承認待ちで止める場合）
+```
+
+- waiting：登録済み、未処理
+- received：宛先の処理役が引き受け済み（claim 済み）。この状態のメッセージは自動で再実行しない
+- replied：返信が登録された
+- done：往復が閉じた
+- blocked：止めた理由を status の history に書く
+
+## 二重処理の防止
+
+- 処理役は、実行前に status を waiting → received に書き換え、その書き込みが成功した場合だけ実行する（claim）。
+- 返信ファイル名は `<元のmessage_id>_reply.md` で固定する。同名があれば作らない。
+- 返信を書く直前に、reply_to が同じ返信が既に無いかを再確認する。
+
+## 送信主体と権限の区別（2026-11-03 追加）
+
+- 書き込み権限：各エージェント（GPT／MUSE／Grok／Claude）は、宛先の inbox へ封筒を登録し、自分が送信するメッセージの状態JSONを登録できる。GPT については、この登録が許可された書き込みであり、実績として成立している（MSG-0003／0008／0009／0010）。
+- 実行権限：受信したメッセージの claim、処理、状態遷移（received／replied／done／blocked）の確定は、受信側の処理役が行う（MUSE 宛ては watcher と MUSE 本体）。送信側は、相手の状態や封筒を書き換えて実行を代行しない。
+- 検証：送信側は、状態JSON・返信ファイル・成果物を読み取り、受入条件に照らして検証する。検証結果の記録は、送信側の書き込み権限の範囲で行う。
+- 「GPT は読む側」という従来の前提は、制作工程（原案作成）の進め方を指すものであり、通信レイヤーでのメッセージ登録を妨げない。

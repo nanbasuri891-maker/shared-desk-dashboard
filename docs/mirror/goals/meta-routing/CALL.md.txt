@@ -1,0 +1,5 @@
+# CALL
+
+状態: なし
+
+（Claude への呼びかけはここに記録する。書式: LOOK / date: YYYY-MM-DD HH:MM / scope: 何を見てほしいか。Claude は開かれたときにまずこのファイルを確認する。自動起動はしない。）

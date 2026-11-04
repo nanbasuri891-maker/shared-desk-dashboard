@@ -1,0 +1,53 @@
+# メッセージ watcher 実行条件（2026-11-03）
+
+位置づけ：エージェント間通信レイヤーで MUSE がメッセージを受信する実体。初期テスト用の条件をここに固定する。
+対象はメッセージの受信・返信に限る。タスク状態の遷移（`specs/自動化_watcher仕様.md`）とは分けて運用する。
+
+## 1. 実行間隔
+
+- 30分ごと（MUSE の定期実行）。即時受信ではない。宛先が次に机を見るタイミングで届く非同期が前提。
+
+## 2. 監視対象のブランチ・フォルダ
+
+- リポジトリ：shared-ai-workspace
+- ブランチ：`ai/20261030-routing-goal` のみ（main には書かない）
+- 読むもの：`messages/status/*.json`（状態）、自宛ての封筒（各状態JSONの envelope 項目のファイル。`messages/inbox/MUSE/` と `messages/replies/` の両方がありうる）、`messages/replies/*.md`（重複確認）
+- 書くもの：`messages/status/<message_id>.json`（自宛て分の状態遷移）、`messages/replies/*.md`（返信の新規作成）、`results/message_watcher_log.md`（処理と異常の記録）
+- 書かないもの：tasks/、specs/、governance/、既存の封筒、その他すべての既存ファイル
+
+## 3. 認証・アクセス権限
+
+- GitHub への接続は、既存の GitHub 接続（カスタムコネクタ）のトークンを使う。新しい認証情報は作らない。
+- 権限の範囲は現行どおり（対象リポジトリの Contents 読み書き＋Workflows）。この watcher のために権限を広げない。
+
+## 4. 二重処理の防止
+
+- 処理の単位は message_id。実行前に状態を waiting → received に書き換え（claim）、その書き込みが成功した場合だけ実行する。書き込みが競合・失敗したら、そのメッセージには触らない。
+- 実行前に `messages/replies/` を確認し、reply_to が同じ返信が既にあれば実行しない。
+- 返信ファイル名は `<message_id>_reply.md` で固定し、同名があれば作らない。返信を書く直前にも重複を再確認する。
+- claim 済み（received）のまま60分を超えたメッセージは、自動で再実行しない。要確認として報告し、waiting への戻しは人間（NO3／MUSE の手動操作）だけが行う。これにより、途中停止した処理の二重実行を防ぐ。
+
+## 5. エラー時の再試行・停止条件
+
+- GitHub への接続に失敗した回は、状態を何も変えずに終了し、次回に持ち越す。失敗は `results/message_watcher_log.md` に記録する。接続失敗が3回続いたら、NO3 への報告で明示する。
+- 封筒の形式が不正なメッセージは実行せず、blocked にして理由を状態の history に残す。
+- 公開・外部送信・支払い・削除・NO3 の承認が要る内容は、watcher では実行しない。blocked にして理由を残し、NO3 に報告する。
+- 1回の実行で処理するのは最大3件まで（古い順）。
+
+## 6. 手動停止方法
+
+- 一時停止：MUSE が定期実行ジョブ「muse-message-watcher」を無効化する（NO3 の指示で即時）。
+- 完全停止：同ジョブを削除する。
+- 実行中の停止：同ジョブの実行中ランを止める。
+- どの方法でも、机に置かれたメッセージと状態は消えない（再開すれば続きから処理できる）。
+
+## 7. reply の扱い（2026-11-03 追加。MSG-0008 の修正）
+
+- type が reply のメッセージは、新規の依頼として処理しない。返信の受信処理として分岐する。
+- reply に対して返信ファイルを自動生成しない（返信が返信を呼ぶループの禁止）。
+- reply_required が false の reply：reply_to の参照先を確認し、受領を `results/message_watcher_log.md` に記録して、状態を done にする（history に reply_received）。元メッセージとの対応（reply_message_id）は状態JSONで確認し、食い違いは推測で直さずログに残す。
+- reply_required が true の reply：追加応答の業務ルールが定義されるまで自動返信せず、blocked にして理由を history に残す。
+- reply_to が欠落・不正・参照先不明の reply：blocked にし、理由を history に残す。推測で補完しない。
+- type が report のメッセージ：内容を記録し、返信の要否は reply_required に従う。
+- request / question の処理は従来どおり。
+- 同じ入力への重複実行で、返信や状態を重複生成しない（claim 済み・done・blocked は再処理しない）。

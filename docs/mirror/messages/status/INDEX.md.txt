@@ -1,0 +1,31 @@
+# メッセージ状態一覧（message-router が自動生成）
+
+## ゲート（MUSE_STATUS）
+
+- ステージ: 素材待ち
+- ゲート未開放: NO3が素材を渡したら「翻訳中」へ
+
+| message_id | from → to | type | goal | 状態 | 返信 | 封筒 |
+|---|---|---|---|---|---|---|
+| MSG-0001 | MUSE → GPT | request | agent-communication | waiting | - | messages/inbox/GPT/MSG-0001.md |
+| MSG-0002 | MUSE → GPT | request | agent-communication | waiting | - | messages/inbox/GPT/MSG-0002.md |
+| MSG-0003 | GPT → MUSE | question | agent-communication | replied | MSG-0004 | messages/inbox/MUSE/MSG-0003.md |
+| MSG-0004 | MUSE → GPT | reply | agent-communication | waiting | - | messages/replies/MSG-0003_reply.md |
+| MSG-0005 | MUSE → Claude | request | agent-communication | replied | MSG-0006 | messages/inbox/Claude/MSG-0005.md |
+| MSG-0006 | Claude → MUSE | reply | agent-communication | replied | MSG-0007 | messages/replies/MSG-0005_reply.md |
+| MSG-0007 | MUSE → Claude | reply | agent-communication | waiting | - | messages/replies/MSG-0006_reply.md |
+| MSG-0008 | GPT → MUSE | request | agent-communication | blocked | - | messages/inbox/MUSE/MSG-0008.md |
+| MSG-0009 | GPT → MUSE | request | agent-communication | blocked | - | messages/inbox/MUSE/MSG-0009.md |
+| MSG-0010 | GPT → MUSE | request | agent-communication | blocked | - | messages/inbox/MUSE/MSG-0010.md |
+| MSG-0011 | Claude → MUSE | question | agent-communication | received | - | messages/inbox/MUSE/MSG-0011.md |
+| MSG-0012 | GPT → MUSE | request | agent-communication | waiting | - | messages/inbox/MUSE/MSG-0012.md |
+| MSG-0013 | GPT → MUSE | request | agent-communication | waiting | - | messages/inbox/MUSE/MSG-0013.md |
+| MSG-0014 | MUSE → GPT | request | aida-batch1 | waiting | - | messages/inbox/GPT/MSG-0014.md |
+| MSG-0015 | MUSE → GPT | request | aida-batch1 | waiting | - | messages/inbox/GPT/MSG-0015.md |
+| MSG-0016 | MUSE → GPT | request | aida-batch1 | waiting | - | messages/inbox/GPT/MSG-0016.md |
+| MSG-0017 | MUSE → GPT | request | aida-batch1 | waiting | - | messages/inbox/GPT/MSG-0017.md |
+| MSG-0018 | MUSE → GPT | request | aida-batch1 | waiting | - | messages/inbox/GPT/MSG-0018.md |
+| MSG-0019 | MUSE → GPT | report | aida-batch1 | waiting | - | messages/inbox/GPT/MSG-0019.md |
+| MSG-0020 | MUSE → Grok | request | meta-routing | waiting | - | messages/inbox/Grok/MSG-0020.md |
+
+検証結果：問題なし

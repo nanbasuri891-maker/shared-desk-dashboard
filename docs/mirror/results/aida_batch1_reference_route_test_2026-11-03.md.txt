@@ -1,0 +1,72 @@
+# アイダ バッチ1 参照画像取得経路テスト（2026-11-03）
+
+## 対象指示
+- MSG-0015（MUSE、2026-11-03 20:05 JST）
+- 対象画像：11/12「星のカードと指先」
+- 試験順：経路A → 経路C
+- 判定条件：原画そのものを参照画像として開けた場合のみ生成。推測再現は禁止。
+
+## 実行結果
+
+### 経路A：ダッシュボード表示ページ
+対象URL：
+https://nanbasuri891-maker.github.io/shared-desk-dashboard/docs/ref/aida/tarot_art_original.html
+
+- Webページを開く試行：失敗。ツール応答は `Failed to fetch ...: DisabledError`。
+- 実行環境からのHTTP取得：失敗。実エラーは `URLError: <urlopen error [Errno -3] Temporary failure in name resolution>`。
+- GitHub接続でHTMLソースを取得：成功。
+- 取得したHTMLの内容確認：`<img src="./tarot_art_original.png" ...>` となっており、画像データをHTML内に埋め込んだ形式ではなく、相対パスのPNGを参照している。
+- 同じGitHub接続でPNGをbase64指定取得：応答のencodingは `base64`、contentは空文字（0文字）。画像データは取得できなかった。
+
+判定：ページソースは取得できたが、原画画像そのものは開けず、画像生成の参照には使用できない。
+
+### 経路C：Google Drive
+表示URL：
+https://drive.google.com/file/d/14e2rLaWb1eYPSzSulY1tMEIwq-1N50xv/view?usp=drivesdk
+
+直接表示URL：
+https://drive.google.com/uc?export=view&id=14e2rLaWb1eYPSzSulY1tMEIwq-1N50xv
+
+- 表示URLを開く試行：失敗。ツール応答は `URL ... is not accessible via this tool.`。
+- 直接表示URLを開く試行：失敗。同じく `URL ... is not accessible via this tool.`。
+- 実行環境からの両URLのHTTP取得：失敗。実エラーは `URLError: <urlopen error [Errno -3] Temporary failure in name resolution>`。
+- 利用可能な接続ツール一覧に、Google Driveから画像バイナリを取得するコネクタ操作は見つからなかった。
+
+判定：原画画像そのものは開けず、画像生成の参照には使用できない。
+
+## 生成判定
+- 経路A・Cとも原画の参照画像取得に至らなかった。
+- 指示どおり、絵柄を推測して再現する生成は行っていない。
+- 「星のカードと指先」の画像生成は未実行。
+
+## 確認できた制約
+経路AはHTMLソースを取得できたが、HTML内に画像データは埋め込まれておらず、参照先PNGのバイナリ取得が空応答となった。経路Cはこの実行環境のWeb取得・ネットワーク経路でアクセスできなかった。
+
+
+## 追加試験：MSG-0017／GPT自身によるGoogle Drive接続（2026-11-03 21:12 JST）
+
+### 指示
+- folder id: `1vprhl1jptzTKDf4OYAWUdyV6Rz6BnRd0`
+- file id: `14e2rLaWb1eYPSzSulY1tMEIwq-1N50xv`
+- GPT自身のDrive接続で原画を取得し、画像として取り込めたら生成する。
+- 人間によるチャット添付は禁止。
+
+### 実行確認
+- 利用可能な接続・プラグイン一覧にGoogle Driveのファイル取得操作は存在しなかった。
+- Plugin DirectoryでGoogle Drive連携を検索した結果：
+  - plugin: `google-drive`
+  - status: `DISABLED_BY_ADMIN`
+  - installation_policy: `NOT_AVAILABLE`
+  - installed: `false`
+- したがって、このGPT実行環境ではGoogle Drive接続を追加・認証して自分で閲覧権限を得ることができない。
+- Driveの共有設定が「リンクを知っている全員」になっているかどうかとは別の制約。共有設定はGPTにDriveコネクタ機能を付与しない。
+
+### 結果
+- フォルダ一覧取得：未実行（接続機能なし）
+- 指定ファイルの画像バイナリ取得：未実行（接続機能なし）
+- 画像生成への参照画像取り込み：未成立
+- 画像生成：未実行
+- 推測による原画再現：実施せず
+
+### 判定
+MSG-0017の指定どおり、実物のエラー・制約を報告する。今回の阻害要因はファイルIDやDrive共有設定ではなく、Google Driveコネクタが管理者によって無効化され、利用可能なインストール経路もないこと。

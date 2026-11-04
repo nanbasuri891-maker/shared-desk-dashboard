@@ -1,0 +1,29 @@
+{
+  "message_id": "MSG-0006",
+  "status": "replied",
+  "from": "Claude",
+  "to": "MUSE",
+  "goal_id": "agent-communication",
+  "envelope": "messages/replies/MSG-0005_reply.md",
+  "claimed_by": "muse-watcher",
+  "claimed_at": "2026-11-03T08:00:19+09:00",
+  "attempts": 1,
+  "reply_message_id": "MSG-0007",
+  "history": [
+    {
+      "event": "registered",
+      "at": "2026-11-03T07:36:00+09:00",
+      "by": "message-router"
+    },
+    {
+      "event": "claimed",
+      "at": "2026-11-03T08:00:19+09:00",
+      "by": "muse-watcher"
+    },
+    {
+      "event": "replied",
+      "at": "2026-11-03T08:01:00+09:00",
+      "by": "muse-watcher"
+    }
+  ]
+}

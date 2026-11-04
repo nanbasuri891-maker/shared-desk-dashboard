@@ -1,0 +1,180 @@
+# GPT–MUSE連携提案：実測診断・実装結果（2026-11-03）
+
+## 結論
+
+提案のうち、GitHub側の競合原因をログで特定し、message-routerの同時実行を直列化する変更を作業ブランチに反映した。一方、MUSEの30分定期Watcher本体はこのリポジトリ内に実装コードがなく、現在のWatcher実行条件では仕様・コード変更が禁止されているため、返信誤処理の修正とGPT–MUSE双方向ループのエンドツーエンド完了は未達。未達を完了扱いしない。
+
+Geminiの役割は決定していない。本件の初期解決にGeminiを統括役・監視役として追加する必要性は、現状の実測からは確認できない。
+
+## 1. 実測した現状
+
+対象リポジトリ：`nanbasuri891-maker/shared-ai-workspace`
+対象ブランチ：`ai/20261030-routing-goal`
+mainへの変更・マージ：なし
+
+### 1.1 MSG-0008〜0010
+
+GitHub正本のstatus JSONを直接取得した結果：
+
+| ID | 現在状態 | attempts | claim | reply |
+|---|---|---:|---|---|
+| MSG-0008 | blocked | 1 | muse-watcher | なし |
+| MSG-0009 | blocked | 1 | muse-watcher | なし |
+| MSG-0010 | blocked | 1 | muse-watcher | なし |
+
+3件ともWatcherにclaimされた後、Watcherの実行許可範囲外としてblockedになっている。返信ファイルは存在しない。状態の正本は各JSONであり、INDEXにも3件ともblockedと表示されている。
+
+MSG-0008のblocked理由には、Watcherが書き込める範囲が `messages/status` の自宛て状態、`messages/replies`、`results/message_watcher_log.md` に限定され、Watcher自身の修正、specs変更、INDEX再生成は範囲外であること、仕様変更はNO3承認が必要であることが記録されている。
+
+### 1.2 返信誤処理は実際に発生
+
+MSG-0005へのClaude返信MSG-0006は、`type: reply`、`reply_required: false`、`reply_to: MSG-0005` である。
+
+それにもかかわらず、MUSE watcherはMSG-0006をclaimし、MSG-0007を作成した。MSG-0007も `type: reply`、`reply_required: false` で、MSG-0006への不要な自動応答である。
+
+この事実は以下の正本で確認した。
+
+- `messages/status/MSG-0006.json`：claimed_by=muse-watcher、attempts=1、reply_message_id=MSG-0007
+- `messages/replies/MSG-0005_reply.md`：MSG-0006のreply envelope
+- `messages/replies/MSG-0006_reply.md`：MSG-0007の不要なreply envelope
+- `messages/status/MSG-0007.json`：MSG-0007はwaiting、宛先Claude
+
+したがって、Watcher側でreplyを新規requestとして扱わない分岐が必要。GitHubのmessage-routerが状態一覧を作ることと、MUSEが実行対象を選ぶことは別処理である。
+
+### 1.3 GitHub Actionsの実行状況と失敗原因
+
+現在、以下のワークフローが存在する。
+
+- `.github/workflows/message-router.yml`
+- `.github/workflows/state-check.yml`
+
+message-routerは `messages/**` のpushを契機に起動し、`.github/scripts/message_router.py` が封筒検証とstatus/INDEX更新を行う。state-checkは `tasks/status/**` と `results/**` を対象にする別ワークフローであり、messagesのWatcher実行を代行するものではない。
+
+失敗したmessage-router実行のjob logを取得して確認したところ、封筒検証は成功（messages: 10, errors: 0）していた。失敗したのは後段の `git push` で、GitHubから `[rejected] (fetch first)` が返っていた。複数のrunが同一ブランチを同時に更新し、別runのpushが先行したことによるnon-fast-forward競合である。
+
+確認した例：
+- Run 41546872465：commit push rejected
+- Run 41546980652：commit push rejected
+- Run 41546984534：commit push rejected
+
+これは「Actionsが動いていない」問題ではない。Actionsは起動し、検証スクリプトも成功している。状態書き戻しの同時実行制御が欠けていた。
+
+## 2. 実施した修正
+
+### 2.1 message-routerの同時実行を直列化
+
+変更ファイル：
+`.github/workflows/message-router.yml`
+
+追加した設定：
+
+```yaml
+concurrency:
+  group: message-router-${{ github.ref }}
+  queue: max
+```
+
+これにより、同一refのmessage-router runを同時実行せず、順番に処理する設定にした。queue maxは最大100件の待機runを順次処理するGitHub Actionsの機能である。
+
+関連する実装契約を `.github/scripts/message_router.py` の冒頭コメントにも記録した（動作ロジックの変更ではない）。
+
+変更コミット：
+- Workflow concurrency：`093ff02c2133dc8de0f92539489679b6f1a7401c`
+- 実装契約コメント：`ae96157aebdbe7ba879580d642d9e600ab3f1bfb`
+
+変更は対象作業ブランチのみ。mainには反映していない。
+
+### 2.2 検証結果
+
+- GitHub APIから変更後のworkflowファイルを再取得し、concurrency設定を確認。
+- GitHub APIから変更後のscriptを再取得し、実装契約コメントを確認。
+- 変更コミットSHAを取得。
+- 変更後のmessage-router run 41547595669（commit ae96157aebdbe7ba879580d642d9e600ab3f1bfb）が completed / success であることを確認。単一runの実行確認は通過。
+- 同時pushを再現する負荷テストは未実施のため、競合耐性全体のストレス検証は未完了。
+
+## 3. 技術的な責任分界
+
+| 機能 | 実行主体 | 実測・制約 |
+|---|---|---|
+| 封筒検証、status/INDEX生成 | GitHub Actions message-router | 起動実績あり。競合対策を追加 |
+| タスク状態検証 | GitHub Actions state-check | 別のtasks/status用。メッセージ実行はしない |
+| MSG受信、claim、返信作成 | MUSEの定期Watcher | 30分ごと。実行範囲が厳密に限定 |
+| GPTの成果物・返信検証 | GPT | GitHub正本を直接読むことは可能 |
+| GPTからGitHubへの書き込み | 現行GPT担当仕様との照合が必要 | GPTは読取専用という既存役割定義と、feedback-loop仕様の「GPTがGitHubへrequest登録」の記述が矛盾 |
+| Gemini | 未決定 | 本件の必須コンポーネントとする根拠はまだない |
+
+## 4. Grok提案から修正すべき点
+
+1. 「GitHub Actionsが動いていない」は不正確。Actionsは動いており、message-routerのpush競合が確認された。
+2. 「MSGを置けばMUSEが実行する」は不正確。Watcherは受信・claimしたが、実行範囲外としてblockedにした。
+3. GPTがMSGを直接配置する設計は、GPT読取専用という既存役割定義と矛盾する。送信主体を定義せずに実装してはいけない。
+4. GeminiのDrive監視は、既存のGemini画面でDriveを参照できることと、定期自動監視・状態更新が可能であることを混同している。Gemini API function callingも、モデル自身が外部関数を実行するのではなく、アプリケーション側が実行する方式である。
+5. Apps ScriptやGemini APIを追加する前に、現在すでに存在するGitHub ActionsとMUSE watcherの責任分界を閉じる方が変更範囲が小さい。
+
+## 5. 未完了項目と、完了に必要な実作業
+
+### 未完了A：MUSE Watcherのreply誤処理修正
+
+必要な実装：
+- `type: reply` を新規request候補から除外する。
+- `reply_required: false` のreplyには返信を作らない。
+- `reply_to` で元requestとの関係だけを記録する。
+- replyに対する自動受領返信を禁止する。
+- 同じmessage_idの二重claim・二重返信を防ぐ。
+
+現在のWatcher実行条件では、Watcherは自身のコードやspecsを変更できない。MUSE側のWatcher本体の編集権限・実装環境も、このGitHubリポジトリからは確認できない。したがって、ここは実装済みとはしない。
+
+### 未完了B：GPTの書き込み主体の整合
+
+既存の役割定義ではGPTは読取専用。一方、`specs/GPT-MUSE-feedback-loop-closure.md` はGPTがGitHub正本へ記録・request登録するとしている。
+
+どちらを正とするか、既存の決定記録との照合が必要。GPTが書き込まないままにするなら、request登録を担う既存の許可済みエージェント／実行経路を明記する。勝手にGPTの権限を拡張しない。
+
+### 未完了C：双方向ループの受入テスト
+
+以下を実測できるまで未完了：
+1. GPT側のrequest作成（人間の転記なし）
+2. MUSEのclaim
+3. MUSEの処理・返信・成果物記録
+4. GPTによる正本からの回収
+5. GPTによる受入判定
+6. 不合格時の再request
+7. reply誤処理・重複実行の再発防止
+
+## 6. Gemini / Apps Scriptに関する調査結論
+
+- Gemini APIのFunction Callingは、Geminiが関数呼び出しを提案し、外部アプリケーションが実際に関数を実行して結果を返す方式。Gemini APIだけでGitHubやMUSEを自動操作するものではない。
+- Apps Scriptの時間主導型トリガーは定期実行可能で、UrlFetchAppで外部HTTP APIを呼べる。Script Propertiesにスクリプト設定値を保存できる。
+- GitHub Actionsのconcurrency機能は、同一グループのworkflow実行を直列化できる。queue maxは待機runを最大100件まで順番に処理する。
+
+このため、将来Geminiを接続する場合も、Geminiを「統括」と決める必要はない。まずは決定論的な状態遷移・期限検知をGitHub側で行い、Geminiは必要になった時点で内容の意味的検証に使う選択肢として残す。現時点では接続を追加しない。
+
+## 7. 参照した公式資料
+
+- Gemini API Function Calling： https://ai.google.dev/gemini-api/docs/function-calling
+- Apps Script Installable Triggers： https://developers.google.com/apps-script/guides/triggers/installable
+- Apps Script UrlFetchApp： https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app
+- Apps Script Properties Service： https://developers.google.com/apps-script/guides/properties
+- GitHub Actions concurrency： https://docs.github.com/en/actions/concepts/workflows-and-actions/concurrency
+- GitHub Actions workflow syntax： https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
+- GitHub Contents API permissions： https://docs.github.com/en/rest/repos/contents
+
+## 8. 最終判定
+
+**部分実装済み／エンドツーエンド未完了。**
+
+完了したもの：
+- privateリポジトリの対象ブランチを直接確認
+- MSG-0008〜0010のstatus JSON、返信有無、Watcher logを照合
+- reply誤処理の実例を確認
+- GitHub Actionsの失敗job logからnon-fast-forward push競合を特定
+- message-router workflowに同時実行直列化設定を追加
+- 変更コミットを作成し、GitHub上で再取得確認
+
+未完了のもの：
+- MUSEの外部定期Watcher本体の修正
+- GPTの読取専用仕様とrequest登録仕様の整合
+- concurrency変更後の複数同時runストレステスト
+- GPT→MUSE→GPTの双方向ループ実証
+
+**重要：この報告は、未完了部分を完了扱いしないための実測結果である。MUSE Watcherの実行環境・編集権限・NO3承認を要する仕様変更にアクセスできない状態で、エンドツーエンド完了を偽装しない。**

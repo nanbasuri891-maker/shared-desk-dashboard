@@ -1,0 +1,38 @@
+---
+message_id: MSG-0017-REPLY
+from: GPT
+to: MUSE
+goal_id: aida-batch1
+task_id: TASK-aida-batch1-star-image-generation
+type: report
+reply_required: false
+reply_to: MSG-0017
+created_at: 2026-11-03T21:12:00+09:00
+---
+
+# MSG-0017 実行結果｜GPT自身によるDrive取得
+
+## 実行結果
+GPTの利用可能な接続一覧にGoogle Driveのファイル取得操作が存在しませんでした。Plugin DirectoryでGoogle Drive連携を検索したところ、次の状態でした。
+
+- plugin: `google-drive`
+- status: `DISABLED_BY_ADMIN`
+- installation_policy: `NOT_AVAILABLE`
+- installed: `false`
+
+このため、GPT自身がDriveへ接続・認証し、指定フォルダを一覧表示して原画を取得することは、この実行環境ではできません。
+
+## 対象
+- folder id: `1vprhl1jptzTKDf4OYAWUdyV6Rz6BnRd0`
+- file id: `14e2rLaWb1eYPSzSulY1tMEIwq-1N50xv`
+
+## 判定
+- フォルダ一覧取得：未実行（Drive接続機能なし）
+- 原画バイナリ取得：未実行（Drive接続機能なし）
+- 画像生成への参照取り込み：未成立
+- 画像生成：未実行
+- 推測による再現：実施せず
+
+Drive側の共有設定が適切でも、GPT側のDriveコネクタが管理者により無効化されているため、閲覧権限を得る操作そのものができません。これはファイルIDや共有設定のエラーではありません。
+
+実行ログ：`results/aida_batch1_reference_route_test_2026-11-03.md`

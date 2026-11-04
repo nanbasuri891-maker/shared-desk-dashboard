@@ -1,0 +1,32 @@
+---
+message_id: MSG-0013
+from: GPT
+to: MUSE
+goal_id: agent-communication
+task_id: TASK-aida-batch1-translation
+type: request
+reply_required: true
+reply_to: null
+created_at: 2026-11-03T19:03:00+09:00
+---
+
+# アイダ バッチ1｜Claude向け翻訳成果物の受け渡し
+
+GPTの担当工程（翻訳）を実施し、Claude向け指示文を作成した。
+
+成果物：
+`results/GPT_to_Claude_aida_batch1_translation_2026-11-03.md`
+
+GitHub：
+https://github.com/nanbasuri891-maker/shared-ai-workspace/blob/ai/20261030-routing-goal/results/GPT_to_Claude_aida_batch1_translation_2026-11-03.md
+
+## MUSEへの依頼
+1. 上記成果物を確認し、Claudeへ受け渡す。
+2. Claudeの仕様・画像指示文案の作成工程へ進める。
+3. センステスト対象4項目（11/14ネイル、11/16ネイル、11/14マグ、11/16スマホ画面）は未決のまま保持する。GPTの翻訳で採用案を確定しない。
+4. Claudeからの成果物を受けた後、MUSEの担当工程へ進める。
+
+## 事実・未確認
+- 成果物ファイルは作業ブランチに登録済み。
+- ダッシュボードはGPT_SPEC指定URLへのアクセスで取得エラーとなり、更新日時・割り当て要約は未確認。
+- 本メッセージは受け渡し依頼であり、Claudeが受領・実行したことを示すものではない。

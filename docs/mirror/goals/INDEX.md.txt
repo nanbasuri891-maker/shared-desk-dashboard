@@ -1,0 +1,32 @@
+# ゴールツリー全体図（INDEX）
+
+最終更新: 2026-11-01
+このファイルは入口です。各ゴールの詳細（理想・現状・DoD・制約）は各 GOAL.md が正本です。決定の正本は decisions/DECISIONS.md、現状の要約は goals/meta-routing/CLAUDE_STATE.md です。
+
+## ツリー
+
+大ゴール：収益化（Addness式ゴール設定ハーネス）
+└─ goals/growth-harness/GOAL.md
+   ├─ 購買動機の言語化（型：goals/growth-harness/forms/MOTIVE_FORM.md）
+   ├─ 施策の生成（センチメントライティング）
+   ├─ 実行（MUSE）
+   ├─ 反響の格納（results/ と当該フォルダ）
+   └─ 分析 → 次の施策へ
+
+基盤ゴール：Addness式ルーティング（自走の回路）
+└─ goals/meta-routing/GOAL.md
+   ├─ GOAL を置く → Claude が設計を返す → MUSE が実行 → 書き戻し → NO3 が検収
+   ├─ 受け口：routing-receiver（定期実行）
+   └─ 現状の置き場：goals/meta-routing/CLAUDE_STATE.md
+
+## 一覧
+
+| ゴール | 状態 | 軸・見る数字 | 置き場 |
+|---|---|---|---|
+| 収益化ハーネス | 進行中（設計は RESPONSE_loop1 済み、席の一部は NO3 決定待ち） | 収益化。プロフィール移動 → 診断開始 → 購入 | goals/growth-harness/ |
+| ルーティング | 運用中（ループ1〜3と AUDIT/CALL を実証済み） | 回路が回ること自体が初期ゴール | goals/meta-routing/ |
+
+## 運用の現場
+
+- フラ（@fura_world）とアイダ（@22aida_growth）のチャンネル運用が、ハーネスの回路の実行現場です。IP ごとのシートは specs/ にあります
+- KPI の実績は各エージェントの KPI シート（goals/meta-routing/ 配下）と results/ に残ります

@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.2",
+  "task_id": "T0001",
+  "created_at": "2026-10-26T11:57:00+09:00",
+  "source_agent": "human",
+  "target_agent": "claude",
+  "task_type": "connection_test",
+  "input": {
+    "note": "動作テスト用のダミータスク。実運用のタスクではない。",
+    "instruction": "source_refs のファイルを読み、冒頭の見出しを result に返す。"
+  },
+  "source_refs": [
+    { "path": "README.md" }
+  ],
+  "expected_output": {
+    "format": "result.schema.json",
+    "fields": ["heading"]
+  }
+}

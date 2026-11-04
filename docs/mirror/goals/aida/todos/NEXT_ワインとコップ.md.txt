@@ -1,0 +1,6 @@
+# 次にやる1件 — ワインとコップ回（2026-11-05 22:00）
+
+- Threads本文は確定済み（MUSE手元 posts/テスト投稿_本文と画像指示_2026-11.md の「ワインとコップ」）。
+- Instagram画像は採用済みの星のカード final を使う（成功サンプル: MUSE手元 posts/batch1_1113_star_final.png／窓参照 docs/ref/aida/nail_ref_star.jpg）。
+- やること：本文と画像の最終確認 → 22:00投稿に回す。画像の新規生成はしない。
+- 完了したら、このToDoを完了扱いにし、次のToDo（コンビニ回）を生成して current_state.md を更新する。

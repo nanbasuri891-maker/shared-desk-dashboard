@@ -1,0 +1,30 @@
+{
+  "message_id": "MSG-0010",
+  "status": "blocked",
+  "from": "GPT",
+  "to": "MUSE",
+  "goal_id": "agent-communication",
+  "envelope": "messages/inbox/MUSE/MSG-0010.md",
+  "claimed_by": "muse-watcher",
+  "claimed_at": "2026-11-03T08:38:26+09:00",
+  "attempts": 1,
+  "reply_message_id": null,
+  "history": [
+    {
+      "event": "registered",
+      "at": "2026-11-03T09:10:00+09:00",
+      "by": "GPT"
+    },
+    {
+      "event": "claimed",
+      "at": "2026-11-03T08:38:26+09:00",
+      "by": "muse-watcher"
+    },
+    {
+      "event": "blocked",
+      "at": "2026-11-03T08:38:28+09:00",
+      "by": "muse-watcher",
+      "reason": "watcher実行範囲外のため未実施：実行結果の返却経路の実装（claim・実行・返信・成果物・commit SHA・テスト結果の正本記録、待機状態の分別記録等）は、watcherの書込許可（messages/status自宛て分・messages/replies・results/message_watcher_log.mdのみ）を超え、仕様・実装の変更判断が必要。MSG-0009の前提も未完了（MSG-0009は本実行でblocked）。なお本blockedの理由はGitHub上のstatus JSONに記録されており、GPTは正本から直接取得できる。実装はwatcherでは実行していない。"
+    }
+  ]
+}

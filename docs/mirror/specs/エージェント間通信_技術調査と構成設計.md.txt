@@ -1,0 +1,71 @@
+# エージェント間通信・メッセージ中継システム 技術調査と構成設計（2026-11-03）
+
+目的：人間が GPT・MUSE・Grok・Claude の間のメッセージをコピーして運ぶ作業をなくす。まず GPT ↔ MUSE の自動往復を実証する。
+前提：既存の GOAL・タスク管理・状態管理と競合させない。既存ファイルは変更しない（追加のみ）。記録場所は GitHub を維持する。
+
+## 調査結果（8項目）
+
+### 1. 現在の Actions 状態管理基盤の再利用範囲
+- 再利用できる：push を検知して検証し、一覧（INDEX）を自動生成して書き戻す型（state-check で実走確認済み）。封筒は不変・状態は別ファイルで持つ分離の考え方。検証スクリプトの書き方。
+- 再利用しない：state-check は tasks/status と results 専用なので、メッセージ用には別のワークフロー（message-router）を追加する。既存のワークフローには触らない。
+
+### 2. GitHub に追加するフォルダ・データ形式
+```
+messages/
+  inbox/
+    gpt/  MUSE/  grok/  claude/
+  replies/
+  status/     （message_id ごとの状態と、状態一覧 INDEX）
+  archive/
+  MESSAGE_SCHEMA.md
+```
+- 封筒は Markdown＋冒頭の項目（YAML）形式にする。本文が依頼文そのものになるため、JSON より人間と AI の両方が読みやすい形が合う。
+- 項目：message_id（MSG-0001 の連番）／from／to／goal_id／task_id（任意）／type（request・question・reply・report）／reply_required／reply_to（返信時に元の message_id）／created_at。本文はその下に書く。
+- 状態（waiting・received・replied・done・blocked）は封筒に持たせない。封筒を書き換えると履歴が追えなくなるため、状態は status/ 側を正本にする（タスク管理で採った分離と同じ）。
+
+### 3. 送信・受信・返信・履歴管理の仕組み
+1. 送信元が宛先の inbox に封筒を置く
+2. message-router（Actions）が新着を検知し、形式を検証して status を waiting で起票し、一覧を更新する
+3. 宛先の受信処理が封筒を取得し、status が received になる
+4. 返信は replies/ に reply_to を付けて置く。router が元の status を replied にし、送信元の取得先に届ける
+5. 往復が閉じたら archive/ に移し、一覧に履歴として残す
+- 滞留（返信待ちの日数）は一覧で見えるようにする。
+
+### 4. MUSE が外部からメッセージを受信する方法
+- MUSE 側の自動の受け口は、定期実行（watcher）だけ。watcher が inbox/MUSE/ の未読を取得して実行する。間隔は watcher 仕様の30分ごとで、即時ではないが非同期の往復は成立する。
+- repository_dispatch などで GitHub 側から MUSE を直接起動する経路は無い。MUSE の起動は定期実行が唯一の自動経路、と線を引く。
+
+### 5. MUSE が返信を GitHub に書き戻す方法
+- 現在の GitHub 接続（読み書き、ワークフローファイルの配置まで）で実測済み。返信の封筒を replies/ に置き、status を更新する処理は watcher の業務に含める。
+
+### 6. GPT 側から GitHub へ依頼を送信する接続方式
+- 方式A（今の ChatGPT の席を使う）：GPT の GitHub 連携、または GPT Actions から GitHub の API を呼ぶ。読む連携・書く連携のどちらも実績がある（書く連携は 2026-11-03 に実証済み：MSG-0003 の登録、MSG-0008／0009／0010 の依頼登録と状態JSON登録。送信主体と権限の区別は messages/MESSAGE_SCHEMA.md）。
+- 方式B（API 版のエージェントとして動かす）：OpenAI API を外部の実行環境から呼び、その環境が GitHub へ読み書きする。完全自動になるが、その GPT は壁打ちの文脈を持つ席の GPT とは別物になる（渡す文脈は実行環境が用意する）。
+- 席の GPT（壁打ちと戦略）を残す前提では、まず方式Aで往復を実証する。
+
+### 7. GPT 側が非同期の返信を取得する方式
+- 方式A：会話が開かれたときに GPT が自分の inbox と replies を見に行く。返信が後から届いても、会話へ自動で差し込むことはできない。ただし本文のコピーは不要になり、「運ぶ」作業は「GPT が取りに行く」形に変わる。
+- 方式B：実行環境が返信の着地を検知し、次の API 呼び出しに渡す。無人で往復が続く。
+
+### 8. Grok・Claude 追加時に共通化できる部分
+- 共通：封筒の形式、status の管理、router の検証と一覧、archive の形。
+- 宛先ごとに違うのは「受信の接続口」だけ。Claude は CLAUDE_STATE から inbox を辿る形、Grok は窓（ダッシュボード）に inbox の写しを出し、返答は従来経路で戻す形。接続口を差し替えられるよう、inbox の形は全員共通にする。
+
+## できること／できないこと／追加で必要なもの
+
+- **できること（実測済み）**：GitHub 側の置き場・検証・状態管理・一覧の自動更新。MUSE の受信（watcher 経由）と返信の書き戻し。GPT からの依頼登録（方式A）。
+- **できないこと**：ChatGPT の会話への返信の自動差し込み。GPT・Claude・Grok の自動起動（各エージェントが次に机を見るタイミングで届く非同期が前提）。
+- **追加で必要なもの**：方式Bに進む場合は OpenAI API のキーと実行環境。（watcher は作成済み。GPT の書き込み連携は実測済み。）
+
+## 実装順序
+
+1. messages/ の置き場、MESSAGE_SCHEMA、message-router ワークフローを追加する（GitHub 側のみ。既存と競合しない）
+2. MUSE の受信・返信を watcher に実装し、机の側だけで往復の後半を実証する
+3. GPT の書き込み連携を実測し、GPT → MUSE の送信を通す
+4. GPT の返信取得まで通し、最初の実証テスト（人間のコピーなしで依頼から返信まで）を完了する
+5. 方式B（完全自動）の要否を判断する
+6. Grok・Claude へ展開する
+
+## 補足：GPT 側で 404 になった件
+
+机の作業はすべて作業ブランチ（ai/20261030-routing-goal）にある。デフォルトブランチを見ると 404 になる。GPT_SPEC には参照ブランチを明記済みなので、GPT が机を読むときはブランチの指定が前提になる。

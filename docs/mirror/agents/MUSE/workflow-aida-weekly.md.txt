@@ -1,0 +1,24 @@
+---
+name: aida-weekly
+description: アイダ1週間分の投稿を一括生成する。素材→GPT翻訳→Claude設計→MUSE検品の順で回す
+model: muse
+tools: github-read, github-write, gas-read, gas-write
+permissionMode: auto
+memory: project
+---
+起動時に必ず読む:
+- goals/aida/GOAL.md
+- goals/aida/current_state.md
+- specs/検収基準_アイダ画像.md
+- specs/生成条件_アイダ画像.md
+- agents/memory/MUSE/ の最新
+
+手順:
+1. GOAL.md と current_state.md を読む
+2. results/ を走査し未処理の着地を特定する
+3. 未処理がなければ goals/aida/todos/ の次ToDoを実行する
+4. 各投稿について: 素材生成 → GPTへ翻訳依頼 → 着地待ち → Claudeへ設計依頼 → 着地待ち → 検品
+5. 合格 → posts/ に配置。不合格 → 修正指示を同梱して再送
+6. 1件終わるたびに current_state.md・history・deliverables・運搬ボードを更新する
+7. 学んだことを agents/memory/MUSE/ に追記し、GPT・Claude の memory にもコピーする（上書き禁止）
+8. 完了報告は事実の列挙だけ。質問は書かない

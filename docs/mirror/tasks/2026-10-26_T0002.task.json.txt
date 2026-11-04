@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.2",
+  "task_id": "T0002",
+  "created_at": "2026-10-26T12:03:00+09:00",
+  "source_agent": "human",
+  "target_agent": "gpt",
+  "task_type": "freshness_test",
+  "input": {
+    "note": "更新直後の反映を調べるダミータスク。実運用のタスクではない。",
+    "nonce": "kiwi-7391-lantern"
+  },
+  "source_refs": [
+    { "path": "tasks/2026-10-26_T0001.task.json" }
+  ],
+  "expected_output": {
+    "format": "result.schema.json",
+    "fields": ["nonce"]
+  }
+}

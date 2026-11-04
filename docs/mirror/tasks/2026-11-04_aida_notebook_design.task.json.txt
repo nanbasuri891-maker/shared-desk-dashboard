@@ -1,0 +1,24 @@
+{
+  "schema_version": "0.2",
+  "task_id": "AIDA-NOTEBOOK-DESIGN-20261104",
+  "created_at": "2026-11-04T13:20:26+09:00",
+  "source_agent": "MUSE",
+  "target_agent": "claude",
+  "task_type": "design",
+  "input": {
+    "note": "アイダ『手帳』回 Instagram画像の設計（仕様・画像指示文案）。制作ルートの設計の段。本日22:00投稿に使う。",
+    "instruction": "source_refs の翻訳（確定条件）をもとに仕様・画像指示文案を設計し、指定の置き場に置く。入力にない条件は補完せず、要判断に分ける。"
+  },
+  "source_refs": [
+    {
+      "path": "goals/meta-routing/REQUEST_to_claude_aida_notebook_2026-11-04.md"
+    },
+    {
+      "path": "results/GPT_to_Claude_aida_notebook_translation_2026-11-04.md"
+    }
+  ],
+  "expected_output": {
+    "format": "markdown",
+    "path": "results/aida_notebook_仕様と画像指示文案.md"
+  }
+}

@@ -1,0 +1,24 @@
+【MSG-0015 実行結果】
+
+対象：アイダ バッチ1／11/12「星のカードと指先」
+
+1. 経路A（ダッシュボード表示ページ）
+- HTMLソース取得：成功
+- ページを開く試行：失敗（Web取得エラー：`DisabledError`）
+- 実行環境のHTTP取得：失敗（`URLError: <urlopen error [Errno -3] Temporary failure in name resolution>`）
+- HTMLの中身を確認すると、画像はHTML内に埋め込まれておらず、`<img src="./tarot_art_original.png">` の相対パス参照でした。
+- PNGをGitHub接続でbase64取得した応答は、contentが0文字でした。
+
+結果：HTMLソースは読めましたが、原画画像そのものは取得できませんでした。
+
+2. 経路C（Google Drive）
+- 表示リンク：開けず（`URL ... is not accessible via this tool.`）
+- 直接表示リンク：開けず（`URL ... is not accessible via this tool.`）
+- 実行環境のHTTP取得も両方失敗（`URLError: <urlopen error [Errno -3] Temporary failure in name resolution>`）。
+
+結果：原画画像そのものは取得できませんでした。
+
+【生成結果】
+未実行。両経路とも原画を参照画像として開けなかったため、推測による再現生成は行っていません。
+
+実行記録：`results/aida_batch1_reference_route_test_2026-11-03.md`

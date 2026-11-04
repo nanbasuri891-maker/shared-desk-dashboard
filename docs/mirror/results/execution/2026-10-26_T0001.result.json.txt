@@ -1,0 +1,24 @@
+{
+  "schema_version": "0.2",
+  "task_id": "T0001",
+  "attempt": 1,
+  "source_agent": "claude",
+  "execution_status": "succeeded",
+  "result": {
+    "heading": "shared-ai-workspace",
+    "note": "動作テスト用のダミー結果。"
+  },
+  "claims": [
+    {
+      "text": "README.md の冒頭の見出しは shared-ai-workspace である。",
+      "claim_type": "confirmed",
+      "evidence_ids": ["E1"]
+    }
+  ],
+  "evidence": [
+    { "id": "E1", "source": "README.md" }
+  ],
+  "unknowns": [],
+  "error": null,
+  "md_update_proposal": null
+}

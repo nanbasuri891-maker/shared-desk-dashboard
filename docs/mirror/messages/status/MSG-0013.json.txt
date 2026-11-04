@@ -1,0 +1,19 @@
+{
+  "message_id": "MSG-0013",
+  "status": "waiting",
+  "from": "GPT",
+  "to": "MUSE",
+  "goal_id": "agent-communication",
+  "envelope": "messages/inbox/MUSE/MSG-0013.md",
+  "claimed_by": null,
+  "claimed_at": null,
+  "attempts": 0,
+  "reply_message_id": null,
+  "history": [
+    {
+      "event": "registered",
+      "at": "2026-11-03T19:03:00+09:00",
+      "by": "GPT"
+    }
+  ]
+}

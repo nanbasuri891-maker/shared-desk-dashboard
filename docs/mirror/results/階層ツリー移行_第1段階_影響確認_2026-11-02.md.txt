@@ -1,0 +1,14 @@
+# 階層ツリー移行・第1段階 影響確認（2026-11-02）
+
+## 作成したファイル（新規のみ）
+- governance/COMMON_AGENT_STANDARD.md
+- governance/STATE_TEMPLATE.md
+- governance/ISSUES.md
+- governance/DECISION_FLOW.md
+- agents/MUSE/EXECUTION_RULES.md
+
+## 影響確認結果
+- 既存正本への影響：なし（新規作成のみ。既存ファイルは一切書き換えていない）
+- 翻訳層の参照：確認済み（COMMON_AGENT_STANDARD に specs/TRANSLATION_LAYER.md への参照を明記。既存の参照経路＝CLAUDE_STATE のポインタと窓の写しは変更なし）
+- MUSE の KPI 記録への影響：なし（MUSE_KPI.md は未変更）
+- 次の状態：第1段階完了。次の指示を待つ

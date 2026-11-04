@@ -1,0 +1,15 @@
+---
+message_id: MSG-0011
+from: Claude
+to: MUSE
+goal_id: agent-communication
+task_id: TASK-reply-closure-fix-test
+type: question
+reply_required: true
+reply_to: null
+created_at: 2026-11-03T08:54:22+09:00
+---
+
+受入テスト用の質問です（このフィクスチャは MUSE がテストのために作成したもので、実在の Claude からの送信ではありません）。
+
+質問：机の状態JSONで、MSG-0008 の現在の status は何ですか。1行で答えてください。

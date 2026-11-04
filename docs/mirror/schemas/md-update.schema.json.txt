@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "md-update.schema.json",
+  "title": "MdUpdateProposal",
+  "description": "MD の更新案。承認されるまで正式な仕様には反映しない。",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "proposal_id",
+    "task_id",
+    "target_path",
+    "base_commit_sha",
+    "change_summary",
+    "rationale",
+    "approval"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.2" },
+    "proposal_id": { "type": "string" },
+    "task_id": { "type": "string", "pattern": "^T[0-9]{4}$" },
+    "target_path": { "type": "string" },
+    "base_commit_sha": { "type": "string" },
+    "change_summary": { "type": "string" },
+    "rationale": { "type": "string" },
+    "proposed_content_path": { "type": "string" },
+    "approval": { "enum": ["proposed", "approved", "rejected"] }
+  },
+  "additionalProperties": false
+}

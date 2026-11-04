@@ -1,0 +1,30 @@
+{
+  "schema_version": "0.2",
+  "task_id": "AIDA-WEEK1-GPT-20261104",
+  "created_at": "2026-11-04T14:20:38+09:00",
+  "source_agent": "MUSE",
+  "target_agent": "GPT",
+  "task_type": "translation",
+  "input": {
+    "note": "アイダ第1週の残り6本の翻訳分担。翻訳対象は視座回（第1号）の1件のみで、Claudeの納品着地が起点。",
+    "instruction": "source_refs のパッケージを読む。第1号の設計が results/ に着地したら画像指示文案を翻訳し、指定の置き場に置く。"
+  },
+  "source_refs": [
+    {
+      "path": "goals/meta-routing/REQUEST_to_gpt_aida_week1_rest_2026-11-04.md"
+    },
+    {
+      "path": "goals/aida/GOAL.md"
+    },
+    {
+      "path": "goals/aida/current_state.md"
+    },
+    {
+      "path": "specs/検収基準_アイダ画像.md"
+    }
+  ],
+  "expected_output": {
+    "format": "markdown",
+    "path": "results/GPT_to_MUSE_aida_no1_translation.md"
+  }
+}

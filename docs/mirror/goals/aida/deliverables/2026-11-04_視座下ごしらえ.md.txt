@@ -1,0 +1,4 @@
+# 成果物（2026-11-04 視座下ごしらえ）
+
+- results/aida_no1_視座_下ごしらえ_2026-11-02.md（Claude納品）
+- 次工程：GPT翻訳 results/GPT_to_MUSE_aida_no1_translation.md

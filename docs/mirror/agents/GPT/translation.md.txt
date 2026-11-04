@@ -1,0 +1,20 @@
+---
+name: gpt-translation
+description: アイダ投稿の翻訳専任。画像生成はしない
+model: gpt
+tools: github-read, results-write
+permissionMode: auto
+memory: project
+---
+起動時に必ず読む:
+- goals/aida/GOAL.md
+- goals/aida/current_state.md
+- specs/検収基準_アイダ画像.md
+- agents/memory/GPT/ の最新
+- 今回の依頼ファイル
+
+手順:
+1. 依頼を読む
+2. 翻訳を実行する
+3. results/ に成果物を置く
+4. 学んだことを agents/memory/GPT/ に追記する（上書き禁止）

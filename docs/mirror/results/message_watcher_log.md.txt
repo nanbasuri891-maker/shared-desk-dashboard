@@ -1,0 +1,7 @@
+# message watcher log
+
+- 2026-11-03T07:24:00+09:00 MSG-0003 replied (reply MSG-0004, messages/replies/MSG-0003_reply.md, confirmation string COMM-TEST-7F3K-20261103 included; status auto-updated to replied by message-router, watcher replied-PUT returned 409 due to that update)
+- 2026-11-03T08:01:00+09:00 MSG-0006 replied (reply MSG-0007, messages/replies/MSG-0006_reply.md, confirmation string COMM-TEST-CLAUDE-4R8N-20261103 included; envelope was messages/replies/MSG-0005_reply.md, not messages/inbox/MUSE/)
+- 2026-11-03T08:40:53+09:00 MSG-0008 blocked (watcher scope exceeded: watcher fix/specs change/INDEX regeneration outside allowed writes, spec change needs NO3 approval; verification: MSG-0005 replied/MSG-0006, MSG-0006 replied/MSG-0007, MSG-0007 status exists waiting to Claude, current INDEX shows MSG-0006 replied with validation OK; no reply file created)
+- 2026-11-03T08:40:53+09:00 MSG-0009 blocked (watcher scope exceeded: feedback-loop implementation/testing outside allowed writes and requires design decision; prerequisite MSG-0008 blocked in this run; no reply file created)
+- 2026-11-03T08:40:53+09:00 MSG-0010 blocked (watcher scope exceeded: return-path implementation outside allowed writes and requires design decision; prerequisite MSG-0009 blocked in this run; blocked reason recorded in GitHub status JSON for GPT to retrieve directly; no reply file created)

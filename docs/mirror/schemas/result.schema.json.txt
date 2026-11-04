@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "result.schema.json",
+  "title": "Result",
+  "description": "タスクの実行結果。作成後は編集しない。状態は execution_status で表す。",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "task_id",
+    "attempt",
+    "source_agent",
+    "execution_status",
+    "result",
+    "claims",
+    "evidence",
+    "unknowns"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.2" },
+    "task_id": { "type": "string", "pattern": "^T[0-9]{4}$" },
+    "attempt": { "type": "integer", "minimum": 1 },
+    "source_agent": { "enum": ["gpt", "claude", "grok", "human"] },
+    "execution_status": { "enum": ["succeeded", "partial", "failed"] },
+    "result": { "type": "object" },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["text", "claim_type", "evidence_ids"],
+        "properties": {
+          "text": { "type": "string" },
+          "claim_type": { "enum": ["confirmed", "analysis", "hypothesis", "unknown"] },
+          "evidence_ids": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": false
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source"],
+        "properties": {
+          "id": { "type": "string" },
+          "source": { "type": "string" },
+          "commit_sha": { "type": "string" }
+        }
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item", "reason"],
+        "properties": {
+          "item": { "type": "string" },
+          "reason": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "error": { "type": ["object", "null"] },
+    "md_update_proposal": { "type": ["string", "null"] }
+  },
+  "additionalProperties": false
+}

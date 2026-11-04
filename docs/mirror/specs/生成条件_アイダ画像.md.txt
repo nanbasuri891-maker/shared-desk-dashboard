@@ -1,0 +1,28 @@
+# 生成条件 — アイダ画像（固定資産）
+
+## 画角・構図
+- 一人称の見下ろし。本人が自分の手元を見ている視点。
+- 手は画面の下端から入り、指先は上向き。見えるのは手の甲側のみ。
+- サイズは Instagram フィード 4:5、1080×1350。
+
+## ネイル
+- 土台デザイン（第1号でNO3指定）: パールホワイトのキャットアイ＋シルバーの曲線ライン。
+- 半透明のジェルで地の爪が透けること。長め・派手め可。
+- デザインの変更はNO3の指定があるときだけ。
+
+## 質感
+- 世界は glass.ASMR のガラスのような透明感。くすませない。
+- 色調は日常側：白・肌色・ゴールド。柔らかい昼の光。
+
+## 禁止事項
+- 指の腹側にネイルがある形／甲を手前に出す不自然な手の向き
+- 不透明な白いネイル
+- 傷・汚れ・シミ・ボロい質感の小物
+- 顔・身体・服・袖口
+- カードの縁が白いもの／占い師の小道具（水晶・祭壇のようなしつらえ）
+
+## 成功サンプル（実ファイル）
+- 星のカード（採用済み）: 窓 https://nanbasuri891-maker.github.io/shared-desk-dashboard/docs/ref/aida/nail_ref_star.jpg ／ MUSE手元 ~/workspace/aida/posts/batch1_1113_star_final.png
+- 温かい飲み物（採用済み・ネイル参照）: 窓 https://nanbasuri891-maker.github.io/shared-desk-dashboard/docs/ref/aida/nail_ref_drink.jpg ／ MUSE手元 ~/workspace/aida/posts/batch1_1115_drink_final.png
+- 手帳（採用済み・2026-11-04）: MUSE手元 ~/workspace/aida/posts/batch1_1104_notebook_v5_final.png
+- タロット原画: 窓 https://nanbasuri891-maker.github.io/shared-desk-dashboard/docs/ref/aida/tarot_art_original.png

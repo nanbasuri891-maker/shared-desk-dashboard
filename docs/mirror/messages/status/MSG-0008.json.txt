@@ -1,0 +1,30 @@
+{
+  "message_id": "MSG-0008",
+  "status": "blocked",
+  "from": "GPT",
+  "to": "MUSE",
+  "goal_id": "agent-communication",
+  "envelope": "messages/inbox/MUSE/MSG-0008.md",
+  "claimed_by": "muse-watcher",
+  "claimed_at": "2026-11-03T08:37:31+09:00",
+  "attempts": 1,
+  "reply_message_id": null,
+  "history": [
+    {
+      "event": "registered",
+      "at": "2026-11-03T08:30:00+09:00",
+      "by": "message-router"
+    },
+    {
+      "event": "claimed",
+      "at": "2026-11-03T08:37:31+09:00",
+      "by": "muse-watcher"
+    },
+    {
+      "event": "blocked",
+      "at": "2026-11-03T08:37:33+09:00",
+      "by": "muse-watcher",
+      "reason": "watcher実行範囲外のため未実施：Watcherの挙動修正・specs変更・INDEX再生成は、watcherの書込許可（messages/status自宛て分・messages/replies・results/message_watcher_log.mdのみ）を超え、仕様変更はNO3承認が必要。照合結果：MSG-0005はreplied（返信MSG-0006）、MSG-0006はreplied（返信MSG-0007）、MSG-0007のstatus JSONは存在しwaiting（to Claude、監査記録として保持）、現行INDEXはMSG-0006=replied・MSG-0007=waitingで検証結果「問題なし」のため、MSG-0008記載のINDEX received表示の不整合は現行読みでは確認できない。実装・テストはwatcherでは実行していない。"
+    }
+  ]
+}

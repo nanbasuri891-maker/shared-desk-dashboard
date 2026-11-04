@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "task.schema.json",
+  "title": "Task",
+  "description": "AI 間で受け渡すタスク。作成後は編集しない。",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "task_id",
+    "created_at",
+    "source_agent",
+    "target_agent",
+    "task_type",
+    "input",
+    "source_refs",
+    "expected_output"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.2" },
+    "task_id": { "type": "string", "pattern": "^T[0-9]{4}$" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "source_agent": { "enum": ["gpt", "claude", "grok", "human"] },
+    "target_agent": { "enum": ["gpt", "claude", "grok", "human"] },
+    "task_type": { "type": "string", "minLength": 1 },
+    "input": { "type": "object" },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path"],
+        "properties": {
+          "path": { "type": "string" },
+          "commit_sha": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "expected_output": { "type": "object" }
+  },
+  "additionalProperties": false
+}

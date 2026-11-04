@@ -1,0 +1,137 @@
+# エージェント連携：通信責務の分離とGASコスト評価（2026-11-03）
+
+## 1. 設計判断
+
+エージェント連携の成立条件をGitHubに固定しない。
+GitHubはGOAL・仕様・成果物の保管場所として利用できるが、エージェント間の通信・起動・返信確認はGASを中心に構成する方式も成立する。
+
+今回の検証では、GitHubを通信の必須経路とせず、以下の責務を分離して比較する。
+
+- 通信内容：依頼、質問、指示、返信、成果物参照、状態変更
+- 通信制御：宛先判定、キュー、処理済み判定、再試行、タイムアウト
+- エージェント実行：各AIのAPIまたは既存ランタイム
+- 証跡：送信・受信・実行・返信の時系列ログ
+- 共有知識：GOAL、仕様、プロンプト、成果物
+
+## 2. 責務分離
+
+| 層 | データ／処理 | 推奨担当 |
+|---|---|---|
+| GOAL・仕様 | GOAL、KPI、DoD、役割、権限、プロンプト | GitHub（正本） |
+| メッセージ | from/to、message_id、goal_id、task_id、本文、reply_to | GAS通信API／キュー |
+| ルーティング | 宛先判定、配信、再試行、重複排除 | GAS |
+| エージェント実行 | 指示を読み、推論・作業し、結果を返す | 各エージェントのAPI／ランタイム |
+| 状態管理 | waiting、received、running、replied、done、blocked、error | GAS |
+| 実行ログ | 送信元、宛先、時刻、処理時間、結果、エラー、再試行回数 | Google Sheets |
+| 成果物 | 原稿、コード、画像、仕様更新、レポート | GitHubまたは各成果物保管先 |
+
+Google Sheetsは監査ログ・一覧表示用とし、通信状態の唯一の正本にはしない。GAS側のキュー／状態ストアと役割を分ける。
+
+## 3. 通信方式の候補
+
+### A. GASを通信ハブにする（GitHub非依存の通信）
+
+1. 送信エージェントがGAS WebアプリへメッセージをPOST。
+2. GASが認証・形式・宛先・承認情報を検証。
+3. GASがメッセージIDを採番し、キューへ登録。
+4. 宛先エージェントのアダプターがキューを取得。
+5. 宛先のAPI／ランタイムがタスクを実行。
+6. 結果をGASへ返却。
+7. GASが状態を更新し、Google Sheetsへイベントログを追記。
+8. 必要に応じて成果物をGitHubへ保存し、参照URLを返信に含める。
+
+この方式では、メッセージの送受信そのものにGitHubを通す必要はない。各エージェントにHTTP接続または専用アダプターが必要。
+
+### B. GitHubをメッセージ正本、GASを監視・起動役にする
+
+1. メッセージはGitHub inboxへ登録。
+2. GASがGitHub APIを定期確認。
+3. 新規メッセージを検出し、ログへ記録。
+4. GASが各エージェントの実行アダプターを呼ぶ。
+5. 返信・状態をGitHubへ戻す。
+
+GitHub既存資産を再利用できるが、GitHub API認証とGASからの読み書きが必要。GitHubのメッセージ形式や権限設計が実行フローを制約する可能性がある。
+
+### C. 完全分離ハイブリッド
+
+- GAS：メッセージ、ルーティング、状態、ログの運用基盤。
+- GitHub：GOAL、仕様、成果物の正本。
+- 各エージェント：個別の実行API／ランタイム。
+- Sheets：監査ログ・可視化。
+
+通信と知識保管を切り離せるため、エージェント追加時にGitHubのWatcher仕様を各AIに依存させずに済む。現時点の推奨候補。
+
+## 4. 何がGitHub側の制限で、何が実装・運用上の問題か
+
+| 論点 | 現在確認できていること | 判定 |
+|---|---|---|
+| GitHubへのメッセージ登録 | GPTから複数件の登録実績あり | GitHub保存自体は成立 |
+| 受信側の自動起動 | MUSE Watcher停止中 | 現在の未実行原因。GitHubの一般的な機能制限とは断定できない |
+| ChatGPT会話席の自動起動 | GitHub pushでこの会話席は自動起動しない | ChatGPT会話ランタイム側の制約 |
+| MUSEの返信 | 変更後Watcherでの往復テスト未実施 | 未検証 |
+| 複数AIへの配信 | エージェント別アダプター・権限・起動手段が必要 | 共通通信仕様と各エージェント実行環境の課題 |
+| GitHub Actions | Freeプランにも月間の使用枠がある | 一律に有料・利用不可という制限ではない |
+
+GitHubを通信経路から外す価値は、GitHubの保存機能が使えないからではなく、メッセージ処理・起動・状態管理を独立させ、エージェントごとの接続を単純化できる可能性にある。
+
+## 5. GASのコスト評価
+
+### GAS自体
+
+Apps Scriptは一般的なAPI従量課金サービスのように、スクリプト実行ごとに直接料金が積み上がる仕組みではない。一方、Googleアカウント種別ごとの割当・実行時間・関連サービスの制限がある。割当超過時は処理が停止するため、無料で無制限という意味ではない。
+
+Google公式クォータ資料（2026-11-03確認）：
+- 1回のスクリプト実行：6分
+- 同時実行：ユーザーあたり30、スクリプトあたり1,000
+- トリガー総実行時間：一般アカウント90分／日、Google Workspace 6時間／日
+- URL Fetch：一般アカウント20,000回／日、Workspace 100,000回／日
+- 割当は変更される可能性がある。
+
+### 追加で費用が発生し得るもの
+
+- Gemini API等のLLM API呼び出し
+- Google Workspace有料契約が必要な場合のアカウント料金
+- 外部実行環境、サーバー、データベース
+- GitHub Actionsの無料枠超過分（リポジトリの公開／非公開、プラン、実行環境による）
+
+### Gemini API
+
+Gemini APIにはFreeとPaidの階層があり、利用可能モデル・レート制限・データ利用条件が異なる。Geminiアプリの有料プランとGemini APIの課金は別のものとして扱う。API利用時はモデルごとのトークン単価と無料枠を別途見積もる。
+
+### コスト上の結論
+
+通信ハブをGASで実装し、Sheetsをログに使う範囲なら、初期運用コストを低く抑えられる可能性が高い。費用の主な変動要因はGASではなく、LLM APIを何回・何トークン使うか、外部ランタイムを常時稼働させるか、Workspace契約が必要かである。
+
+## 6. 推奨する初期実証
+
+最初から全エージェントを接続しない。GAS通信ハブの最小機能を先に作る。
+
+1. GAS Webアプリにメッセージ登録APIを作る。
+2. message_id、from、to、goal_id、task_id、type、reply_to、created_at、approval_source、approval_scopeを受け付ける。
+3. Script Propertiesに秘密情報を保管し、送信者認証を行う。
+4. キューに登録し、Sheetsに受信イベントを記録する。
+5. 同じmessage_idの再送を重複登録しない。
+6. テスト用の送信者・受信者アダプター間でrequest→replyを往復させる。
+7. 返信と状態遷移を記録し、ログから一連の履歴を再現できることを確認する。
+
+この段階ではGitHub Watcherを起動しない。MUSEの停止状態も変更しない。GASの通信基盤単体を検証する。
+
+## 7. エージェント別の接続可否を判定する表
+
+| エージェント | 必要な接続方式 | 現時点の確認 |
+|---|---|---|
+| MUSE | MUSE実行環境からGASへのHTTP送信／受信ポーリング | 実行環境のHTTP接続権限・認証方式の確認が必要 |
+| GPT | OpenAI APIを呼ぶ実行ランタイム、または現在のChatGPT会話から手動／ツール経由で送受信 | ChatGPT会話席自体は常時自動起動しない |
+| Claude | Claude APIまたは既存のClaude実行ランタイムからHTTP接続 | 利用可能な認証・実行環境の確認が必要 |
+| Grok | xAI APIまたは既存のGrok実行ランタイムからHTTP接続 | 利用可能な認証・実行環境の確認が必要 |
+| Gemini | Gemini APIからHTTP接続。GASからGemini APIを呼ぶ方式も可能 | API利用条件・モデル・無料枠の確認が必要 |
+
+「接続可能」は各エージェントのAPIまたは実行環境からHTTP要求を送受信できることを意味する。ブラウザ版AIのログイン状態だけでは自動連携の成立を意味しない。
+
+## 8. 公式資料
+
+- Apps Script quotas: https://developers.google.com/apps-script/guides/services/quotas
+- Apps Script Web Apps: https://developers.google.com/apps-script/guides/web
+- Apps Script installable triggers: https://developers.google.com/apps-script/guides/triggers/installable
+- Gemini API pricing: https://ai.google.dev/gemini-api/docs/pricing
+- GitHub Actions included usage: https://docs.github.com/en/billing/reference/product-usage-included

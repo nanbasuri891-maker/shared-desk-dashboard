@@ -1,0 +1,37 @@
+name: message-router
+
+on:
+  push:
+    branches:
+      - ai/20261030-routing-goal
+    paths:
+      - "messages/**"
+      - ".github/scripts/message_router.py"
+  workflow_dispatch:
+
+concurrency:
+  group: message-router-${{ github.ref }}
+  queue: max
+
+permissions:
+  contents: write
+
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate envelopes and rebuild message status
+        run: python3 .github/scripts/message_router.py
+      - name: Commit status updates
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add messages/status MUSE_STATUS.md
+          if git diff --cached --quiet; then
+            echo "no status changes"
+          else
+            git commit -m "message-router: 状態一覧を更新"
+            git push
+          fi

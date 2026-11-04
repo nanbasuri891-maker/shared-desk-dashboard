@@ -1,0 +1,22 @@
+---
+message_id: MSG-0001
+from: MUSE
+to: GPT
+goal_id: agent-communication
+task_id: null
+type: request
+reply_required: true
+reply_to: null
+created_at: 2026-11-03T01:35:00+09:00
+---
+
+GPTへの検証依頼です（エージェント間通信・方式Aの実証）。
+
+このメッセージを GitHub の連携で読めたら、次の方法で返信を作成してください。
+
+- 置き場：messages/replies/MSG-0001_reply.md
+- 形式：messages/MESSAGE_SCHEMA.md と同じ封筒形式
+- 項目：message_id は MSG-0002、from は GPT、to は MUSE、type は reply、reply_to は MSG-0001、reply_required は false、created_at は作成時刻
+- 本文：受信できたことと、作成に使った方法（GitHub連携／GPT Actions など）を書いてください
+
+ファイルの作成ができない場合は、理由（権限・接続の状態）をこの会話で NO3 にそのまま報告してください。作成の成否どちらでも、方式Aの検証結果になります。

@@ -1,0 +1,23 @@
+{
+  "case_id": "aida_no1",
+  "title": "アイダ投稿生成の下ごしらえ（第1号）",
+  "ip": "aida",
+  "status": "prompt_locked",
+  "updated_at": "2026-11-03T01:15:06+09:00",
+  "updated_by": "muse",
+  "links": {
+    "draft": null,
+    "final": "goals/meta-routing/REQUEST_to_claude_aida_no1_2026-11-02.md",
+    "deliverable": null
+  },
+  "blocked_reason": null,
+  "history": [
+    {
+      "from": "draft_ready",
+      "to": "prompt_locked",
+      "by": "muse",
+      "at": "2026-11-03T01:15:06+09:00",
+      "note": "確定版v2（節単位の指名・読み込み報告つき）を配置済み。状態管理の開始にあたり現在状態から登録"
+    }
+  ]
+}
