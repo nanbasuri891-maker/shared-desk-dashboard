@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T12:20:25+09:00",
+  "generated_at": "2026-11-04T12:21:58+09:00",
   "items": [
     {
       "id": "carry-aida-batch1",
@@ -57,9 +57,9 @@
       "status": "next_action",
       "phase": "指示を確定済み",
       "phase_color": "yellow",
-      "detail": "運搬ボード表示への作り替え。データはwork.jsonから読む形",
-      "next": "生成と公開のあと、表示をMUSEが確認する",
-      "updated_at": "2026-11-04T12:20:25+09:00"
+      "detail": "指示は確定済み。Lovableの本日分クレジットが尽きたため、生成は明日以降",
+      "next": "明日以降、生成と公開 → 表示をMUSEが確認する",
+      "updated_at": "2026-11-04T12:21:58+09:00"
     }
   ]
 }
