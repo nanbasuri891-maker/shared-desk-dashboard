@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ナレッジの地図（人間用） — 共有ダッシュボード</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", sans-serif; background: #fafafa; color: #1a1a1a; line-height: 1.7; }
+main { max-width: 860px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font-size: 22px; margin: 8px 0 4px; }
+p.meta { color: #555; font-size: 13px; margin: 0 0 20px; }
+h2 { font-size: 16px; margin: 28px 0 10px; padding-bottom: 6px; border-bottom: 2px solid #eee; }
+ul { list-style: none; margin: 0; padding: 0; }
+li { padding: 10px 12px; background: #fff; border: 1px solid #eee; border-radius: 8px; margin: 0 0 8px; font-size: 14px; }
+li b { display: block; font-size: 15px; }
+li span { color: #555; font-size: 13px; }
+li a { color: #0b57d0; word-break: break-all; }
+.note { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 12px 14px; font-size: 14px; }
+a.back { font-size: 13px; color: #0b57d0; }
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="../index.html">← ダッシュボード入口へ</a>
+<h1>ナレッジの地図（人間用）</h1>
+<p class="meta">更新：2026-11-04 10:40 JST。NO3が「あれ、どこだっけ」から3手以内で実物に届くための入口。中身はリンク先が正本で、このページは探すための地図。</p>
+<div class="note">AI用の地図は別にある：机の <a href="https://github.com/nanbasuri891-maker/shared-ai-workspace/tree/ai/20261030-routing-goal/knowledge/README.md">knowledge/README</a>（どの場面でどれを読むかのルーティング）。この人間用は、目的から探す形。</div>
+
+<h2>考え方・分解（マーケティング）</h2>
+<ul>
+<li><b>機能的価値の言語化（小玉リール分解）</b><span>「誰の・何が・どうなる」の型と、言葉＝トークンが感情を喚起する話。Grokと同じ論点の確認にも使う</span><br><a href="https://drive.google.com/file/d/1OZH10Dlvz1i0rQRwfsetq6VsdaUO5zqB/view">Driveで開く</a></li>
+<li><b>マーケティング戦略フォルダ（Drive）</b><span>リサーチの実物、ペルソナ言葉バイナリ、感情翻訳の変換表、でぷれのキラーワード集100選が入っている大箱</span><br><a href="https://drive.google.com/drive/folders/1I9Tv0ZAl6NoDMF8bk7Yk43AjvE1OBOGt">Driveフォルダを開く</a></li>
+<li><b>eduGateフォルダ（Drive）</b><span>講座PDF、講座と教科書の文字起こし、プロンプトの元。チャンネル運用のノウハウの出所</span><br><a href="https://drive.google.com/drive/folders/1ETVhBc53cRD4ZkZJYNBAxPKSv9jVAj_U">Driveフォルダを開く</a></li>
+</ul>
+
+<h2>ルール・仕様（机＝GitHub）</h2>
+<ul>
+<li><b>決定の記録</b><span>確定したことだけの正本。何が決まっているか確かめるとき</span><br><a href="https://github.com/nanbasuri891-maker/shared-ai-workspace/tree/ai/20261030-routing-goal/decisions/DECISIONS.md">DECISIONSを開く</a></li>
+<li><b>今の状態（Claudeの読み場）</b><span>Claudeへの未実行の依頼と、案件の現在位置</span><br><a href="https://github.com/nanbasuri891-maker/shared-ai-workspace/tree/ai/20261030-routing-goal/goals/meta-routing/CLAUDE_STATE.md">CLAUDE_STATEを開く</a></li>
+<li><b>翻訳層の仕様</b><span>AI同士の受け渡しの形。指示は短く、の原則もここ</span><br><a href="https://github.com/nanbasuri891-maker/shared-ai-workspace/tree/ai/20261030-routing-goal/specs/TRANSLATION_LAYER.md">TRANSLATION_LAYERを開く</a></li>
+<li><b>AI指示語</b><span>人間の言葉を各AIの言い方に翻訳する辞書</span><br><a href="https://github.com/nanbasuri891-maker/shared-ai-workspace/tree/ai/20261030-routing-goal/specs/AI指示語.md">AI指示語を開く</a></li>
+<li><b>課題の記録</b><span>相談と指摘の記録。仕様に反映する前の置き場</span><br><a href="https://github.com/nanbasuri891-maker/shared-ai-workspace/tree/ai/20261030-routing-goal/governance/ISSUES.md">ISSUESを開く</a></li>
+</ul>
+
+<h2>素材</h2>
+<ul>
+<li><b>画像生成素材集（Drive）</b><span>生成に使う参照素材の置き場。共有はリンク閲覧のみ</span><br><a href="https://drive.google.com/drive/folders/1jbKaOIg4AZ5UVs48rVq4VlQ7Rgx8w666">Driveフォルダを開く</a>（マクロハーネス運用フォルダの中。<a href="https://drive.google.com/drive/folders/1_uhlgJxYhXHYAkBdhwMUXz4LGDQzZ_-s">親フォルダ</a>）</li>
+<li><b>受け渡しコンテナ（Drive）</b><span>担当者への受け渡しパッケージ（フラPKG-001）の棚</span><br><a href="https://drive.google.com/drive/folders/11NmdbTp711iyrBj7owNGTapRgoOdRxur">Driveフォルダを開く</a></li>
+</ul>
+
+<h2>プロジェクト別</h2>
+<ul>
+<li><b>ひいろ（AIコーチ）</b><span>前提と状態は窓のページ。要件書v1が唯一の正本で、机の別ブランチにある</span><br><a href="hiiro.html">ひいろのページ</a> ／ <a href="https://github.com/nanbasuri891-maker/shared-ai-workspace/tree/ai/20261028-hiiro-store/hiiro">正本ストア（GitHub）</a></li>
+<li><b>現在の運用状態</b><span>席・制作・仕組み・未決を色と一行で見る</span><br><a href="status.html">現在の状態ページ</a></li>
+</ul>
+
+<h2>この地図の決めごと</h2>
+<div class="note">実物は動かさない。入口だけを人間用に作る。新しいナレッジが増えたら、この地図に1行足す。AI連携の完了は「機械が辿れた」だけでなく「NO3がこの入口から辿って確認できた」ところまで。</div>
+</main>
+</body>
+</html>
