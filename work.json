@@ -1,47 +1,65 @@
 {
-  "generated_at": "2026-11-04T12:02:00+09:00",
+  "generated_at": "2026-11-04T12:20:25+09:00",
   "items": [
     {
-      "subject": "アイダ テスト投稿バッチ1（11/12〜11/18分）",
-      "phase": "MUSEが指示を作成中",
+      "id": "carry-aida-batch1",
+      "subject": "アイダ バッチ1の指示をMUSEが作り、GPT（翻訳）へ",
+      "from": "MUSE",
+      "to": "GPT",
+      "status": "next_action",
+      "phase": "指示を作成中",
       "phase_color": "yellow",
-      "detail": "仕様から指示を作る段。次はGPTの翻訳",
-      "updated_at": "2026-11-04T12:02:00+09:00"
+      "detail": "バッチ1（11/12〜11/18分）の指示を仕様から作成している段。まだ送っていない",
+      "next": "指示を完成させて机に置き、GPTへ回す",
+      "updated_at": "2026-11-04T12:20:25+09:00"
     },
     {
-      "subject": "アイダ テスト投稿バッチ2（11/19〜11/25分）",
-      "phase": "MUSEの添削・評価待ち",
-      "phase_color": "yellow",
-      "detail": "Claudeの下ごしらえは納品済み。次はMUSEの品質チェック",
+      "id": "carry-aida-batch2",
+      "subject": "アイダ バッチ2の下ごしらえをClaudeからMUSEへ",
+      "from": "Claude",
+      "to": "MUSE",
+      "status": "absorbed",
+      "phase": "受け取り済み",
+      "phase_color": "green",
+      "detail": "仕様と画像指示文案は机に納品済み。MUSEの添削・評価待ち",
+      "next": "MUSEが添削・評価と投稿前の品質チェックを行う",
       "updated_at": "2026-11-04T07:53:00+09:00"
     },
     {
-      "subject": "アイダ 第1号「視座」",
-      "phase": "Claudeの実行待ち",
+      "id": "carry-aida-no1",
+      "subject": "アイダ 第1号「視座」の依頼をClaudeへ",
+      "from": "机（依頼着地）",
+      "to": "Claude",
+      "status": "sent",
+      "phase": "送付済み・吸収待ち",
       "phase_color": "yellow",
-      "detail": "依頼は机に配置済み。起点はNO3の「見て」",
+      "detail": "依頼文は机に配置済み。Claudeの着地はまだ確認できていない。起点はNO3の「見て」",
+      "next": "机でClaudeの着地と納品を確認する",
       "updated_at": "2026-11-03T21:00:00+09:00"
     },
     {
-      "subject": "ひいろ GPT渡し形（Grokレーン）",
-      "phase": "合流点待ち",
-      "phase_color": "yellow",
-      "detail": "精査は通過。机の構造へ落とすかはNO3の採用判断の段",
+      "id": "carry-hiiro-grok",
+      "subject": "ひいろ GPT渡し形の精査をGrokからMUSEへ",
+      "from": "Grok",
+      "to": "MUSE",
+      "status": "absorbed",
+      "phase": "照合済み",
+      "phase_color": "green",
+      "detail": "落下と混入の照合は通過。机の構造へは落としていない",
+      "next": "NO3の採用判断が出たら、Claudeの構造化へ回す",
       "updated_at": "2026-11-04T10:32:00+09:00"
     },
     {
-      "subject": "見張り台（Lovable）試作",
-      "phase": "実測中",
+      "id": "carry-console",
+      "subject": "見張り台の組み替え指示をLovableへ",
+      "from": "MUSE",
+      "to": "Lovable",
+      "status": "next_action",
+      "phase": "指示を確定済み",
       "phase_color": "yellow",
-      "detail": "このコンソール自体の試作。仕事ボードの表示を組み替え中",
-      "updated_at": "2026-11-04T12:02:00+09:00"
-    },
-    {
-      "subject": "検収の自動照合（二層GAS）",
-      "phase": "稼働中",
-      "phase_color": "green",
-      "detail": "申告と実態の照合を30分ごとに実行。ずれはDiscordへ",
-      "updated_at": "2026-11-04T11:35:00+09:00"
+      "detail": "運搬ボード表示への作り替え。データはwork.jsonから読む形",
+      "next": "生成と公開のあと、表示をMUSEが確認する",
+      "updated_at": "2026-11-04T12:20:25+09:00"
     }
   ]
 }
