@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-04T13:31:14+09:00",
+  "generated_at": "2026-11-04T13:41:43+09:00",
   "items": [
     {
       "id": "carry-aida-batch1",
-      "subject": "Claudeの設計結果をMUSE（生成）へ",
-      "from": "Claude",
-      "to": "MUSE",
+      "subject": "手帳の画像をNO3（最終検収）へ",
+      "from": "MUSE",
+      "to": "NO3",
       "status": "absorbed",
-      "phase": "生成中",
+      "phase": "検収待ち",
       "phase_color": "yellow",
-      "detail": "設計は着地し照合済み。ステージは生成中。候補はルールからMUSEが選択済み",
-      "next": "MUSEが画像を生成し、検品する",
-      "updated_at": "2026-11-04T13:31:14+09:00",
+      "detail": "NO3の指定どおり合体版を生成。文字ありの手帳／文字なし版の手の透明感／引き出しなし。検品通過",
+      "next": "NO3の最終検収。通ったら本日22:00に投稿",
+      "updated_at": "2026-11-04T13:41:43+09:00",
       "detection": {
         "expected": "依頼あり・結果なしは待機中→未実行としてGASが検知しDiscordへ上がる",
         "actual": "配置当初はJSONタスクが無く、GASの検知対象外だった。対で配置し、現在は検知対象",
