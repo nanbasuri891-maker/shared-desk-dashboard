@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-04T13:42:33+09:00",
+  "generated_at": "2026-11-04T14:20:38+09:00",
   "items": [
     {
       "id": "carry-aida-batch1",
-      "subject": "手帳の投稿（Threads＋Instagram）",
+      "subject": "第1週の残り6本のパッケージをGPTとClaudeへ",
       "from": "MUSE",
-      "to": "投稿",
-      "status": "absorbed",
-      "phase": "承認済み・本日22:00投稿",
-      "phase_color": "green",
-      "detail": "NO3の最終検収を通過。画像はv5（文字あり・引き出しなし）",
-      "next": "22:00にThreadsとInstagramへ投稿し、結果を記録する",
-      "updated_at": "2026-11-04T13:42:33+09:00",
+      "to": "GPT／Claude",
+      "status": "pending_absorption",
+      "phase": "受け渡し済み・吸収確認中",
+      "phase_color": "yellow",
+      "detail": "両パッケージとも依頼md・JSONタスク・ステート行まで配置済み。手帳回は本日22:00投稿",
+      "next": "着地を走査で拾い、視座回の翻訳と生成へ回す",
+      "updated_at": "2026-11-04T14:20:38+09:00",
       "detection": {
         "expected": "依頼あり・結果なしは待機中→未実行としてGASが検知しDiscordへ上がる",
         "actual": "配置当初はJSONタスクが無く、GASの検知対象外だった。対で配置し、現在は検知対象",
