@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T12:48:46+09:00",
+  "generated_at": "2026-11-04T12:51:13+09:00",
   "items": [
     {
       "id": "carry-aida-batch1",
@@ -7,11 +7,11 @@
       "from": "MUSE",
       "to": "Threads / Instagram",
       "status": "next_action",
-      "phase": "MUSEチェック済み",
-      "phase_color": "yellow",
-      "detail": "本文7本のチェック完了。画像3点（星・飲み物・写真）は採用済み。開始の前倒しをNO3と確認中",
-      "next": "NO3の開始判断と本文の最終検収 → 22:00に投稿",
-      "updated_at": "2026-11-04T12:48:46+09:00"
+      "phase": "本日から開始",
+      "phase_color": "green",
+      "detail": "開始を11/04へ前倒し（NO3決定）。1本目「手帳」はThreadsのみ・画像なし",
+      "next": "本日22:00に「手帳」を投稿する",
+      "updated_at": "2026-11-04T12:51:13+09:00"
     },
     {
       "id": "carry-aida-batch2",
