@@ -1,4 +1,5 @@
-更新: 2026-11-04 18:36 JST
-現在地: 手帳回は本日22:00投稿を予約済み。第1週パッケージ完了（Claude視座下ごしらえ→GPT翻訳→MUSE照合済み）。11/10は視座本文＋写真finalで確定
+更新: 2026-11-04 23:37 JST
+現在地: 手帳回は訂正完了。最終形はThreads本文5行＋手帳画像v5の一体投稿（https://www.threads.com/@22_no_aida/post/DfUjPIpCRyZ）。Instagramの分離投稿はアーカイブ済み、旧Threads本文のみ投稿はNO3が削除済み。11/05ワイン回は本文＋ワイン画像（最初の版を採用）のセットで投稿前納品済み
+投稿フロー（2026-11-04 NO3決定）: 今後はMUSEの品質チェック後にNO3へ投稿前納品し、NO3がMeta Business Suiteへ登録する。MUSEは直接投稿しない
 進行中のToDo: todos/NEXT_週間パッケージ実行.md
-直近の完了: results/GPT_to_MUSE_aida_no1_translation.md
+直近の完了: 11/05ワイン回の投稿前納品（2026-11-04）
