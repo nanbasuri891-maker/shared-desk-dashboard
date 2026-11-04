@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-04T13:09:20+09:00",
+  "generated_at": "2026-11-04T13:14:13+09:00",
   "items": [
     {
       "id": "carry-aida-batch1",
-      "subject": "アイダ「手帳」回の画像指示をMUSEからGPT（翻訳）へ",
+      "subject": "アイダ投稿をGPT（翻訳）へ",
       "from": "MUSE",
       "to": "GPT",
-      "status": "sent",
-      "phase": "翻訳中",
+      "status": "pending_absorption",
+      "phase": "送付済み・吸収確認中",
       "phase_color": "yellow",
-      "detail": "依頼md・JSONタスク・ステージ進行・ボード更新の4点が揃った。GPTの翻訳待ち",
-      "next": "翻訳が着地したら、MUSEが即Claudeへ回す",
-      "updated_at": "2026-11-04T13:09:20+09:00",
+      "detail": "開始命令をGPTのステートに送付済み。ゲートは翻訳中、JSONタスクは検知対象",
+      "next": "GPTの翻訳結果を受けて、次工程へ",
+      "updated_at": "2026-11-04T13:14:13+09:00",
       "detection": {
         "expected": "依頼あり・結果なしは待機中→未実行としてGASが検知しDiscordへ上がる",
         "actual": "配置当初はJSONタスクが無く、GASの検知対象外だった。対で配置し、現在は検知対象",
