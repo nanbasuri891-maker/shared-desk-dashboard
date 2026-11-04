@@ -155,3 +155,24 @@
 - 決定者: NO3
 - 内容: Dify と Claude の Discord 作業を処分する。①Dify は不使用を確定し、アプリ側（stage-clue を含む）は NO3 が削除する。現在の制作フロー（バッチ制作・翻訳・ルーティング）は Dify を通っていない。stage-clue の段階推定という設計自体は正本側に残し、実行ログ（results/execution/stage_clue_runs.jsonl）は記録として保持する。未解決だった Dify API キーの Secure Vault 保管（O-001）は、この決定により解消扱いとする。②Discord は、GitHub Actions と GAS のアラート受け先としてのみ残す。Claude の Discord 作業（記録投稿等）は終了し、担当外とする
 - 反映先: goals/meta-routing/CLAUDE_STATE.md、decisions/OPEN.md（O-001 の解消）
+
+### D-020
+- 状態: 確定
+- 日付: 2026-11-05
+- 決定者: NO3
+- 内容: 壁打ちは素材であり、それだけでは実行の起点にならない。起動は、NO3 が対象・素材・ルートを名指ししたトリガーでのみ行う。詳細は governance/AGENT_COLLABORATION_RULES.md「案件の起動」。適用範囲はアイダのみで開始する
+- 反映先: governance/AGENT_COLLABORATION_RULES.md、agents/MUSE/EXECUTION_RULES.md、goals/meta-routing/GOAL.md
+
+### D-021
+- 状態: 確定
+- 日付: 2026-11-05
+- 決定者: NO3
+- 内容: MUSE を、壁打ち（NO3 との関係性の場）と、エージェント連携（他のエージェントとの連動のトリガー）の2役割に分けて扱う。分ける理由は、無関係だからではなく、混ざりやすいためである。壁打ちでやった内容をエージェントへどう連携するかが接ぎ目であり、連携側では MUSE がトリガーになる部分が多い。なお、壁打ち原文（wallchat_2026-11-05）に残る「格納庫元」「マクロハーネスAIのYes」「制度」は、意味が未確定の語として原文のまま保持する
+- 反映先: governance/AGENT_COLLABORATION_RULES.md「案件の起動」
+
+### D-022
+- 状態: 確定
+- 日付: 2026-11-05
+- 決定者: NO3
+- 内容: 案件の起動の前に、準備工程を置く。準備は、MUSE が壁打ち素材を原文のまま置き、GPT が翻訳し（質を保ったまま文字数をなるべく少なくする）、Claude が翻訳を読んで要件と実行要素に構造化する工程であり、設計・生成は含まない。構造化は GPT の翻訳の後に置く。準備の成果物は results/ に「待機」として置き、依頼文と task JSON の対にはしない。起動は、NO3 のトリガーを受けて MUSE が待機の成果物を依頼文と task JSON の対に切り替えた時点とする。詳細は governance/AGENT_COLLABORATION_RULES.md「案件の起動」
+- 反映先: governance/AGENT_COLLABORATION_RULES.md「案件の起動」
