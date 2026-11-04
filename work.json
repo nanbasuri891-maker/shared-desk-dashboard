@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-04T12:21:58+09:00",
+  "generated_at": "2026-11-04T12:48:46+09:00",
   "items": [
     {
       "id": "carry-aida-batch1",
-      "subject": "アイダ バッチ1の指示をMUSEが作り、GPT（翻訳）へ",
+      "subject": "アイダ バッチ1の投稿をMUSEから公開へ",
       "from": "MUSE",
-      "to": "GPT",
+      "to": "Threads / Instagram",
       "status": "next_action",
-      "phase": "指示を作成中",
+      "phase": "MUSEチェック済み",
       "phase_color": "yellow",
-      "detail": "バッチ1（11/12〜11/18分）の指示を仕様から作成している段。まだ送っていない",
-      "next": "指示を完成させて机に置き、GPTへ回す",
-      "updated_at": "2026-11-04T12:20:25+09:00"
+      "detail": "本文7本のチェック完了。画像3点（星・飲み物・写真）は採用済み。開始の前倒しをNO3と確認中",
+      "next": "NO3の開始判断と本文の最終検収 → 22:00に投稿",
+      "updated_at": "2026-11-04T12:48:46+09:00"
     },
     {
       "id": "carry-aida-batch2",
