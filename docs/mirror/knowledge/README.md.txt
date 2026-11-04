@@ -35,3 +35,6 @@
 - あおんぼ_プロンプト素材.md → Drive「マーケティング戦略」フォルダ（ID 1p3aASxZURgt7kfEcRTpsYLAtQr4pfI5d）
 - プロンプト_センチメント分析.md → Drive「マーケティング戦略」フォルダ（ID 1RjtgLiAQIOuDShAzI83Fiekcuz1bX7d5）
 - RECOGNITION_edugate_by_claude_2026-11-01.md（eduGate認識レポート） → Drive「edugate」フォルダ（ID 1IIdJx-Rn-I8VAeH7gWgHO0OWTq0StkYA）
+
+## 壁打ち素材（原文の置き場）
+
