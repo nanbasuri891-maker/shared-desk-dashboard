@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-04T13:20:26+09:00",
+  "generated_at": "2026-11-04T13:31:14+09:00",
   "items": [
     {
       "id": "carry-aida-batch1",
-      "subject": "GPT翻訳結果をClaude（設計）へ",
-      "from": "GPT",
-      "to": "Claude",
+      "subject": "Claudeの設計結果をMUSE（生成）へ",
+      "from": "Claude",
+      "to": "MUSE",
       "status": "absorbed",
-      "phase": "依頼ファイル配置済み",
+      "phase": "生成中",
       "phase_color": "yellow",
-      "detail": "GPTの翻訳は着地し、MUSEが照合済み。Claude宛ての依頼とJSONタスクを配置し、ステージは設計中",
-      "next": "Claudeの設計結果を受けて、画像生成（MUSE担当）へ",
-      "updated_at": "2026-11-04T13:20:26+09:00",
+      "detail": "設計は着地し照合済み。ステージは生成中。候補はルールからMUSEが選択済み",
+      "next": "MUSEが画像を生成し、検品する",
+      "updated_at": "2026-11-04T13:31:14+09:00",
       "detection": {
         "expected": "依頼あり・結果なしは待機中→未実行としてGASが検知しDiscordへ上がる",
         "actual": "配置当初はJSONタスクが無く、GASの検知対象外だった。対で配置し、現在は検知対象",
