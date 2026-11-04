@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T12:57:59+09:00",
+  "generated_at": "2026-11-04T13:09:20+09:00",
   "items": [
     {
       "id": "carry-aida-batch1",
@@ -7,11 +7,17 @@
       "from": "MUSE",
       "to": "GPT",
       "status": "sent",
-      "phase": "翻訳依頼を配置済み",
+      "phase": "翻訳中",
       "phase_color": "yellow",
-      "detail": "依頼文とネイル参照2点を机と窓に配置。次はClaudeの設計",
-      "next": "GPTの翻訳が着地したら、MUSEがClaudeへ回す",
-      "updated_at": "2026-11-04T12:57:59+09:00"
+      "detail": "依頼md・JSONタスク・ステージ進行・ボード更新の4点が揃った。GPTの翻訳待ち",
+      "next": "翻訳が着地したら、MUSEが即Claudeへ回す",
+      "updated_at": "2026-11-04T13:09:20+09:00",
+      "detection": {
+        "expected": "依頼あり・結果なしは待機中→未実行としてGASが検知しDiscordへ上がる",
+        "actual": "配置当初はJSONタスクが無く、GASの検知対象外だった。対で配置し、現在は検知対象",
+        "caught_by": "NO3の手動照合",
+        "severity": "critical"
+      }
     },
     {
       "id": "carry-aida-batch2",
