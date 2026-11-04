@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-04T13:41:43+09:00",
+  "generated_at": "2026-11-04T13:42:33+09:00",
   "items": [
     {
       "id": "carry-aida-batch1",
-      "subject": "手帳の画像をNO3（最終検収）へ",
+      "subject": "手帳の投稿（Threads＋Instagram）",
       "from": "MUSE",
-      "to": "NO3",
+      "to": "投稿",
       "status": "absorbed",
-      "phase": "検収待ち",
-      "phase_color": "yellow",
-      "detail": "NO3の指定どおり合体版を生成。文字ありの手帳／文字なし版の手の透明感／引き出しなし。検品通過",
-      "next": "NO3の最終検収。通ったら本日22:00に投稿",
-      "updated_at": "2026-11-04T13:41:43+09:00",
+      "phase": "承認済み・本日22:00投稿",
+      "phase_color": "green",
+      "detail": "NO3の最終検収を通過。画像はv5（文字あり・引き出しなし）",
+      "next": "22:00にThreadsとInstagramへ投稿し、結果を記録する",
+      "updated_at": "2026-11-04T13:42:33+09:00",
       "detection": {
         "expected": "依頼あり・結果なしは待機中→未実行としてGASが検知しDiscordへ上がる",
         "actual": "配置当初はJSONタスクが無く、GASの検知対象外だった。対で配置し、現在は検知対象",
