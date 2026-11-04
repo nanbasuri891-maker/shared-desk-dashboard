@@ -1,71 +1,71 @@
 {
-  "generated_at": "2026-11-04T14:20:38+09:00",
-  "items": [
-    {
-      "id": "carry-aida-batch1",
-      "subject": "第1週の残り6本のパッケージをGPTとClaudeへ",
-      "from": "MUSE",
-      "to": "GPT／Claude",
-      "status": "pending_absorption",
-      "phase": "受け渡し済み・吸収確認中",
-      "phase_color": "yellow",
-      "detail": "両パッケージとも依頼md・JSONタスク・ステート行まで配置済み。手帳回は本日22:00投稿",
-      "next": "着地を走査で拾い、視座回の翻訳と生成へ回す",
-      "updated_at": "2026-11-04T14:20:38+09:00",
-      "detection": {
-        "expected": "依頼あり・結果なしは待機中→未実行としてGASが検知しDiscordへ上がる",
-        "actual": "配置当初はJSONタスクが無く、GASの検知対象外だった。対で配置し、現在は検知対象",
-        "caught_by": "NO3の手動照合",
-        "severity": "critical"
-      }
-    },
-    {
-      "id": "carry-aida-batch2",
-      "subject": "アイダ バッチ2の下ごしらえをClaudeからMUSEへ",
-      "from": "Claude",
-      "to": "MUSE",
-      "status": "absorbed",
-      "phase": "受け取り済み",
-      "phase_color": "green",
-      "detail": "仕様と画像指示文案は机に納品済み。MUSEの添削・評価待ち",
-      "next": "MUSEが添削・評価と投稿前の品質チェックを行う",
-      "updated_at": "2026-11-04T07:53:00+09:00"
-    },
-    {
-      "id": "carry-aida-no1",
-      "subject": "アイダ 第1号「視座」の依頼をClaudeへ",
-      "from": "机（依頼着地）",
-      "to": "Claude",
-      "status": "sent",
-      "phase": "送付済み・吸収待ち",
-      "phase_color": "yellow",
-      "detail": "依頼文は机に配置済み。Claudeの着地はまだ確認できていない。起点はNO3の「見て」",
-      "next": "机でClaudeの着地と納品を確認する",
-      "updated_at": "2026-11-03T21:00:00+09:00"
-    },
-    {
-      "id": "carry-hiiro-grok",
-      "subject": "ひいろ GPT渡し形の精査をGrokからMUSEへ",
-      "from": "Grok",
-      "to": "MUSE",
-      "status": "absorbed",
-      "phase": "照合済み",
-      "phase_color": "green",
-      "detail": "落下と混入の照合は通過。机の構造へは落としていない",
-      "next": "NO3の採用判断が出たら、Claudeの構造化へ回す",
-      "updated_at": "2026-11-04T10:32:00+09:00"
-    },
-    {
-      "id": "carry-console",
-      "subject": "見張り台の組み替え指示をLovableへ",
-      "from": "MUSE",
-      "to": "Lovable",
-      "status": "next_action",
-      "phase": "指示を確定済み",
-      "phase_color": "yellow",
-      "detail": "指示は確定済み。Lovableの本日分クレジットが尽きたため、生成は明日以降",
-      "next": "明日以降、生成と公開 → 表示をMUSEが確認する",
-      "updated_at": "2026-11-04T12:21:58+09:00"
-    }
-  ]
+ "generated_at": "2026-11-04T18:25:00+09:00",
+ "items": [
+  {
+   "id": "carry-aida-batch1",
+   "subject": "第1週の残り6本のパッケージをGPTとClaudeへ",
+   "from": "MUSE",
+   "to": "GPT／Claude",
+   "status": "absorbed",
+   "phase": "視座の接続が完了",
+   "phase_color": "yellow",
+   "detail": "Claudeの下ごしらえとGPTの翻訳が着地し、MUSEの照合を通過。11/10は視座本文＋写真finalで確定",
+   "next": "11/05〜11/10の各回の投稿を順に回す",
+   "updated_at": "2026-11-04T18:25:00+09:00",
+   "detection": {
+    "expected": "依頼あり・結果なしは待機中→未実行としてGASが検知しDiscordへ上がる",
+    "actual": "配置当初はJSONタスクが無く、GASの検知対象外だった。対で配置し、現在は検知対象",
+    "caught_by": "NO3の手動照合",
+    "severity": "critical"
+   }
+  },
+  {
+   "id": "carry-aida-batch2",
+   "subject": "アイダ バッチ2の下ごしらえをClaudeからMUSEへ",
+   "from": "Claude",
+   "to": "MUSE",
+   "status": "absorbed",
+   "phase": "受け取り済み",
+   "phase_color": "green",
+   "detail": "仕様と画像指示文案は机に納品済み。MUSEの添削・評価待ち",
+   "next": "MUSEが添削・評価と投稿前の品質チェックを行う",
+   "updated_at": "2026-11-04T07:53:00+09:00"
+  },
+  {
+   "id": "carry-aida-no1",
+   "subject": "アイダ 第1号「視座」の依頼をClaudeへ",
+   "from": "机（依頼着地）",
+   "to": "Claude",
+   "status": "sent",
+   "phase": "送付済み・吸収待ち",
+   "phase_color": "yellow",
+   "detail": "依頼文は机に配置済み。Claudeの着地はまだ確認できていない。起点はNO3の「見て」",
+   "next": "机でClaudeの着地と納品を確認する",
+   "updated_at": "2026-11-03T21:00:00+09:00"
+  },
+  {
+   "id": "carry-hiiro-grok",
+   "subject": "ひいろ GPT渡し形の精査をGrokからMUSEへ",
+   "from": "Grok",
+   "to": "MUSE",
+   "status": "absorbed",
+   "phase": "照合済み",
+   "phase_color": "green",
+   "detail": "落下と混入の照合は通過。机の構造へは落としていない",
+   "next": "NO3の採用判断が出たら、Claudeの構造化へ回す",
+   "updated_at": "2026-11-04T10:32:00+09:00"
+  },
+  {
+   "id": "carry-console",
+   "subject": "見張り台の組み替え指示をLovableへ",
+   "from": "MUSE",
+   "to": "Lovable",
+   "status": "next_action",
+   "phase": "指示を確定済み",
+   "phase_color": "yellow",
+   "detail": "指示は確定済み。Lovableの本日分クレジットが尽きたため、生成は明日以降",
+   "next": "明日以降、生成と公開 → 表示をMUSEが確認する",
+   "updated_at": "2026-11-04T12:21:58+09:00"
+  }
+ ]
 }
