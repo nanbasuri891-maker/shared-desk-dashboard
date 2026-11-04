@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-04T12:51:13+09:00",
+  "generated_at": "2026-11-04T12:57:59+09:00",
   "items": [
     {
       "id": "carry-aida-batch1",
-      "subject": "アイダ バッチ1の投稿をMUSEから公開へ",
+      "subject": "アイダ「手帳」回の画像指示をMUSEからGPT（翻訳）へ",
       "from": "MUSE",
-      "to": "Threads / Instagram",
-      "status": "next_action",
-      "phase": "本日から開始",
-      "phase_color": "green",
-      "detail": "開始を11/04へ前倒し（NO3決定）。1本目「手帳」はThreadsのみ・画像なし",
-      "next": "本日22:00に「手帳」を投稿する",
-      "updated_at": "2026-11-04T12:51:13+09:00"
+      "to": "GPT",
+      "status": "sent",
+      "phase": "翻訳依頼を配置済み",
+      "phase_color": "yellow",
+      "detail": "依頼文とネイル参照2点を机と窓に配置。次はClaudeの設計",
+      "next": "GPTの翻訳が着地したら、MUSEがClaudeへ回す",
+      "updated_at": "2026-11-04T12:57:59+09:00"
     },
     {
       "id": "carry-aida-batch2",
