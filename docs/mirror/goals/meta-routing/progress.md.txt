@@ -75,3 +75,8 @@
 - 2026-10-31 loop9 の返事を配置：前提の訂正（ミスの主体は Claude、30回以上は NO3 の数え、MUSE の添削は誤り）、今後は MUSE が添削→評価→検収して回す並び、反響が全てで正しさは反響で証明されるという順番を、Claude へ返した。
 - 2026-10-31 D-011：各エージェントの KPI 指標を定めた（MUSE_KPI／GROK_KPI／GPT_KPI を新設、CLAUDE_KPI と同形式）。共通の置き方は「最終の証明は反響」。MUSE の M-5 には本日の添削ミス2件を実績として記録した。
 - 2026-10-31 CLAUDE_KPI を Claude 案ベースに改訂：反響・意図への適合・取り違えの自己記録を追加。MUSE の添削として、検収の通過を K-3 に統合し、到達の定義は元の定義に戻して未到達3件に訂正した。
+
+## 実測（2026-11-05、命令書 手順6）
+
+- routing-receiver：GitHub の .github/workflows は detect-results.yml／message-router.yml／state-check.yml の3本のみで、routing-receiver というワークフローは無い。MUSE 側の cron にも routing-receiver は無い（2026-11-03にNO3の指示で定義を削除済み。2026-11-05の cron 一覧でも不在を確認）。GitHub Actions の実行状況そのものは、トークンに Actions 権限がないため未確認。
+- Claude の読み込み量（実測、GitHub のサイズ）：直近の依頼パッケージ REQUEST_to_claude_aida_week1_rest_2026-11-04.md は 10,502 バイト。3点セット（CLAUDE_START.md 1,201＋CLAUDE_STATE.md 558＋依頼文 10,502）は合計 12,261 バイト。第1号パッケージは、依頼文 6,067＋素材3件（視座 5,110／雨 5,908／お金 7,326）＋START／STATE で合計 26,170 バイト。
