@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-04T18:25:00+09:00",
+ "generated_at": "2026-11-04T18:38:00+09:00",
  "items": [
   {
    "id": "carry-aida-batch1",
@@ -36,12 +36,12 @@
    "subject": "アイダ 第1号「視座」の依頼をClaudeへ",
    "from": "机（依頼着地）",
    "to": "Claude",
-   "status": "sent",
-   "phase": "送付済み・吸収待ち",
+   "status": "absorbed",
+   "phase": "視座の接続が完了（第1週パッケージに吸収）",
    "phase_color": "yellow",
-   "detail": "依頼文は机に配置済み。Claudeの着地はまだ確認できていない。起点はNO3の「見て」",
-   "next": "机でClaudeの着地と納品を確認する",
-   "updated_at": "2026-11-03T21:00:00+09:00"
+   "detail": "Claudeの下ごしらえとGPTの翻訳が着地し、MUSEの照合を通過。11/10は視座本文＋写真finalで確定",
+   "next": "11/05〜11/10の各回の投稿を順に回す",
+   "updated_at": "2026-11-04T18:38:00+09:00"
   },
   {
    "id": "carry-hiiro-grok",
