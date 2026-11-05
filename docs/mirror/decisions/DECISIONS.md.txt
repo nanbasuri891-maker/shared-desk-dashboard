@@ -176,3 +176,24 @@
 - 決定者: NO3
 - 内容: 案件の起動の前に、準備工程を置く。準備は、MUSE が壁打ち素材を原文のまま置き、GPT が翻訳し（質を保ったまま文字数をなるべく少なくする）、Claude が翻訳を読んで要件と実行要素に構造化する工程であり、設計・生成は含まない。構造化は GPT の翻訳の後に置く。準備の成果物は results/ に「待機」として置き、依頼文と task JSON の対にはしない。起動は、NO3 のトリガーを受けて MUSE が待機の成果物を依頼文と task JSON の対に切り替えた時点とする。詳細は governance/AGENT_COLLABORATION_RULES.md「案件の起動」
 - 反映先: governance/AGENT_COLLABORATION_RULES.md「案件の起動」
+
+### D-023
+- 状態: 確定
+- 日付: 2026-11-05
+- 決定者: NO3
+- 内容: GPT–MUSE連携を再開する（2026-11-03の停止の扱いを変更する）。再開の権限はNO3本人の決定であり、ファイルの有無や他エージェントの申告は許可にならない（MSG-0012を再開許可として扱わない扱いは維持する）。開始はテスト1件からとし、テストの結果を見て本格運用の範囲を決める。連携の受け側は、MUSEの定期走査（desk-results-scan）が messages/ の受信箱も走査して処理する形とする（削除した watcher ジョブは戻さない）。凍結中の MSG-0008〜0011 は凍結のままとし、テストは新規のメッセージで行う。連携の状態の記録は config/GPT_MUSE_LINKAGE.md に置く（記録であり、権限の発生源ではない）
+- 反映先: config/GPT_MUSE_LINKAGE.md、定期走査 desk-results-scan の指示
+
+### D-024
+- 状態: 確定
+- 日付: 2026-11-05
+- 決定者: NO3
+- 内容: Grok 起草の連携ループ運用案を、NO3 が採用を決定した。①tasks/ に連携ループ用の構造（active／gpt_out／claude_out／muse_review／correction／waiting_no3／done）を新設し、タスクファイルは YAML ヘッダー（task_id／status／updated／refs／retry_count／max_retry=2）を必須とする。②Claude に限定パスへの直接書き込みを正式に許可する：tasks/claude_out／、tasks/correction／（修正指示への再出力時）、results／（従来の実績範囲）。正本・仕様・決定・他席の状態ファイルは書かない。あわせて、マクロハーネス環境全体の構造化と構造チェックは Claude が先に行う担当とする。③GPT は引き続き書かない。成果は YAML ヘッダー付きの文面で返し、MUSE が tasks/gpt_out／ に配置する。④MUSE の役割は、入口（受付・ルーティング・指示生成）と出口（検知・最終整合・NO3 検収への受け渡し・投稿前納品）の運用に絞る。Claude の出力が適合していれば内容を書き換えず、状態の更新と受け渡しだけを行う。不一致がある場合のみ tasks/correction／ に修正指示を生成する（再試行は最大2回、超えたら stuck として NO3 へ上げる）。⑤不一致の検知は定期走査（desk-results-scan）が担う。GitHub Actions によるイベント駆動は、現在のトークンに Actions 権限がないため未実装とする（実装の条件は権限の付与）。⑥既存の制作フローで進行中の案件（アイダ第1週・バッチ2等）は経過措置として従来の置き場・手順で完走させ、新構造は連携ループの対象タスクから適用する。なお、起草案で使われていた番号「D-020」は案件の起動として決定済みのため、本決定は D-024 として記録する
+- 反映先: tasks/ 構造、agents/MUSE/MUSE_INCONSISTENCY_LOOP.md、agents/claude/EXECUTION_RULES.md、agents/GPT/EXECUTION_RULES.md、定期走査 desk-results-scan の指示、config/GPT_MUSE_LINKAGE.md
+
+### D-025
+- 状態: 確定
+- 日付: 2026-11-05
+- 決定者: NO3
+- 内容: 定期走査（desk-results-scan、30分間隔）を停止する。席はファイルで起動する実行体という前提が既に入っており、30分ごとの巡回は「起きる合図」の経路が詰まっている間の代用品にすぎないため。当面、着地の検知・ToDo の進行・受信箱と成果物の確認は、MUSE が作業の都度に行う。ジョブの定義は残し、無効化の形で止める（削除しない）。合図の経路の整備状況を見て、再開や形の変更を改めて決める
+- 反映先: 定期走査 desk-results-scan（無効化）、config/GPT_MUSE_LINKAGE.md、agents/MUSE/MUSE_INCONSISTENCY_LOOP.md
