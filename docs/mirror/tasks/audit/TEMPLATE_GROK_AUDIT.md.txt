@@ -1,0 +1,22 @@
+---
+task_id: GROK-AUDIT-YYYYMMDD-HHMM
+status: audit_received
+source: Grok Automation
+checked_at: YYYY-MM-DDTHH:MM:SS+09:00
+written_by: Claude
+written_at: YYYY-MM-DDTHH:MM:SS+09:00
+refs:
+  - https://nanbasuri891-maker.github.io/shared-desk-dashboard/docs/status.html
+  - decisions/DECISIONS.md（D-024）
+retry_count: 0
+---
+
+# GROK_AUDIT_YYYYMMDD_HHMM
+
+## Grok出力（原文）
+（GrokのYAMLレポートを改変せず貼る）
+
+## Claude取り込み確認
+- フォーマット適合: OK / NG
+- 要判断事項: なし / あり（内容を明記）
+- MUSEへの引き渡し: status: audit_ready
