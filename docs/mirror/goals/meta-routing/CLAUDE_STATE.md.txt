@@ -3,8 +3,8 @@
 上限800字。完了した行は archive/CLAUDE_STATE_YYYY-MM-DD.md へ移す。履歴・説明・経緯はここに書かない。
 正本はこのファイル。CLAUDE_START は goals/aida/current_state.md と todos の先頭から自動生成される抜粋で、食い違ったらこちらが正。
 
-進行中の依頼：なし（第1週パッケージ完了。次は各回の投稿運行）
+進行中の依頼：TASK-PILOT-001（連携ループのパイロット）／tasks/active/TASK-PILOT-001.md
 
 次のToDo: goals/aida/todos/NEXT_週間パッケージ実行.md
 
-直近完了: results/GPT_to_MUSE_aida_no1_translation.md
+直近完了: agents/MUSE/MUSE_INCONSISTENCY_LOOP.md
