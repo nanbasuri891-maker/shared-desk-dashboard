@@ -1,41 +1,70 @@
 # MUSE 不一致自動検知・修正ループ（D-024）
 
-## 対象
-tasks/ 構造（active／gpt_out／claude_out／muse_review／correction／waiting_no3／done）で回る連携タスク。
-
-## 検知の担い手
-MUSE が作業の都度、着地を検知して本手順を実行する。定期走査（desk-results-scan）は D-025 で停止中。GitHub Actions によるイベント駆動は未実装（現在のトークンに Actions 権限がないため）。
+Grok 起草の MUSE 割り当て分を書き起こしたもの（2026-11-05、NO3 の指示）。後から Claude の照合を受ける前提で置く。
+注記：検知の実行は、定期走査の停止（D-025）により当面 MUSE が作業の都度に行う。GitHub Actions によるイベント駆動は未実装（現在のトークンに Actions 権限がないため）。
 
 ## 発動条件
-- tasks/gpt_out/ または tasks/claude_out/ に新しい成果物が置かれたとき
-- tasks/correction/ に修正指示を置いたあと、再成果物が出たとき
+- tasks/gpt_out/ または tasks/claude_out/ に新しいファイルが置かれたとき
+- tasks/correction/ に修正指示が置かれたあと再成果物が出たとき
+- tasks/audit/ または results/audit/ に新しい監査ファイルが置かれたとき
 
-## 最初に読むもの（逸脱防止）
-- 全体マップ相当（対象ゴールの GOAL と current_state）
-- 対象タスクの refs
-- config/GPT_MUSE_LINKAGE.md の状態（再開であること）
+## 必ず最初にやること（逸脱防止）
+1. 全体マップ・該当ゴール・入口ファイル・対象IPシートを読み直す
+2. 本タスクの refs を確認する
+3. config/GPT_MUSE_LINKAGE.md と D-024 が active であることを確認する
 
 ## 検知手順
-1. gpt_out と claude_out の成果物を読む
-2. チェック項目：
-   - YAML ヘッダーの有無と必須項目（task_id／status／updated／refs／retry_count）
-   - 「要判断」「判断が必要」「仕様と矛盾」「逸脱」のキーワードの有無
-   - 参照ファイルの一覧が、タスクの refs と全体マップに一致するか
-   - 主要制約・ゴール ID が GPT 成果と Claude 成果で一致するか
-   - 必須セクションの欠落、指定形式への違反
-3. 判定（整合／不一致と根拠）を tasks/muse_review/ に書く
+1. gpt_out と claude_out の両方を読む
+2. 以下をチェック：
+   - 「要判断」「逸脱」「矛盾」キーワードの有無
+   - 参照ファイル一覧の一致
+   - 主要制約・ゴールIDの一致
+   - YAML ヘッダーの有無と必須項目、必須セクションの欠落、指定フォーマット違反
+3. 不一致があれば status を inconsistency_detected に更新し、判定を tasks/muse_review/ に書く
+
+## 修正行動
+- tasks/correction/TASK-xxx_correction.md を作成
+  - 原因を1〜3点で明確に書く
+  - 修正すべき具体箇所を指定
+  - 「全体マップのこの部分に戻れ」と命令形で書く
+- retry_count を増やす（max_retry=2）
+- 原因側（GPTまたはClaude）に再指示を自動配置
+- 2回失敗したら Discord に「stuck: TASK-xxx」をアラートし、NO3待ちにする
 
 ## 適合した場合
-- 内容を書き換えない。タスクを waiting_no3/ へ進め、状態を更新する
+- Claude の出力がルール適合なら内容を書き換えない。status を更新し、tasks/waiting_no3/ へ移す
 
-## 不一致の場合
-1. tasks/correction/ に修正指示を作る（原因を1〜3点、直す箇所、「全体マップのこの部分に戻れ」を命令形で）
-2. タスクの retry_count を +1 する（max_retry=2）
-3. 原因側の席へ再実行の指示を置く
-4. 2回を超えたら stuck として扱い、Discord のアラート受け口とメインへの報告で NO3 に上げる
+## 監査ファイル検知ルール（D-024追加）
+
+### 発動条件
+- tasks/audit/ または results/audit/ に新しいファイルが置かれたとき
+
+### 処理手順
+1. 全体マップと D-024 を読み直す
+2. ファイルの YAML ヘッダーと findings を確認
+3. severity が attention または critical の場合：
+   - Discord にアラートを出す
+   - 必要なら correction/ に修正指示を生成
+   - status.html の再生成を検討
+4. severity が normal の場合：
+   - 「監査完了」としてログを残し、status を更新するだけ
+5. Claude の出力がルール適合なら内容を書き換えない
+
+### 禁止
+- 監査ファイルの findings を勝手に改変すること
+- 許可されていないパスへの書き込み
+
+## 検知ルール（まとめ）
+
+| 検知対象パス | 発動時の行動 |
+|---|---|
+| tasks/gpt_out/ | GPT成果を配置 → Claudeへ指示 |
+| tasks/claude_out/ | 不一致チェック → 適合なら waiting_no3、不一致なら correction 生成 |
+| tasks/correction/ | 再実行監視（max_retry=2） |
+| tasks/audit/ または results/audit/ | 優先度判定 → アラート or ログのみ |
 
 ## 禁止
-- 全体マップと refs を読まずに修正指示を出さない
-- Claude の適合した出力を書き直さない
+- 全体マップを読まずに修正指示を出さない
 - max_retry を超えて自動再試行しない
-- NO3 の検収前に投稿・最終書き戻しをしない
+- NO3 検収前に投稿や最終書き戻しをしない
+- Claude の適合した出力を勝手に書き直すこと
