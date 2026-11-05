@@ -23,15 +23,15 @@ a{color:#315d69}
 <div class="wrap">
 <header>
 <h1>現在の状態</h1>
-<div class="stamp">更新：2026-11-04 09:47 JST（机の内容からMUSEが生成）</div>
+<div class="stamp">更新：2026-11-05 11:21 JST（机の内容からMUSEが生成）</div>
 </header>
 <div class="note">このページは机（GitHub）の写しです。自動連動はしません。古い写しで動かないよう、上の更新時刻を必ず確認してください。</div>
 
 <section>
 <h2>席</h2>
 <ul>
-<li><span class="dot g"></span><b>MUSE</b>：稼働。窓口・整形・添削／評価・投稿前の品質チェック・机の外への実行を担当</li>
-<li><span class="dot g"></span><b>Claude</b>：起動を軽量化済み（起動専用 CLAUDE_START・462字・命令形のみ）。アイダ バッチ2の仕様と画像指示文案を納品済み</li>
+<li><span class="dot g"></span><b>MUSE</b>：稼働。入口と出口の運用（受付・ルーティング・指示生成／検知・最終整合・検収への受け渡し・投稿前納品）を担当（D-024）</li>
+<li><span class="dot g"></span><b>Claude</b>：起動を軽量化済み（起動専用 CLAUDE_START・462字・命令形のみ）。限定パスへの直接書き込みを許可（D-024）。マクロハーネス環境全体の構造化と構造チェックを担当</li>
 <li><span class="dot g"></span><b>GPT</b>：翻訳専任（D-018で実行ルールを統合）。作業後は実行ログを机の results/ に残す</li>
 <li><span class="dot y"></span><b>Grok</b>：X運用担当。読むのはこの窓だけ。意見は見立てとして受け、MUSEの照合を通す</li>
 </ul>
@@ -49,9 +49,10 @@ a{color:#315d69}
 <section>
 <h2>仕組み</h2>
 <ul>
-<li><span class="dot y"></span><b>トリガー</b>＝GitHub（状態とActions）：設計は確定。実働は一部（エージェント間連携は停止中）</li>
+<li><span class="dot y"></span><b>トリガー</b>＝GitHub（状態とActions）：設計は確定。実働は一部（エージェント間連携は再開済み・D-023）</li>
 <li><span class="dot g"></span><b>ログ</b>＝GAS：稼働（2026-11-04復旧）。30分ごとに実行事実をSheetsへ記録し、申告と実態の照合結果をDiscordへ出す。認証エラーの原因はトークン未設定だった</li>
 <li><span class="dot g"></span><b>検知と判定</b>：検知は機械（GAS）、判定はNO3（D-015）</li>
+<li><span class="dot g"></span><b>連携ループ</b>：tasks/ 構造で GPT→Claude→MUSE検知 を回す（D-024）。検知は30分ごとの定期走査が担当。パイロット TASK-PILOT-001 を配置済み</li>
 <li><span class="dot g"></span><b>通知</b>＝Discord：NO3へのアラート受け先として残る（D-019）</li>
 <li><span class="dot g"></span><b>表示</b>＝Looker Studio：数字と状態の監視側。入り口とリンクはこのダッシュボード側</li>
 </ul>
@@ -62,7 +63,6 @@ a{color:#315d69}
 <ul>
 <li><span class="dot y"></span><b>O-002</b>：フラ担当者からのインサイト初回送付待ち（未決はこれだけ）</li>
 <li><span class="dot o"></span><b>自動ジョブ2件</b>（メッセージ監視／Claude応答の受け口）：削除済み。トリガーとして戻すかは未決定。独断では戻さない</li>
-<li><span class="dot o"></span><b>GPT–MUSE連携</b>：NO3の決定で停止中。再開はNO3が改めて指示したときだけ</li>
 </ul>
 </section>
 
@@ -72,6 +72,9 @@ a{color:#315d69}
 <li><b>D-017</b>：画像生成はMUSE担当（Claudeは設計まで）</li>
 <li><b>D-018</b>：GPTは翻訳専任。実行ルールを統合版に更新</li>
 <li><b>D-019</b>：Difyは不使用（アプリ側はNO3が削除）。Discordはアラート受け先のみ</li>
+<li><b>D-020〜D-022</b>：案件の起動（壁打ちは素材、起動はNO3のトリガー）と準備工程（GPT翻訳→Claude構造化）を正本化</li>
+<li><b>D-023</b>：GPT–MUSE連携を再開（テスト1件から）</li>
+<li><b>D-024</b>：連携ループ運用を採用。tasks/ 新構造、Claude限定書き込み許可、MUSEは入口と出口の運用に専念</li>
 <li><b>新規</b>：机 specs/AI指示語.md（人間側の言葉→AIへの言い換えの辞書。初件「構成」）</li>
 <li><b>新規</b>：Google Drive「画像生成素材集」（リンク共有・閲覧のみ。ClaudeとGPTが参照に使う）</li>
 </ul>
