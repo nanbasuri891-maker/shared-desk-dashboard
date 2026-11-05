@@ -1,0 +1,35 @@
+---
+task_id: TASK-PILOT-001
+status: active
+updated: 2026-11-05T11:20:42+09:00
+refs:
+  - goals/aida/wallchat_2026-11-05_天使のわけまえ.md
+  - config/GPT_MUSE_LINKAGE.md
+  - agents/MUSE/MUSE_INCONSISTENCY_LOOP.md
+retry_count: 0
+max_retry: 2
+---
+
+# TASK-PILOT-001 連携ループのパイロット（アイダ素材「天使のわけまえ」の準備）
+
+## フェーズ
+- 前段：GPT–MUSE連携の再開（D-023）と、連携ループ運用の採用（D-024）が、NO3 の決定で確定済み
+- この仕事：壁打ち素材1件を、GPT翻訳 → Claude構造化 → MUSE検知 の順で流し、ループが一巡するかを見る
+- 後段：結果を NO3 が見て、本格運用の範囲を決める
+
+## 対象素材
+goals/aida/wallchat_2026-11-05_天使のわけまえ.md（原文のまま保存済み。画像参照2点つき）
+
+## 手順
+1. GPT：素材を翻訳する（質を保ったまま、文字数をなるべく少なく）。成果は YAML ヘッダー（task_id／status: gpt_done／updated／refs）付きの文面で返し、MUSE が tasks/gpt_out/TASK-PILOT-001_gpt.md に配置する
+2. Claude：GPT の翻訳を読み、要件と実行要素に構造化して、tasks/claude_out/TASK-PILOT-001_claude.md に直接書く（D-024 の許可パス）。YAML ヘッダー必須
+3. MUSE：定期走査で両成果を検知し、agents/MUSE/MUSE_INCONSISTENCY_LOOP.md の項目で突合する。判定を tasks/muse_review/TASK-PILOT-001_review.md に書く
+4. 適合なら、このタスクを tasks/waiting_no3/ へ進める。不一致なら tasks/correction/ に修正指示を出し、再実行は最大2回まで
+
+## 成功条件
+- 3つの成果物（gpt_out／claude_out／muse_review）が揃い、タスクが waiting_no3 まで進むこと
+- 席の起動は従来どおり（GPT・Claude は声がかかって動く）。MUSE はタスクと指示の配置までを行い、席の作業は NO3 の声かけで始まる
+
+## 禁止
+- 意図的なエラーを素材や成果物に混ぜない（実素材で検証する）
+- NO3 の検収前に、この素材を投稿案件として起動しない（これは準備のパイロット）
