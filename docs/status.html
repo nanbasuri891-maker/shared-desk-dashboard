@@ -23,7 +23,7 @@ a{color:#315d69}
 <div class="wrap">
 <header>
 <h1>現在の状態</h1>
-<div class="stamp">更新：2026-11-05 12:13 JST（机の内容からMUSEが生成）</div>
+<div class="stamp">更新：2026-11-05 13:25 JST（机の内容からMUSEが生成）</div>
 </header>
 <div class="note">このページは机（GitHub）の写しです。自動連動はしません。古い写しで動かないよう、上の更新時刻を必ず確認してください。</div>
 
@@ -52,7 +52,7 @@ a{color:#315d69}
 <li><span class="dot y"></span><b>トリガー</b>＝GitHub（状態とActions）：設計は確定。実働は一部（エージェント間連携は再開済み・D-023）</li>
 <li><span class="dot g"></span><b>ログ</b>＝GAS：稼働（2026-11-04復旧）。30分ごとに実行事実をSheetsへ記録し、申告と実態の照合結果をDiscordへ出す。認証エラーの原因はトークン未設定だった</li>
 <li><span class="dot g"></span><b>検知と判定</b>：検知は機械（GAS）、判定はNO3（D-015）</li>
-<li><span class="dot g"></span><b>連携ループ</b>：tasks/ 構造で GPT→Claude→MUSE検知 を回す（D-024）。検知は30分ごとの定期走査が担当。パイロット TASK-PILOT-001 を配置済み</li>
+<li><span class="dot g"></span><b>連携ループ</b>：tasks/ 構造で GPT→Claude→MUSE検知 を回す（D-024）。定期走査（30分間隔）は停止（D-025）し、検知はMUSEが作業の都度に行う。パイロット TASK-PILOT-001 を配置済み</li>
 <li><span class="dot g"></span><b>通知</b>＝Discord：NO3へのアラート受け先として残る（D-019）</li>
 <li><span class="dot g"></span><b>表示</b>＝Looker Studio：数字と状態の監視側。入り口とリンクはこのダッシュボード側</li>
 </ul>
@@ -63,6 +63,7 @@ a{color:#315d69}
 <ul>
 <li><span class="dot y"></span><b>O-002</b>：フラ担当者からのインサイト初回送付待ち（未決はこれだけ）</li>
 <li><span class="dot o"></span><b>自動ジョブ2件</b>（メッセージ監視／Claude応答の受け口）：削除済み。トリガーとして戻すかは未決定。独断では戻さない</li>
+<li><span class="dot o"></span><b>定期走査</b>（desk-results-scan、30分間隔）：停止中（D-025）。定義は保持し、削除しない。再開や形の変更は改めて決める</li>
 </ul>
 </section>
 
@@ -75,6 +76,7 @@ a{color:#315d69}
 <li><b>D-020〜D-022</b>：案件の起動（壁打ちは素材、起動はNO3のトリガー）と準備工程（GPT翻訳→Claude構造化）を正本化</li>
 <li><b>D-023</b>：GPT–MUSE連携を再開（テスト1件から）</li>
 <li><b>D-024</b>：連携ループ運用を採用。tasks/ 新構造、Claude限定書き込み許可、MUSEは入口と出口の運用に専念</li>
+<li><b>D-025</b>：定期走査（desk-results-scan）を停止。着地の検知・進行確認はMUSEが作業の都度に行う</li>
 <li><b>新規</b>：机 specs/AI指示語.md（人間側の言葉→AIへの言い換えの辞書。初件「構成」）</li>
 <li><b>新規</b>：Google Drive「画像生成素材集」（リンク共有・閲覧のみ。ClaudeとGPTが参照に使う）</li>
 </ul>
