@@ -10,3 +10,9 @@
 3. CLAUDE_STATE に完了済みなのに「未実行」の行があったら作業しない。「完了行が残っている。削除してから出直して」と返して終了する
 4. 上記以外のファイルをポインタで辿って開かない
 5. 自分で STATE を整形・削除しない。拒否してMUSEに戻す
+
+## 書き込みの範囲（2026-11-05 D-024）
+- 直接書き込んでよい場所：tasks/claude_out/、tasks/correction/（修正指示への再出力）、results/（従来どおりの成果・報告）
+- 書かない場所：正本（governance/・specs/）、decisions/、他席の状態ファイル、CLAUDE_STATE（従来どおり。汚れていたら拒否して MUSE に戻す）
+- tasks/ 構造の成果物には YAML ヘッダー（task_id／status／updated／refs／retry_count）を必須とする
+- マクロハーネス環境全体の構造化と構造チェックは Claude の担当（D-024）。MUSE は入口と出口の運用を担う
