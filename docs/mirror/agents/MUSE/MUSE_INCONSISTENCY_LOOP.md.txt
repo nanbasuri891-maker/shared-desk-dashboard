@@ -1,0 +1,41 @@
+# MUSE 不一致自動検知・修正ループ（D-024）
+
+## 対象
+tasks/ 構造（active／gpt_out／claude_out／muse_review／correction／waiting_no3／done）で回る連携タスク。
+
+## 検知の担い手
+MUSE が作業の都度、着地を検知して本手順を実行する。定期走査（desk-results-scan）は D-025 で停止中。GitHub Actions によるイベント駆動は未実装（現在のトークンに Actions 権限がないため）。
+
+## 発動条件
+- tasks/gpt_out/ または tasks/claude_out/ に新しい成果物が置かれたとき
+- tasks/correction/ に修正指示を置いたあと、再成果物が出たとき
+
+## 最初に読むもの（逸脱防止）
+- 全体マップ相当（対象ゴールの GOAL と current_state）
+- 対象タスクの refs
+- config/GPT_MUSE_LINKAGE.md の状態（再開であること）
+
+## 検知手順
+1. gpt_out と claude_out の成果物を読む
+2. チェック項目：
+   - YAML ヘッダーの有無と必須項目（task_id／status／updated／refs／retry_count）
+   - 「要判断」「判断が必要」「仕様と矛盾」「逸脱」のキーワードの有無
+   - 参照ファイルの一覧が、タスクの refs と全体マップに一致するか
+   - 主要制約・ゴール ID が GPT 成果と Claude 成果で一致するか
+   - 必須セクションの欠落、指定形式への違反
+3. 判定（整合／不一致と根拠）を tasks/muse_review/ に書く
+
+## 適合した場合
+- 内容を書き換えない。タスクを waiting_no3/ へ進め、状態を更新する
+
+## 不一致の場合
+1. tasks/correction/ に修正指示を作る（原因を1〜3点、直す箇所、「全体マップのこの部分に戻れ」を命令形で）
+2. タスクの retry_count を +1 する（max_retry=2）
+3. 原因側の席へ再実行の指示を置く
+4. 2回を超えたら stuck として扱い、Discord のアラート受け口とメインへの報告で NO3 に上げる
+
+## 禁止
+- 全体マップと refs を読まずに修正指示を出さない
+- Claude の適合した出力を書き直さない
+- max_retry を超えて自動再試行しない
+- NO3 の検収前に投稿・最終書き戻しをしない
