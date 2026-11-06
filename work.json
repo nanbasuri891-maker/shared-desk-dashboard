@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-06T19:52:00+09:00",
+ "generated_at": "2026-11-06T20:26:00+09:00",
  "items": [
   {
    "id": "carry-aida-batch1",
@@ -72,12 +72,12 @@
    "subject": "インバウンド素材の翻訳リサーチをGPT／Grokへ",
    "from": "MUSE",
    "to": "GPT／Grok",
-   "status": "waiting",
-   "phase": "翻訳リサーチ待ち",
-   "phase_color": "yellow",
-   "detail": "タク｜note挑戦中とThreads海外マーケ界隈のリサーチ素材を机に投入済み（INBOUND-RESEARCH-20261106、MSG-0036 GPT／MSG-0037 Grok）。GPTは4棚の部品文書に整理、GrokはX側を照合",
-   "next": "GPTの着地をMUSEが検知・照合し、Claudeへ構造化を回す。Grokの返しはMUSEが机へ記録する",
-   "updated_at": "2026-11-06T19:52:00+09:00"
+   "status": "gpt_done",
+   "phase": "GPT着地・MUSE照合済み",
+   "phase_color": "green",
+   "detail": "GPTの4棚整理が着地（MSG-0036 replied 20:18）。MUSE照合で確度保持・素材外の追加なしを確認し tasks/gpt_out/INBOUND-RESEARCH-20261106_gpt.md に配置。Grok（MSG-0037）はwaiting",
+   "next": "Claude構造化はClaude停止中のため後回し。復帰したらMUSEが構造化を依頼する",
+   "updated_at": "2026-11-06T20:26:00+09:00"
   }
  ]
 }
