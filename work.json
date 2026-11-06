@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-06T20:35:00+09:00",
+ "generated_at": "2026-11-06T21:02:00+09:00",
  "items": [
   {
    "id": "carry-aida-batch1",
@@ -93,14 +93,14 @@
    "next_action": "GPTが文面で返したらMUSEが照合して tasks/gpt_out/INBOUND-GROK-20261106_gpt.md に配置",
    "placed_at": "2026-11-06T20:35:00+09:00",
    "created_at": "2026-11-06T20:35:00+09:00",
-   "updated_at": "2026-11-06T20:35:00+09:00",
+   "updated_at": "2026-11-06T21:02:00+09:00",
    "deadline": "2026-11-07T12:00:00+09:00",
    "next": "GPTが文面で返したらMUSEが tasks/gpt_out/INBOUND-GROK-20261106_gpt.md に配置",
-   "detail": "Grokの返し（X/note自動翻訳の現状・手数料・翻訳前提の書き方・二層構造）が会話で着地。素材 MATERIAL_grok_inbound_2026-11-06.md として記録し、NO3指示でGPTへ追加投入（MSG-0038）。Claude構造化は後回し",
+   "detail": "Grok資料 第1弾（自動翻訳の現状・手数料・書き方・二層構造）＋第2弾（X側実在確認・海外の日本語投稿の消費者5類型・論点集）を記録し、GPTへ投入済み（MSG-0038／0039）。Claude構造化は後回し",
    "refs": [
     "tasks/status/INBOUND-GROK-20261106.json",
     "goals/meta-routing/MATERIAL_grok_inbound_2026-11-06.md",
-    "goals/meta-routing/REQUEST_to_gpt_inbound_grok_2026-11-06.md"
+    "goals/meta-routing/MATERIAL_grok_inbound_2026-11-06_part2.md"
    ],
    "material_ready": true
   }
