@@ -28,3 +28,5 @@
 
 ## 参照
 - ゴール固有の未決は goals/growth-harness/OPEN.md にあるため、ここには複製しない。
+- A 着地の定義(msg_received と placed のどちらを正とするか)
+- B TASK-PILOT-001 の deadline 設定と status 書式の統一
