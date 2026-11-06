@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-06T20:26:00+09:00",
+ "generated_at": "2026-11-06T20:35:00+09:00",
  "items": [
   {
    "id": "carry-aida-batch1",
@@ -78,6 +78,31 @@
    "detail": "GPTの4棚整理が着地（MSG-0036 replied 20:18）。MUSE照合で確度保持・素材外の追加なしを確認し tasks/gpt_out/INBOUND-RESEARCH-20261106_gpt.md に配置。Grok（MSG-0037）はwaiting",
    "next": "Claude構造化はClaude停止中のため後回し。復帰したらMUSEが構造化を依頼する",
    "updated_at": "2026-11-06T20:26:00+09:00"
+  },
+  {
+   "id": "carry-inbound-grok-gpt-20261106",
+   "title": "運搬: Grok資料 → GPT翻訳整理（INBOUND-GROK-20261106）",
+   "owner": "MUSE",
+   "from": "MUSE",
+   "to": "GPT",
+   "status": "waiting_gpt",
+   "phase": "GPT待ち",
+   "phase_color": "amber",
+   "route": "机（GitHub）",
+   "detect": "MUSE（作業の都度）",
+   "next_action": "GPTが文面で返したらMUSEが照合して tasks/gpt_out/INBOUND-GROK-20261106_gpt.md に配置",
+   "placed_at": "2026-11-06T20:35:00+09:00",
+   "created_at": "2026-11-06T20:35:00+09:00",
+   "updated_at": "2026-11-06T20:35:00+09:00",
+   "deadline": "2026-11-07T12:00:00+09:00",
+   "next": "GPTが文面で返したらMUSEが tasks/gpt_out/INBOUND-GROK-20261106_gpt.md に配置",
+   "detail": "Grokの返し（X/note自動翻訳の現状・手数料・翻訳前提の書き方・二層構造）が会話で着地。素材 MATERIAL_grok_inbound_2026-11-06.md として記録し、NO3指示でGPTへ追加投入（MSG-0038）。Claude構造化は後回し",
+   "refs": [
+    "tasks/status/INBOUND-GROK-20261106.json",
+    "goals/meta-routing/MATERIAL_grok_inbound_2026-11-06.md",
+    "goals/meta-routing/REQUEST_to_gpt_inbound_grok_2026-11-06.md"
+   ],
+   "material_ready": true
   }
  ]
 }
