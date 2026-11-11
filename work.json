@@ -1,121 +1,133 @@
 {
- "generated_at": "2026-11-11T11:14:00+09:00",
- "items": [
-  {
-   "id": "carry-aida-batch1",
-   "subject": "第1週の残り6本のパッケージをGPTとClaudeへ",
-   "from": "MUSE",
-   "to": "GPT／Claude",
-   "status": "absorbed",
-   "phase": "視座の接続が完了",
-   "phase_color": "yellow",
-   "detail": "Claudeの下ごしらえとGPTの翻訳が着地し、MUSEの照合を通過。11/10は視座本文＋写真finalで確定。手帳回は訂正完了（最終形はThreads本文＋画像の一体投稿）",
-   "next": "11/05〜11/10の各回は、品質チェック後にNO3へ投稿前納品する（NO3がMeta Business Suiteへ登録）",
-   "updated_at": "2026-11-04T22:33:19+09:00",
-   "detection": {
-    "expected": "依頼あり・結果なしは待機中→未実行としてGASが検知しDiscordへ上がる",
-    "actual": "配置当初はJSONタスクが無く、GASの検知対象外だった。対で配置し、現在は検知対象",
-    "caught_by": "NO3の手動照合",
-    "severity": "critical"
-   }
-  },
-  {
-   "id": "carry-aida-batch2",
-   "subject": "アイダ バッチ2の下ごしらえをClaudeからMUSEへ",
-   "from": "Claude",
-   "to": "MUSE",
-   "status": "absorbed",
-   "phase": "受け取り済み",
-   "phase_color": "green",
-   "detail": "仕様と画像指示文案は机に納品済み。MUSEの添削・評価待ち",
-   "next": "MUSEが添削・評価と投稿前の品質チェックを行う",
-   "updated_at": "2026-11-04T07:53:00+09:00"
-  },
-  {
-   "id": "carry-aida-no1",
-   "subject": "アイダ 第1号「視座」の依頼をClaudeへ",
-   "from": "机（依頼着地）",
-   "to": "Claude",
-   "status": "absorbed",
-   "phase": "視座の接続が完了（第1週パッケージに吸収）",
-   "phase_color": "yellow",
-   "detail": "Claudeの下ごしらえとGPTの翻訳が着地し、MUSEの照合を通過。11/10は視座本文＋写真finalで確定",
-   "next": "11/05〜11/10の各回の投稿を順に回す",
-   "updated_at": "2026-11-04T18:38:00+09:00"
-  },
-  {
-   "id": "carry-hiiro-grok",
-   "subject": "ひいろ GPT渡し形の精査をGrokからMUSEへ",
-   "from": "Grok",
-   "to": "MUSE",
-   "status": "absorbed",
-   "phase": "照合済み",
-   "phase_color": "green",
-   "detail": "落下と混入の照合は通過。机の構造へは落としていない",
-   "next": "NO3の採用判断が出たら、Claudeの構造化へ回す",
-   "updated_at": "2026-11-04T10:32:00+09:00"
-  },
-  {
-   "id": "carry-console",
-   "subject": "見張り台の組み替え指示をLovableへ",
-   "from": "MUSE",
-   "to": "Lovable",
-   "status": "next_action",
-   "phase": "指示を確定済み",
-   "phase_color": "yellow",
-   "detail": "指示は確定済み。Lovableの本日分クレジットが尽きたため、生成は明日以降",
-   "next": "明日以降、生成と公開 → 表示をMUSEが確認する",
-   "updated_at": "2026-11-04T12:21:58+09:00"
-  },
-  {
-   "id": "carry-inbound-research-20261106",
-   "subject": "インバウンド素材の翻訳リサーチをGPT／Grokへ",
-   "from": "MUSE",
-   "to": "GPT／Grok",
-   "status": "gpt_done",
-   "phase": "GPT着地・MUSE照合済み",
-   "phase_color": "green",
-   "detail": "GPTの4棚整理が着地（MSG-0036 replied 20:18）。MUSE照合で確度保持・素材外の追加なしを確認し tasks/gpt_out/INBOUND-RESEARCH-20261106_gpt.md に配置。Grok（MSG-0037）はwaiting",
-   "next": "Claude構造化はClaude停止中のため後回し。復帰したらMUSEが構造化を依頼する",
-   "updated_at": "2026-11-06T20:26:00+09:00"
-  },
-  {
-   "id": "carry-inbound-grok-gpt-20261106",
-   "title": "運搬: Grok資料 → GPT翻訳整理（INBOUND-GROK-20261106）",
-   "owner": "MUSE",
-   "from": "MUSE",
-   "to": "GPT",
-   "status": "waiting_gpt",
-   "phase": "GPT待ち",
-   "phase_color": "amber",
-   "route": "机（GitHub）",
-   "detect": "MUSE（作業の都度）",
-   "next_action": "GPTが文面で返したらMUSEが照合して tasks/gpt_out/INBOUND-GROK-20261106_gpt.md に配置",
-   "placed_at": "2026-11-06T20:35:00+09:00",
-   "created_at": "2026-11-06T20:35:00+09:00",
-   "updated_at": "2026-11-06T21:10:00+09:00",
-   "deadline": "2026-11-07T12:00:00+09:00",
-   "next": "GPTが文面で返したらMUSEが tasks/gpt_out/INBOUND-GROK-20261106_gpt.md に配置",
-   "detail": "Grok資料 第1弾（自動翻訳の現状・手数料・書き方・二層構造）＋第2弾（X側実在確認・消費者5類型・論点集）＋第3弾（音声メディア）を記録し、GPTへ投入済み（MSG-0038／0039／0040）。Claude構造化は後回し",
-   "refs": [
-    "tasks/status/INBOUND-GROK-20261106.json",
-    "goals/meta-routing/MATERIAL_grok_inbound_2026-11-06.md",
-    "goals/meta-routing/MATERIAL_grok_inbound_2026-11-06_part2.md",
-    "goals/meta-routing/MATERIAL_grok_inbound_2026-11-06_part3.md"
-   ],
-   "material_ready": true
-  },
-  {
-   "id": "carry-kodama-mama-20261111",
-   "subject": "小玉歩のママ購買動機サンプリングの構造化をClaudeへ",
-   "from": "MUSE",
-   "to": "Claude",
-   "status": "waiting_claude",
-   "phase": "素材配置済み・Claude待ち",
-   "phase_color": "yellow",
-   "detail": "MUSEが小玉歩のYouTube2本（英語教室の分解／太田友里恵さん対談）から原文をサンプリングし、机に素材＋依頼＋MSG-0046を配置。言語化のカチッとした構造化はClaudeの段",
-   "next": "Claudeの着地（tasks/claude_out/）をMUSEが検知し、フラのママ層向けに投稿用へ調理してNO3へ",
-   "updated_at": "2026-11-11T11:14:00+09:00"
-  }
- ]
+  "generated_at": "2026-11-11T16:42:00+09:00",
+  "items": [
+    {
+      "id": "carry-aida-batch1",
+      "subject": "第1週の残り6本のパッケージをGPTとClaudeへ",
+      "from": "MUSE",
+      "to": "GPT／Claude",
+      "status": "absorbed",
+      "phase": "視座の接続が完了",
+      "phase_color": "yellow",
+      "detail": "Claudeの下ごしらえとGPTの翻訳が着地し、MUSEの照合を通過。11/10は視座本文＋写真finalで確定。手帳回は訂正完了（最終形はThreads本文＋画像の一体投稿）",
+      "next": "11/05〜11/10の各回は、品質チェック後にNO3へ投稿前納品する（NO3がMeta Business Suiteへ登録）",
+      "updated_at": "2026-11-04T22:33:19+09:00",
+      "detection": {
+        "expected": "依頼あり・結果なしは待機中→未実行としてGASが検知しDiscordへ上がる",
+        "actual": "配置当初はJSONタスクが無く、GASの検知対象外だった。対で配置し、現在は検知対象",
+        "caught_by": "NO3の手動照合",
+        "severity": "critical"
+      }
+    },
+    {
+      "id": "carry-aida-batch2",
+      "subject": "アイダ バッチ2の下ごしらえをClaudeからMUSEへ",
+      "from": "Claude",
+      "to": "MUSE",
+      "status": "absorbed",
+      "phase": "受け取り済み",
+      "phase_color": "green",
+      "detail": "仕様と画像指示文案は机に納品済み。MUSEの添削・評価待ち",
+      "next": "MUSEが添削・評価と投稿前の品質チェックを行う",
+      "updated_at": "2026-11-04T07:53:00+09:00"
+    },
+    {
+      "id": "carry-aida-no1",
+      "subject": "アイダ 第1号「視座」の依頼をClaudeへ",
+      "from": "机（依頼着地）",
+      "to": "Claude",
+      "status": "absorbed",
+      "phase": "視座の接続が完了（第1週パッケージに吸収）",
+      "phase_color": "yellow",
+      "detail": "Claudeの下ごしらえとGPTの翻訳が着地し、MUSEの照合を通過。11/10は視座本文＋写真finalで確定",
+      "next": "11/05〜11/10の各回の投稿を順に回す",
+      "updated_at": "2026-11-04T18:38:00+09:00"
+    },
+    {
+      "id": "carry-hiiro-grok",
+      "subject": "ひいろ GPT渡し形の精査をGrokからMUSEへ",
+      "from": "Grok",
+      "to": "MUSE",
+      "status": "absorbed",
+      "phase": "照合済み",
+      "phase_color": "green",
+      "detail": "落下と混入の照合は通過。机の構造へは落としていない",
+      "next": "NO3の採用判断が出たら、Claudeの構造化へ回す",
+      "updated_at": "2026-11-04T10:32:00+09:00"
+    },
+    {
+      "id": "carry-console",
+      "subject": "見張り台の組み替え指示をLovableへ",
+      "from": "MUSE",
+      "to": "Lovable",
+      "status": "next_action",
+      "phase": "指示を確定済み",
+      "phase_color": "yellow",
+      "detail": "指示は確定済み。Lovableの本日分クレジットが尽きたため、生成は明日以降",
+      "next": "明日以降、生成と公開 → 表示をMUSEが確認する",
+      "updated_at": "2026-11-04T12:21:58+09:00"
+    },
+    {
+      "id": "carry-inbound-research-20261106",
+      "subject": "インバウンド素材の翻訳リサーチをGPT／Grokへ",
+      "from": "MUSE",
+      "to": "GPT／Grok",
+      "status": "gpt_done",
+      "phase": "GPT着地・MUSE照合済み",
+      "phase_color": "green",
+      "detail": "GPTの4棚整理が着地（MSG-0036 replied 20:18）。MUSE照合で確度保持・素材外の追加なしを確認し tasks/gpt_out/INBOUND-RESEARCH-20261106_gpt.md に配置。Grok（MSG-0037）はwaiting",
+      "next": "Claude構造化はClaude停止中のため後回し。復帰したらMUSEが構造化を依頼する",
+      "updated_at": "2026-11-06T20:26:00+09:00"
+    },
+    {
+      "id": "carry-inbound-grok-gpt-20261106",
+      "title": "運搬: Grok資料 → GPT翻訳整理（INBOUND-GROK-20261106）",
+      "owner": "MUSE",
+      "from": "MUSE",
+      "to": "GPT",
+      "status": "waiting_gpt",
+      "phase": "GPT待ち",
+      "phase_color": "amber",
+      "route": "机（GitHub）",
+      "detect": "MUSE（作業の都度）",
+      "next_action": "GPTが文面で返したらMUSEが照合して tasks/gpt_out/INBOUND-GROK-20261106_gpt.md に配置",
+      "placed_at": "2026-11-06T20:35:00+09:00",
+      "created_at": "2026-11-06T20:35:00+09:00",
+      "updated_at": "2026-11-06T21:10:00+09:00",
+      "deadline": "2026-11-07T12:00:00+09:00",
+      "next": "GPTが文面で返したらMUSEが tasks/gpt_out/INBOUND-GROK-20261106_gpt.md に配置",
+      "detail": "Grok資料 第1弾（自動翻訳の現状・手数料・書き方・二層構造）＋第2弾（X側実在確認・消費者5類型・論点集）＋第3弾（音声メディア）を記録し、GPTへ投入済み（MSG-0038／0039／0040）。Claude構造化は後回し",
+      "refs": [
+        "tasks/status/INBOUND-GROK-20261106.json",
+        "goals/meta-routing/MATERIAL_grok_inbound_2026-11-06.md",
+        "goals/meta-routing/MATERIAL_grok_inbound_2026-11-06_part2.md",
+        "goals/meta-routing/MATERIAL_grok_inbound_2026-11-06_part3.md"
+      ],
+      "material_ready": true
+    },
+    {
+      "id": "carry-kodama-mama-20261111",
+      "subject": "小玉歩のママ購買動機サンプリングの構造化をClaudeへ",
+      "from": "MUSE",
+      "to": "Claude",
+      "status": "waiting_claude",
+      "phase": "素材配置済み・Claude待ち",
+      "phase_color": "yellow",
+      "detail": "MUSEが小玉歩のYouTube2本（英語教室の分解／太田友里恵さん対談）から原文をサンプリングし、机に素材＋依頼＋MSG-0046を配置。言語化のカチッとした構造化はClaudeの段",
+      "next": "Claudeの着地（tasks/claude_out/）をMUSEが検知し、フラのママ層向けに投稿用へ調理してNO3へ",
+      "updated_at": "2026-11-11T11:14:00+09:00"
+    },
+    {
+      "id": "carry-hit-structure-20261111",
+      "subject": "一般の人に刺さる投稿の生成構造をClaudeへ",
+      "from": "MUSE",
+      "to": "Claude",
+      "status": "waiting_claude",
+      "phase": "素材配置済み・Claude待ち",
+      "phase_color": "yellow",
+      "detail": "小野ちひろの状態の読み方・添削の型の採取＋NO3の指定（型は切り口として扱う／本音の言葉の材料はWeb検索と主婦向け雑誌）を素材化し、机に素材＋依頼＋MSG-0047を配置。GPTが投稿生成に使う構造の構造化はClaudeの段",
+      "next": "Claudeの着地（tasks/claude_out/）をMUSEが検知し、KODAMA-MAMAの構造化と突き合わせてGPTの生成指示の形に載せてNO3へ",
+      "updated_at": "2026-11-11T16:42:00+09:00"
+    }
+  ]
 }
