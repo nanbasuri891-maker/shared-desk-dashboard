@@ -129,5 +129,15 @@
       "next": "Claudeの着地（tasks/claude_out/）をMUSEが検知し、KODAMA-MAMAの構造化と突き合わせてGPTの生成指示の形に載せてNO3へ",
       "updated_at": "2026-11-11T16:42:00+09:00"
     }
+  ],
+  "rows": [
+    {
+      "id": "carry-ai-employees-20261111",
+      "title": "AI-EMPLOYEES-20261111：saki方式の構造化（Claude）",
+      "ip": "横断",
+      "status": "waiting_claude",
+      "phase": "素材配置済み・Claude待ち",
+      "updated": "2026-11-11"
+    }
   ]
 }
