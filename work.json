@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-06T21:10:00+09:00",
+ "generated_at": "2026-11-11T11:14:00+09:00",
  "items": [
   {
    "id": "carry-aida-batch1",
@@ -104,6 +104,18 @@
     "goals/meta-routing/MATERIAL_grok_inbound_2026-11-06_part3.md"
    ],
    "material_ready": true
+  },
+  {
+   "id": "carry-kodama-mama-20261111",
+   "subject": "小玉歩のママ購買動機サンプリングの構造化をClaudeへ",
+   "from": "MUSE",
+   "to": "Claude",
+   "status": "waiting_claude",
+   "phase": "素材配置済み・Claude待ち",
+   "phase_color": "yellow",
+   "detail": "MUSEが小玉歩のYouTube2本（英語教室の分解／太田友里恵さん対談）から原文をサンプリングし、机に素材＋依頼＋MSG-0046を配置。言語化のカチッとした構造化はClaudeの段",
+   "next": "Claudeの着地（tasks/claude_out/）をMUSEが検知し、フラのママ層向けに投稿用へ調理してNO3へ",
+   "updated_at": "2026-11-11T11:14:00+09:00"
   }
  ]
 }
